@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:crypto_tracker/api_service/api_service.dart';
-import 'package:crypto_tracker/api_service/request_data.dart';
+import 'package:crypto_tracker/api/service/api_service.dart';
+import 'package:crypto_tracker/api/data/request_data.dart';
 import 'package:crypto_tracker/model/crypto_item.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -37,5 +37,11 @@ class CoinRankingApiService extends ApiService {
     } catch (e) {
       return [];
     }
+  }
+
+  @override
+  Future<List<CryptoItem>> getCoin(String uuid, RequestData requestData) async {
+    requestData.uuids = [uuid];
+    return getCoins(requestData);
   }
 }

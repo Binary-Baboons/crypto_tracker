@@ -18,11 +18,14 @@ class RequestData {
     this.orderDirection,
     this.limit,
     this.offset,
-    this.symbols}) {
+    this.symbols,
+    this.uuids}) {
     orderBy = orderBy ?? OrderBy.marketCap;
     orderDirection = orderDirection ?? OrderDirection.desc;
     limit = limit ?? 50;
     offset = offset ?? 0;
+    symbols = symbols;
+    uuids = uuids;
   }
 
   OrderBy? orderBy;
@@ -30,6 +33,7 @@ class RequestData {
   int? limit;
   int? offset;
   List<String>? symbols;
+  List<String>? uuids;
 
   Map<String, String> toMap() {
     return {
@@ -37,7 +41,10 @@ class RequestData {
       'orderDirection': orderDirection!.toShortString,
       'limit': limit.toString(),
       'offset': offset.toString(),
-      if (symbols != null) 'symbols': symbols.toString()
+      if (symbols != null)
+      'symbols': symbols!.join(','),
+      if (uuids != null)
+      'uuids': uuids!.join(',')
     };
   }
 }

@@ -1,8 +1,8 @@
-import 'package:crypto_tracker/api_service/request_data.dart';
+import 'package:crypto_tracker/api/data/request_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'api_service/coin_ranking_api_service.dart';
+import 'api/service/coin_ranking.dart';
 
 void main() async {
   await dotenv.load();
