@@ -5,6 +5,7 @@ class CryptoItem {
   final String name;
   final String symbol;
   final String iconUrl;
-  final double price;
+  final String price;
   final String marketCap;
 }
+
