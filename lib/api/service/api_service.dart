@@ -1,9 +1,6 @@
-import 'package:crypto_tracker/api/data/request_data.dart';
-
-import '../../model/crypto_item.dart';
+import 'package:crypto_tracker/api/data/coins/request_data.dart';
+import 'package:crypto_tracker/api/data/coins/response_data.dart';
 
 abstract class ApiService {
-  Future<List<CryptoItem>> getCoins(RequestData requestData);
-
-  Future<List<CryptoItem>> getCoin(String uuid, RequestData requestData);
+  Future<CoinResponseData> getCoins(CoinRequestData requestData);
 }
