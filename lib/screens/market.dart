@@ -19,11 +19,8 @@ class _CryptoListPageState extends State<CryptoListPage> {
       children: [
         Text('data'),
         Container(
-          padding: EdgeInsets.only(
-            left: screenWidth * 0.02,
-            bottom: 10,
-            right: screenWidth * 0.02,
-          ),
+          color: Colors.grey,
+          padding: EdgeInsets.all(screenWidth * 0.02),
           child: Row(
             children: [
               Container(

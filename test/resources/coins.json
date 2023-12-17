@@ -1,0 +1,36 @@
+{
+  "data": {
+    "coins": [
+      {
+        "uuid": "Qwsogvtv82FCd",
+        "rank": 1,
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "iconUrl": "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
+        "price": "41937.86733374465",
+        "change": "-0.64",
+        "marketCap": "820827859943"
+      },
+      {
+        "uuid": "razxDUgYGNAdQ",
+        "rank": 2,
+        "name": "Ethereum",
+        "symbol": "ETH",
+        "iconUrl": "https://cdn.coinranking.com/rk4RKHOuW/eth.svg",
+        "price": "2212.584809755861",
+        "change": "-1.58",
+        "marketCap": "270067151596"
+      },
+      {
+        "uuid": "HIVsRcGKkPFtW",
+        "rank": 3,
+        "name": "Tether USD",
+        "symbol": "USDT",
+        "iconUrl": "https://cdn.coinranking.com/mgHqwlCLj/usdt.svg",
+        "price": "1.0032980478762021",
+        "change": "0.20",
+        "marketCap": "91212341597"
+      }
+    ]
+  }
+}
