@@ -1,3 +1,5 @@
+import 'package:crypto_tracker/config/default_api_request.dart';
+
 enum OrderBy {
   marketCap,
   price,
@@ -30,12 +32,14 @@ class CoinsRequestData {
     this.limit,
     this.offset,
     this.timePeriod,
-    this.search}) {
-    orderBy = orderBy ?? OrderBy.marketCap;
-    orderDirection = orderDirection ?? OrderDirection.desc;
-    limit = limit ?? 50;
-    offset = offset ?? 0;
-    timePeriod = timePeriod ?? TimePeriod.t24h;
+    this.search,
+    this.referenceCurrencyUuid}) {
+    orderBy = orderBy ?? DefaultApiRequestConfig.orderBy;
+    orderDirection = orderDirection ?? DefaultApiRequestConfig.orderDirection;
+    limit = limit ?? DefaultApiRequestConfig.limit;
+    offset = offset ?? DefaultApiRequestConfig.offset;
+    timePeriod = timePeriod ?? DefaultApiRequestConfig.timePeriod;
+    referenceCurrencyUuid = referenceCurrencyUuid ?? DefaultApiRequestConfig.referenceCurrencyUuid;
     search = search;
   }
 
@@ -45,6 +49,7 @@ class CoinsRequestData {
   int? offset;
   TimePeriod? timePeriod;
   String? search;
+  String? referenceCurrencyUuid;
 
   Map<String, String> toJsonMap() {
     return {
