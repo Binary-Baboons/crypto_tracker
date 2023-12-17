@@ -26,15 +26,14 @@ class CoinRankingApiService extends ApiService {
       });
 
       var body = json.decode(response.body);
-      
+
       if (response.statusCode != 200) {
         String message = body['message'];
         return CoinsResponseData(response.statusCode, [], message: message);
       }
 
       List<CryptoItem> coins = (body['data']['coins'] as List)
-          .map((coin) =>
-          CryptoItem(
+          .map((coin) => CryptoItem(
               coin['uuid'],
               coin['rank'],
               coin['name'],
@@ -45,7 +44,6 @@ class CoinRankingApiService extends ApiService {
               coin['marketCap']))
           .toList();
 
-      print(coins);
       return CoinsResponseData(response.statusCode, coins);
     } catch (e) {
       return CoinsResponseData(500, [], message: "Internal application error");

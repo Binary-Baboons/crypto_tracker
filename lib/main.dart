@@ -1,22 +1,13 @@
-import 'package:crypto_tracker/api/data/request_data.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:crypto_tracker/screens/market.dart';
-
-/// Flutter code sample for [BottomNavigationBar].
-=======
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'api/service/coin_ranking.dart';
+/// Flutter code sample for [BottomNavigationBar].
 
 void main() async {
   await dotenv.load();
-
-  runApp(const MyApp());
+  runApp(const BottomNavigationBarExampleApp());
 }
->>>>>>> d1ccdc4f5122fa26e71e41d98c32516738b720c7
-
-void main() => runApp(const BottomNavigationBarExampleApp());
 
 class BottomNavigationBarExampleApp extends StatelessWidget {
   const BottomNavigationBarExampleApp({super.key});
@@ -58,17 +49,7 @@ class _BottomNavigationBarExampleState
     ),
   ];
 
-<<<<<<< HEAD
   void _onItemTapped(int index) {
-=======
-  @override
-  void initState() {
-    var test = CoinRankingApiService().getCoins(RequestData(limit: 10));
-    print(test);
-  }
-
-  void _incrementCounter() {
->>>>>>> d1ccdc4f5122fa26e71e41d98c32516738b720c7
     setState(() {
       _selectedIndex = index;
     });

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../api/service/api_service.dart';
 
-final providerB = Provider<ApiService>((ref) {
+final apiServiceProvider = Provider<ApiService>((ref) {
   final client = ref.watch(ioClientProvider);
   return CoinRankingApiService(client);
 });
