@@ -8,8 +8,6 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void poyiva() {}
-
 class CryptoListPage extends ConsumerStatefulWidget {
   const CryptoListPage({super.key});
 
@@ -21,13 +19,20 @@ class CryptoListPage extends ConsumerStatefulWidget {
 
 class _CryptoListPageState extends ConsumerState<CryptoListPage> {
   ApiService? apiService;
-  CoinsResponseData? crupzo;
+  CoinsResponseData crupzo = CoinsResponseData(0, []);
 
-  @override
-  void initState() async {
-    super.initState();
+  void call() async {
     apiService = ref.read(apiServiceProvider);
     crupzo = await apiService!.getCoins(CoinsRequestData());
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    call();
   }
 
   @override

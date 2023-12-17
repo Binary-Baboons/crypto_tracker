@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker/screens/market.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 
 void main() async {
   await dotenv.load();
-  runApp(const BottomNavigationBarExampleApp());
+  runApp(ProviderScope(child: const BottomNavigationBarExampleApp()));
 }
 
 class BottomNavigationBarExampleApp extends StatelessWidget {
