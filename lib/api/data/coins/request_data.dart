@@ -58,6 +58,7 @@ class CoinsRequestData {
       'limit': limit.toString(),
       'offset': offset.toString(),
       'timePeriod': timePeriod!.getTimePeriod,
+      'referenceCurrencyUuid': referenceCurrencyUuid!,
       if (search != null) 'search': search!,
     };
   }
