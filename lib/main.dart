@@ -1,6 +1,12 @@
+import 'package:crypto_tracker/api/data/request_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+import 'api/service/coin_ranking.dart';
+
+void main() async {
+  await dotenv.load();
+
   runApp(const MyApp());
 }
 
@@ -49,6 +55,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    var test = CoinRankingApiService().getCoins(RequestData(limit: 10));
+    print(test);
+  }
 
   void _incrementCounter() {
     setState(() {
