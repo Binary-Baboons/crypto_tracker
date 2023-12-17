@@ -94,3 +94,4 @@ flutter:
 
   assets:
     - .env
+    - test/resources/
