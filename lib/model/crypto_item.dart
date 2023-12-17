@@ -1,5 +1,6 @@
 class CryptoItem {
-  CryptoItem(this.uuid, this.name, this.symbol, this.iconUrl, this.price, this.marketCap);
+  CryptoItem(this.uuid, this.name, this.symbol, this.iconUrl, this.price,
+      this.marketCap);
 
   final String uuid;
   final String name;

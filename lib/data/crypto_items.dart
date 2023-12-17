@@ -2,7 +2,7 @@ import 'package:crypto_tracker/model/crypto_item.dart';
 import 'dart:core';
 
 final List<CryptoItem> cryptoItems = [
-  CryptoItem('1', 'Bitcoin', 'BTC', 'url1', 60000.0, '1T'),
+  CryptoItem('19999', 'Bitcoin', 'BTC', 'url1', 60000.0, '1T'),
   CryptoItem('2', 'Ethereum', 'ETH', 'url2', 2000.0, '200B'),
   CryptoItem('3', 'Ripple', 'XRP', 'url3', 1.5, '50B'),
   CryptoItem('4', 'Litecoin', 'LTC', 'url4', 150.0, '10B'),
