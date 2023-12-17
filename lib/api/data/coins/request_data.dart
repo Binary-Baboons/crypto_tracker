@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/config/default_api_request.dart';
+import 'package:crypto_tracker/config/default_api_params.dart';
 
 enum OrderBy {
   marketCap,

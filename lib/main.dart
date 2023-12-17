@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:crypto_tracker/screens/market.dart';
+import 'package:crypto_tracker/screens/market/market_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   await dotenv.load();
-  runApp(ProviderScope(child: const BottomNavigationBarExampleApp()));
+  runApp(const ProviderScope(child: BottomNavigationBarExampleApp()));
 }
 
 class BottomNavigationBarExampleApp extends StatelessWidget {
@@ -33,7 +33,7 @@ class _BottomNavigationBarExampleState
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    CryptoListPage(),
+    MarketScreen(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -58,7 +58,7 @@ class _BottomNavigationBarExampleState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('Crypto tracker'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

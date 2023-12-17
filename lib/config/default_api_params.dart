@@ -1,7 +1,7 @@
 import '../api/data/coins/request_data.dart';
 
 abstract class  DefaultApiRequestConfig {
-  static const referenceCurrencyUuid = "yhjMzLPhuIDl";
+  static const referenceCurrencyUuid = "yhjMzLPhuIDl"; // default uuid for USD
   static const orderBy = OrderBy.marketCap;
   static const orderDirection = OrderDirection.desc;
   static const limit = 50;
