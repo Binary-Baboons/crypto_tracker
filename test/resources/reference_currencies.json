@@ -1,0 +1,31 @@
+{
+  "status": "success",
+  "data": {
+    "currencies": [
+      {
+        "uuid": "yhjMzLPhuIDl",
+        "type": "fiat",
+        "iconUrl": "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
+        "name": "US Dollar",
+        "symbol": "USD",
+        "sign": "$"
+      },
+      {
+        "uuid": "5k-_VTxqtCEI",
+        "type": "fiat",
+        "iconUrl": "https://cdn.coinranking.com/fz3P5lsJY/eur.svg",
+        "name": "Euro",
+        "symbol": "EUR",
+        "sign": "e"
+      },
+      {
+        "uuid": "K4iOZMuz76cc",
+        "type": "fiat",
+        "iconUrl": "https://cdn.coinranking.com/tDtpsWiy9/malaysian-ringgit.svg",
+        "name": "Malaysian Ringgit",
+        "symbol": "MYR",
+        "sign": "RM"
+      }
+    ]
+  }
+}

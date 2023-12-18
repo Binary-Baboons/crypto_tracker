@@ -13,7 +13,7 @@ const coinsDataPath = "test/resources/coins.json";
 void main() {
   dotenv.testLoad(mergeWith: {CoinRankingCoinsApiClient.coinRankingApiKey: "api_key"});
 
-  group('CoinRankingApiService', () {
+  group('CoinRankingCoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
       var data = await File(coinsDataPath).readAsString();
       final mockClient = MockClient((request) async {
