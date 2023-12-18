@@ -22,6 +22,8 @@ class MarketScreen extends ConsumerStatefulWidget {
 class _MarketScreenState extends ConsumerState<MarketScreen> {
   late Future<CoinsResponseData> coinsResponseData;
   final TextEditingController _inputController = TextEditingController();
+
+  var url11;
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed
@@ -46,8 +48,15 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
   void updateVariable(orderByVar) {
     setState(() {
-      orderByVariable = orderByVar;
-      orderDirectionVariable = OrderDirection.desc;
+      if (url11 == orderByVar) {
+        orderDirectionVariable = OrderDirection.asc;
+        url11 = "";
+      } else {
+        url11 = orderByVar;
+        orderByVariable = orderByVar;
+        orderDirectionVariable = OrderDirection.desc;
+      }
+
       ApiService apiService = ref.read(apiServiceProvider);
       coinsResponseData = apiService.getCoins(CoinsRequestData(
           orderBy: orderByVariable, orderDirection: orderDirectionVariable));
