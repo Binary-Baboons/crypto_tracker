@@ -24,58 +24,31 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
   @override
   late OrderBy orderByVariable;
-  late OrderDirection OrderDirectionVariable;
+  late OrderDirection orderDirectionVariable;
+  late String searchVariable = "";
   void initState() {
     super.initState();
     orderByVariable = DefaultApiRequestConfig.orderBy;
-    OrderDirectionVariable = DefaultApiRequestConfig.orderDirection;
+    orderDirectionVariable = DefaultApiRequestConfig.orderDirection;
 
     ApiService apiService = ref.read(apiServiceProvider);
     coinsResponseData = apiService.getCoins(CoinsRequestData(
-      orderBy: orderByVariable,
-      orderDirection: OrderDirectionVariable,
-    ));
+        orderBy: orderByVariable,
+        orderDirection: orderDirectionVariable,
+        search: searchVariable));
   }
 
-  void _showModalBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'Variable Value: ',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Call the function to update the variable
-
-                  // Close the bottom sheet
-                  Navigator.pop(context);
-                },
-                child: Text('Update Variable'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void updateVariable(num1) {
+  void updateVariable(orderByVar) {
     setState(() {
-      orderByVariable = num1;
-      OrderDirectionVariable = OrderDirection.desc;
+      orderByVariable = orderByVar;
+      orderDirectionVariable = OrderDirection.desc;
       ApiService apiService = ref.read(apiServiceProvider);
       coinsResponseData = apiService.getCoins(CoinsRequestData(
-          orderBy: orderByVariable, orderDirection: OrderDirectionVariable));
+          orderBy: orderByVariable, orderDirection: orderDirectionVariable));
     });
   }
+
+  void SearchFunction() {}
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +69,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             Container(
               child: TextButton(child: Text('Time period'), onPressed: () {}),
             ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                size: 30,
+              ),
+            )
           ],
         )),
         Container(
@@ -129,10 +109,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 width: screenWidth * 0.15,
                 child: Center(
                     child: TextButton(
-                  child: Text('%'),
-                  onPressed: () {
-                    updateVariable(OrderBy.values);
-                  },
+                  child: Text('24H'),
+                  onPressed: () {},
                 )),
               ),
               Container(
