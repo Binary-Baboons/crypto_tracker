@@ -69,7 +69,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Enter Something'),
+          title: Text('Search by Name'),
           content: TextField(
             controller: _inputController,
             decoration: InputDecoration(hintText: 'Type here...'),
@@ -151,7 +151,12 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 decoration: BoxDecoration(color: Colors.amber),
                 width: screenWidth * 0.15,
                 child: Center(
-                  child: Text('24H'),
+                  child: TextButton(
+                    child: Text('24H'),
+                    onPressed: () {
+                      //BABOON TREBA NAPRAVI;
+                    },
+                  ),
                 ),
               ),
               Container(

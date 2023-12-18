@@ -45,12 +45,14 @@ class MarketListWidget extends StatelessWidget {
           coins[index].iconUrl.toString(),
           width: 50,
           height: 50,
+          fit: BoxFit.cover,
         );
       } else {
         return Image.network(
           coins[index].iconUrl.toString(),
           width: 50,
           height: 50,
+          fit: BoxFit.cover,
         );
       }
     }
