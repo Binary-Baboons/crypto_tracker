@@ -1,4 +1,4 @@
-import '../api/data/coins/request_data.dart';
+import '../api/data/coins.dart';
 
 abstract class  DefaultApiRequestConfig {
   static const referenceCurrencyUuid = "yhjMzLPhuIDl";
