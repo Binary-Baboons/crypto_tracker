@@ -21,8 +21,14 @@ class MarketScreen extends ConsumerStatefulWidget {
 
 class _MarketScreenState extends ConsumerState<MarketScreen> {
   late Future<CoinsResponseData> coinsResponseData;
-
+  final TextEditingController _inputController = TextEditingController();
   @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed
+    _inputController.dispose();
+    super.dispose();
+  }
+
   late OrderBy orderByVariable;
   late OrderDirection orderDirectionVariable;
   late String searchVariable = "";
@@ -48,7 +54,42 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     });
   }
 
-  void SearchFunction() {}
+  void SearchByName(String SearchVariable) {
+    setState(() {
+      ApiService apiService = ref.read(apiServiceProvider);
+      coinsResponseData = apiService.getCoins(CoinsRequestData(
+          orderBy: OrderBy.marketCap,
+          orderDirection: OrderDirection.desc,
+          search: SearchVariable));
+    });
+  }
+
+  void _showInputModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Enter Something'),
+          content: TextField(
+            controller: _inputController,
+            decoration: InputDecoration(hintText: 'Type here...'),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                String userInput = _inputController.text;
+                SearchByName(userInput);
+
+                // Close the dialog when OK is pressed
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +111,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
               child: TextButton(child: Text('Time period'), onPressed: () {}),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _showInputModal(context);
+              },
               icon: Icon(
                 Icons.search,
                 size: 30,
@@ -108,10 +151,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 decoration: BoxDecoration(color: Colors.amber),
                 width: screenWidth * 0.15,
                 child: Center(
-                    child: TextButton(
                   child: Text('24H'),
-                  onPressed: () {},
-                )),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(color: Colors.green),

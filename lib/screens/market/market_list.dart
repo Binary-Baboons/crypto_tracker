@@ -9,10 +9,29 @@ class MarketListWidget extends StatelessWidget {
 
   final CoinsResponseData coinsResponseData;
 
+  Color ChangeColorChanger(ChangeNumberInt) {
+    if (ChangeNumberInt <= 0) {
+      return Colors.red;
+    }
+    if (ChangeNumberInt == 0) {
+      return Colors.grey;
+    } else {
+      return Colors.green;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     List<CryptoItem> coins = coinsResponseData.data;
+
+    String CoinChangeChecker(ChangeVariable) {
+      if (ChangeVariable == null) {
+        return '0.00';
+      } else {
+        return ChangeVariable;
+      }
+    }
 
     //Function determing if the iconURL is either svg or other - MEGA SUS
     Widget imageTypeFilter(String ImageURL, int index) {
@@ -47,7 +66,7 @@ class MarketListWidget extends StatelessWidget {
                 Row(children: [
                   Container(
                       width: screenWidth * 0.08,
-                      decoration: const BoxDecoration(color: Colors.amber),
+                      decoration: const BoxDecoration(color: Colors.white),
                       child: Center(
                           child: Text(
                         coins[index].rank != null
@@ -57,7 +76,7 @@ class MarketListWidget extends StatelessWidget {
                             fontWeight: FontWeight.w200, fontSize: 10),
                       ))),
                   Container(
-                    decoration: const BoxDecoration(color: Colors.amber),
+                    decoration: const BoxDecoration(color: Colors.white),
                     width: screenWidth * 0.15,
                     child: Column(children: [
                       imageTypeFilter(
@@ -73,18 +92,20 @@ class MarketListWidget extends StatelessWidget {
                   ),
                   Container(
                       width: screenWidth * 0.25,
-                      decoration: const BoxDecoration(color: Colors.amber),
+                      decoration: const BoxDecoration(color: Colors.white),
                       child:
                           Center(child: Text(coins[index].price.toString()))),
                   Container(
                       width: screenWidth * 0.15,
-                      decoration: const BoxDecoration(color: Colors.green),
                       child: Center(
-                          child: Text(coins[index].price != null
-                              ? coins[index].price!
-                              : ""))),
+                          child: Text(
+                        coins[index].change != null ? coins[index].change! : "",
+                        style: TextStyle(
+                            color: ChangeColorChanger(double.parse(
+                                CoinChangeChecker(coins[index].change)))),
+                      ))),
                   Container(
-                      decoration: const BoxDecoration(color: Colors.green),
+                      decoration: const BoxDecoration(color: Colors.white),
                       width: screenWidth * 0.33,
                       child: Center(
                           child: Text(
