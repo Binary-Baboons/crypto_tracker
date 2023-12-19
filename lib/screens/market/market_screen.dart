@@ -21,7 +21,7 @@ class MarketScreen extends ConsumerStatefulWidget {
 
 class _MarketScreenState extends ConsumerState<MarketScreen> {
   late Future<CoinsResponseData> coinsResponseData;
-  final TextEditingController _inputController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   var url11;
   @override
