@@ -95,7 +95,7 @@ class MarketListWidget extends StatelessWidget {
                       width: screenWidth * 0.25,
                       decoration: const BoxDecoration(color: Colors.white),
                       child:
-                          Center(child: Text(coins[index].price.toString()))),
+                          Center(child: Text(coins[index].price))),
                   Container(
                       width: screenWidth * 0.15,
                       child: Center(
