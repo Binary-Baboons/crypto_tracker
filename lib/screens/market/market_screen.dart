@@ -63,13 +63,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     });
   }
 
-  void SearchByName(String SearchVariable) {
+  void _search(String SearchVariable) {
+    ApiService apiService = ref.read(apiServiceProvider);
     setState(() {
-      ApiService apiService = ref.read(apiServiceProvider);
       coinsResponseData = apiService.getCoins(CoinsRequestData(
           orderBy: OrderBy.marketCap,
           orderDirection: OrderDirection.desc,
-          search: SearchVariable));
+          search: search));
     });
   }
 
