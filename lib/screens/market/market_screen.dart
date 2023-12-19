@@ -31,9 +31,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     super.dispose();
   }
 
-  late OrderBy orderByVariable;
-  late OrderDirection orderDirectionVariable;
-  late String searchVariable = "";
+  OrderBy orderBy = DefaultApiRequestConfig.orderBy;
+  OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
+  String? search;
   void initState() {
     super.initState();
     orderByVariable = DefaultApiRequestConfig.orderBy;
