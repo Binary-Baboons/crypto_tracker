@@ -9,11 +9,10 @@ class MarketListWidget extends StatelessWidget {
 
   final CoinsResponseData coinsResponseData;
 
-  Color ChangeColorChanger(ChangeNumberInt) {
-    if (ChangeNumberInt <= 0) {
+  Color _getChangeColor(int change) {
+    if (change <= 0) {
       return Colors.red;
-    }
-    if (ChangeNumberInt == 0) {
+    } else if (change == 0) {
       return Colors.grey;
     } else {
       return Colors.green;
