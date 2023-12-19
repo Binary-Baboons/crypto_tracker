@@ -103,7 +103,7 @@ class MarketListWidget extends StatelessWidget {
                         coins[index].change != null ? coins[index].change! : "",
                         style: TextStyle(
                             color: ChangeColorChanger(double.parse(
-                                CoinChangeChecker(coins[index].change)))),
+                                _getChangeColor(coins[index].change)))),
                       ))),
                   Container(
                       decoration: const BoxDecoration(color: Colors.white),
