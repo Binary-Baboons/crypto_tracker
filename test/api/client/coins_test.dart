@@ -11,19 +11,19 @@ import 'package:http/testing.dart';
 const coinsDataPath = "test/resources/coins.json";
 
 void main() {
-  dotenv.testLoad(mergeWith: {CoinRankingCoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
 
-  group('CoinRankingCoinsApiClient', () {
+  group('CoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
       var data = await File(coinsDataPath).readAsString();
       final mockClient = MockClient((request) async {
         return http.Response(data, 200);
       });
 
-      final service = CoinRankingCoinsApiClient(mockClient);
+      final client = CoinsApiClient(mockClient);
       final requestData = CoinsRequestData();
 
-      final result = await service.getCoins(requestData);
+      final result = await client.getCoins(requestData);
 
       expect(result, isA<ResponseData>(),
           reason: "Response is not of expected type");
@@ -33,32 +33,18 @@ void main() {
 
     test('getCoins returns a http client error', () async {
       final mockClient = MockClient((request) async {
-        return http.Response('{"message":"Reference currency not available"}', 422);
+        return http.Response('{"data":{"coins":[]},"message":"Reference currency not available"}', 422);
       });
 
-      final service = CoinRankingCoinsApiClient(mockClient);
+      final client = CoinsApiClient(mockClient);
       final requestData = CoinsRequestData(search: "testcoin");
 
-      final result = await service.getCoins(requestData);
+      final result = await client.getCoins(requestData);
 
-      expect(result, isA<ResponseData>(),
-          reason: "Response is not of expected type");
+      expect(result.data, [],
+          reason: "Response is not empty");
       expect(result.statusCode, 422, reason: "Status code is not 422");
       expect(result.message, "Reference currency not available", reason: "Message is not equal");
-    });
-
-    test('getCoins returned an internal error', () async {
-      final mockClient = MockClient((request) async {
-        throw Exception();
-      });
-
-      final service = CoinRankingCoinsApiClient(mockClient);
-      final requestData = CoinsRequestData();
-
-      final result = await service.getCoins(requestData);
-
-      expect(result.statusCode, 500, reason: "Status code is not 500");
-      expect(result.message, "Internal application error", reason: "Message is not equal");
     });
   });
 }

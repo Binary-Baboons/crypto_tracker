@@ -6,22 +6,16 @@ import 'package:http/http.dart';
 
 import '../data/response_data.dart';
 
-abstract class ReferenceCurrenciesApiClient {
-  Future<ResponseData> getReferenceCurrencies();
-}
-
-class CoinRankingReferenceCurrenciesApiClient extends ReferenceCurrenciesApiClient {
+class ReferenceCurrenciesApiClient<T> {
   static const String baseUrl = "api.coinranking.com";
   static const String coinsApi = "v2/reference-currencies";
   static const String coinRankingApiKey = "COIN_RANKING_API_KEY";
 
-  CoinRankingReferenceCurrenciesApiClient(this.client);
+  ReferenceCurrenciesApiClient(this.client);
 
   BaseClient client;
-  
-  @override
-  Future<ResponseData> getReferenceCurrencies() async {
-    try {
+
+  Future<ResponseData<T>> getReferenceCurrencies() async {
       final uri = Uri.https(baseUrl, coinsApi);
       final response = await client.get(uri, headers: {
         "Content-Type": "application/json",
@@ -30,11 +24,7 @@ class CoinRankingReferenceCurrenciesApiClient extends ReferenceCurrenciesApiClie
 
       var body = json.decode(response.body);
 
-      if (response.statusCode != 200) {
-        String message = body['message'];
-        return ResponseData(response.statusCode, [], message: message);
-      }
-
+      String? message = body['message'];
       List<ReferenceCurrency> currencies = (body['data']['currencies'] as List)
           .map((currency) =>
           ReferenceCurrency(
@@ -46,9 +36,6 @@ class CoinRankingReferenceCurrenciesApiClient extends ReferenceCurrenciesApiClie
               currency['sign']))
           .toList();
 
-      return ResponseData(response.statusCode, currencies);
-    } catch (e) {
-      return ResponseData(500, [], message: "Internal application error");
-    }
+      return ResponseData(response.statusCode, currencies.cast<T>(), message);
   }
 }

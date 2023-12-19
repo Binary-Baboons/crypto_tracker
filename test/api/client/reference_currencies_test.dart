@@ -11,10 +11,10 @@ const referenceCurrenciesDataPath = "test/resources/reference_currencies.json";
 
 void main() {
   dotenv.testLoad(mergeWith: {
-    CoinRankingReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"
+    ReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"
   });
 
-  group('CoinRankingReferenceCurrenciesApiClient', () {
+  group('ReferenceCurrenciesApiClient', () {
     test('getReferenceCurrencies returns data on successful http call',
             () async {
           var data = await File(referenceCurrenciesDataPath).readAsString();
@@ -22,9 +22,9 @@ void main() {
             return http.Response(data, 200);
           });
 
-          final service = CoinRankingReferenceCurrenciesApiClient(mockClient);
+          final client = ReferenceCurrenciesApiClient(mockClient);
 
-          final result = await service.getReferenceCurrencies();
+          final result = await client.getReferenceCurrencies();
 
           expect(result, isA<ResponseData>(),
               reason: "Response is not of expected type");
@@ -34,31 +34,18 @@ void main() {
 
     test('getReferenceCurrencies returns a http client error', () async {
       final mockClient = MockClient((request) async {
-        return http.Response('{"message":"Internal server error"}', 500);
+        return http.Response('{"data":{"currencies":[]},"message":"Reference currency not available"}', 422);
       });
 
-      final service = CoinRankingReferenceCurrenciesApiClient(mockClient);
+      final client = ReferenceCurrenciesApiClient(mockClient);
 
-      final result = await service.getReferenceCurrencies();
+      final result = await client.getReferenceCurrencies();
 
-      expect(result, isA<ResponseData>(),
-          reason: "Response is not of expected type");
-      expect(result.statusCode, 500, reason: "Status code is not 422");
-      expect(result.message, "Internal server error",
-          reason: "Message is not equal");
-    });
 
-    test('getReferenceCurrencies returned an internal error', () async {
-      final mockClient = MockClient((request) async {
-        throw Exception();
-      });
-
-      final service = CoinRankingReferenceCurrenciesApiClient(mockClient);
-
-      final result = await service.getReferenceCurrencies();
-
-      expect(result.statusCode, 500, reason: "Status code is not 500");
-      expect(result.message, "Internal application error",
+      expect(result.data, [],
+          reason: "Response is not empty");
+      expect(result.statusCode, 422, reason: "Status code is not 422");
+      expect(result.message, "Reference currency not available",
           reason: "Message is not equal");
     });
   });
