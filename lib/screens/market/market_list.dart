@@ -23,19 +23,10 @@ class MarketListWidget extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     List<CryptoItem> coins = coinsResponseData.data;
 
-    String CoinChangeChecker(ChangeVariable) {
-      if (ChangeVariable == null) {
-        return '0.00';
-      } else {
-        return ChangeVariable;
-      }
-    }
-
-    //Function determing if the iconURL is either svg or other - MEGA SUS
-    Widget imageTypeFilter(String ImageURL, int index) {
-      var lol = ImageURL.split('?');
-      int length = lol[0].length;
-      String lastThreeCharacters = lol[0].substring(length - 3);
+    Widget imageTypeFilter(String iconUrl, int index) {
+      var url = iconUrl.split('?');
+      int length = url[0].length;
+      String lastThreeCharacters = url[0].substring(length - 3);
 
       if (lastThreeCharacters == "svg") {
         return SvgPicture.network(
@@ -101,12 +92,9 @@ class MarketListWidget extends StatelessWidget {
                         width: screenWidth * 0.15,
                         child: Center(
                             child: Text(
-                          coins[index].change != null
-                              ? coins[index].change!
-                              : "",
+                          "${coins[index].change} %",
                           style: TextStyle(
-                              color: _getChangeColor(double.parse(
-                                  CoinChangeChecker(coins[index].change)))),
+                              color: _getChangeColor(coins[index].change)),
                         ))),
                     Container(
                         decoration: const BoxDecoration(color: Colors.white),
