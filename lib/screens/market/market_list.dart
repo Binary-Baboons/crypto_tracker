@@ -1,12 +1,13 @@
-import 'package:crypto_tracker/api/data/coins/response_data.dart';
-import 'package:crypto_tracker/model/crypto_item.dart';
+import 'dart:ffi';
+
+import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MarketListWidget extends StatelessWidget {
-  const MarketListWidget(this.coinsResponseData, {super.key});
+  const MarketListWidget(this.coins, {super.key});
 
-  final CoinsResponseData coinsResponseData;
+  final List<Coin> coins;
 
   Color _getChangeColor(double change) {
     if (change <= 0) {
@@ -21,8 +22,6 @@ class MarketListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    List<CryptoItem> coins = coinsResponseData.data;
-
     Widget imageTypeFilter(String iconUrl, int index) {
       var url = iconUrl.split('?');
       int length = url[0].length;
@@ -94,7 +93,7 @@ class MarketListWidget extends StatelessWidget {
                             child: Text(
                           "${coins[index].change} %",
                           style: TextStyle(
-                              color: _getChangeColor(coins[index].change)),
+                              color: _getChangeColor(double.parse(coins[index].change!))),
                         ))),
                     Container(
                         decoration: const BoxDecoration(color: Colors.white),

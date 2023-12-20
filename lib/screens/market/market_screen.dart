@@ -1,13 +1,16 @@
 import 'dart:async';
 
-import 'package:crypto_tracker/api/data/coins/request_data.dart';
-import 'package:crypto_tracker/api/data/coins/response_data.dart';
-import 'package:crypto_tracker/api/service/api_service.dart';
-import 'package:crypto_tracker/provider/api_service_provider.dart';
+import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
+import 'package:crypto_tracker/service/coins.dart';
+import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:crypto_tracker/config/default_api_params.dart';
+
+import '../../api/data/coins.dart';
+import '../../config/default_api_request.dart';
+import '../../model/coin.dart';
 
 class MarketScreen extends ConsumerStatefulWidget {
   const MarketScreen({super.key});
@@ -19,25 +22,34 @@ class MarketScreen extends ConsumerStatefulWidget {
 }
 
 class _MarketScreenState extends ConsumerState<MarketScreen> {
-  late Future<CoinsResponseData> coinsResponseData;
+  late Future<(List<Coin>, String?)> coins;
+  late Future<(List<ReferenceCurrency>, String?)> currencies;
+
   final TextEditingController _searchController = TextEditingController();
+  late CoinsService coinsService;
+  late ReferenceCurrenciesService referenceCurrenciesService;
 
   OrderBy? currentOrderBy;
   String? search;
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
+  late ReferenceCurrency currentReferenceCurrency;
 
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
-    ApiService apiService = ref.read(apiServiceProvider);
-    coinsResponseData = apiService.getCoins(CoinsRequestData(search: search));
+    coinsService = ref.read(coinsServiceProvider);
+    coins = coinsService.getCoins(CoinsRequestData(), null);
+
+    referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
+    currencies = referenceCurrenciesService.getReferenceCurrencies();
   }
 
   void _updateCurrentOrderBy(OrderBy orderByVar) {
@@ -50,20 +62,21 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       orderDirection = OrderDirection.desc;
     }
 
-    ApiService apiService = ref.read(apiServiceProvider);
     setState(() {
-      coinsResponseData = apiService.getCoins(
-          CoinsRequestData(orderBy: orderBy, orderDirection: orderDirection));
+      coins = coinsService.getCoins(
+          CoinsRequestData(orderBy: orderBy, orderDirection: orderDirection),
+          currentReferenceCurrency);
     });
   }
 
   void _search(String search) {
-    ApiService apiService = ref.read(apiServiceProvider);
     setState(() {
-      coinsResponseData = apiService.getCoins(CoinsRequestData(
-          orderBy: OrderBy.marketCap,
-          orderDirection: OrderDirection.desc,
-          search: search));
+      coins = coinsService.getCoins(
+          CoinsRequestData(
+              orderBy: OrderBy.marketCap,
+              orderDirection: OrderDirection.desc,
+              search: search),
+          currentReferenceCurrency);
     });
   }
 
@@ -94,19 +107,20 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   Future<void> _refresh() async {
-    // Simulate a delay
-    await Future.delayed(Duration(seconds: 1));
-    ApiService apiService = ref.read(apiServiceProvider);
-
     setState(() {
-      coinsResponseData = apiService.getCoins(CoinsRequestData(
-          orderBy: orderBy, orderDirection: orderDirection, search: search));
+      coins = coinsService.getCoins(
+          CoinsRequestData(
+              orderBy: orderBy, orderDirection: orderDirection, search: search),
+          currentReferenceCurrency);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return RefreshIndicator(
       onRefresh: _refresh,
@@ -114,28 +128,31 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
         children: [
           Container(
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                child: TextButton(child: Text('\$currency'), onPressed: () {}),
-              ),
-              Container(
-                child: TextButton(child: Text('Category'), onPressed: () {}),
-              ),
-              Container(
-                child: TextButton(child: Text('Time period'), onPressed: () {}),
-              ),
-              IconButton(
-                onPressed: () {
-                  _showSearchModal(context);
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 30,
-                ),
-              )
-            ],
-          )),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: TextButton(
+                        child: Text('\$currency'), onPressed: () {}),
+                  ),
+                  Container(
+                    child: TextButton(
+                        child: Text('Category'), onPressed: () {}),
+                  ),
+                  Container(
+                    child: TextButton(
+                        child: Text('Time period'), onPressed: () {}),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _showSearchModal(context);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 30,
+                    ),
+                  )
+                ],
+              )),
           Container(
             color: Colors.grey,
             padding: EdgeInsets.all(screenWidth * 0.02),
@@ -153,13 +170,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                   width: screenWidth * 0.25,
                   child: Center(
                       child: TextButton(
-                    child: Row(
-                      children: [
-                        Text('PRICE'),
-                      ],
-                    ),
-                    onPressed: () => _updateCurrentOrderBy(OrderBy.price),
-                  )),
+                        child: Row(
+                          children: [
+                            Text('PRICE'),
+                          ],
+                        ),
+                        onPressed: () => _updateCurrentOrderBy(OrderBy.price),
+                      )),
                 ),
                 Container(
                   width: screenWidth * 0.15,
@@ -176,27 +193,37 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                   width: screenWidth * 0.33,
                   child: Center(
                       child: TextButton(
-                    child: Text('MARKET CAP'),
-                    onPressed: () => _updateCurrentOrderBy(OrderBy.marketCap),
-                  )),
+                        child: Text('MARKET CAP'),
+                        onPressed: () =>
+                            _updateCurrentOrderBy(OrderBy.marketCap),
+                      )),
                 )
               ],
             ),
           ),
           Expanded(
-            child: FutureBuilder<CoinsResponseData>(
-              future: coinsResponseData,
+            child: FutureBuilder(
+              future: Future.wait([coins, currencies]),
               builder: (ctx, snapshot) {
                 if (snapshot.hasError) {
                   //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(snapshot.error.toString())));
                 }
 
                 if (snapshot.hasData) {
-                  if (snapshot.data!.statusCode == 200) {
+                  if (snapshot.data![0].$2 != null) {
                     //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(coins.message!)));
                   }
 
-                  return MarketListWidget(snapshot.data!);
+                  if (snapshot.data![1].$2 != null) {
+                    //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(coins.message!)));
+                  }
+
+                  if (snapshot.data![0].$2 == null &&
+                      snapshot.data![0].$2 == null) {
+                    return MarketListWidget(snapshot.data![0].$1 as List<Coin>);
+                  } else {
+                    return const MarketListWidget([]);
+                  }
                 }
                 return const Center(child: CircularProgressIndicator());
               },
