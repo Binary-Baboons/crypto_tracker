@@ -6,13 +6,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:mockito/annotations.dart';
 
 const referenceCurrenciesDataPath = "test/resources/reference_currencies.json";
 
+@GenerateMocks([ReferenceCurrenciesApiClient])
 void main() {
-  dotenv.testLoad(mergeWith: {
-    ReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"
-  });
+  dotenv.testLoad(
+      mergeWith: {ReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"});
 
   group('ReferenceCurrenciesApiClient', () {
     test('getReferenceCurrencies returns data on successful http call',
@@ -34,16 +35,16 @@ void main() {
 
     test('getReferenceCurrencies returns a http client error', () async {
       final mockClient = MockClient((request) async {
-        return http.Response('{"data":{"currencies":[]},"message":"Reference currency not available"}', 422);
+        return http.Response(
+            '{"data":{"currencies":[]},"message":"Reference currency not available"}',
+            422);
       });
 
       final client = ReferenceCurrenciesApiClient(mockClient);
 
       final result = await client.getReferenceCurrencies();
 
-
-      expect(result.data, [],
-          reason: "Response is not empty");
+      expect(result.data, [], reason: "Response is not empty");
       expect(result.statusCode, 422, reason: "Status code is not 422");
       expect(result.message, "Reference currency not available",
           reason: "Message is not equal");
