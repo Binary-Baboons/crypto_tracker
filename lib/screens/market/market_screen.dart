@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:crypto_tracker/api/data/coins/request_data.dart';
 import 'package:crypto_tracker/api/data/coins/response_data.dart';
 import 'package:crypto_tracker/api/service/api_service.dart';
-import 'package:crypto_tracker/api/service/coin_ranking.dart';
 import 'package:crypto_tracker/provider/api_service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
 import 'package:flutter/material.dart';
@@ -23,47 +22,42 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   late Future<CoinsResponseData> coinsResponseData;
   final TextEditingController _searchController = TextEditingController();
 
-  var url11;
+  OrderBy? currentOrderBy;
+  String? search;
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed
-    _inputController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  String? search;
+
   void initState() {
     super.initState();
-    orderByVariable = DefaultApiRequestConfig.orderBy;
-    orderDirectionVariable = DefaultApiRequestConfig.orderDirection;
 
     ApiService apiService = ref.read(apiServiceProvider);
-    coinsResponseData = apiService.getCoins(CoinsRequestData(
-        orderBy: orderByVariable,
-        orderDirection: orderDirectionVariable,
-        search: searchVariable));
+    coinsResponseData = apiService.getCoins(CoinsRequestData(search: search));
   }
 
-  void updateVariable(orderByVar) {
-    setState(() {
-      if (url11 == orderByVar) {
-        orderDirectionVariable = OrderDirection.asc;
-        url11 = "";
-      } else {
-        url11 = orderByVar;
-        orderByVariable = orderByVar;
-        orderDirectionVariable = OrderDirection.desc;
-      }
+  void _updateCurrentOrderBy(OrderBy orderByVar) {
+    if (currentOrderBy == orderByVar) {
+      orderDirection = OrderDirection.asc;
+      currentOrderBy = null;
+    } else {
+      currentOrderBy = orderByVar;
+      orderBy = orderByVar;
+      orderDirection = OrderDirection.desc;
+    }
 
-      ApiService apiService = ref.read(apiServiceProvider);
-      coinsResponseData = apiService.getCoins(CoinsRequestData(
-          orderBy: orderByVariable, orderDirection: orderDirectionVariable));
+    ApiService apiService = ref.read(apiServiceProvider);
+    setState(() {
+      coinsResponseData = apiService.getCoins(
+          CoinsRequestData(orderBy: orderBy, orderDirection: orderDirection));
     });
   }
 
-  void _search(String SearchVariable) {
+  void _search(String search) {
     ApiService apiService = ref.read(apiServiceProvider);
     setState(() {
       coinsResponseData = apiService.getCoins(CoinsRequestData(
@@ -73,23 +67,22 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     });
   }
 
-  void _showInputModal(BuildContext context) {
+  void _showSearchModal(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Search by Name'),
           content: TextField(
-            controller: _inputController,
+            controller: _searchController,
             decoration: InputDecoration(hintText: 'Type here...'),
           ),
           actions: <Widget>[
             ElevatedButton(
               onPressed: () {
-                String userInput = _inputController.text;
-                SearchByName(userInput);
+                String search = _searchController.text;
+                _search(search);
 
-                // Close the dialog when OK is pressed
                 Navigator.of(context).pop();
               },
               child: Text('OK'),
@@ -100,108 +93,117 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     );
   }
 
+  Future<void> _refresh() async {
+    // Simulate a delay
+    await Future.delayed(Duration(seconds: 1));
+    ApiService apiService = ref.read(apiServiceProvider);
+
+    setState(() {
+      coinsResponseData = apiService.getCoins(CoinsRequestData(
+          orderBy: orderBy, orderDirection: orderDirection, search: search));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Column(
-      children: [
-        Container(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              child: TextButton(child: Text('\$currency'), onPressed: () {}),
-            ),
-            Container(
-              child: TextButton(child: Text('Category'), onPressed: () {}),
-            ),
-            Container(
-              child: TextButton(child: Text('Time period'), onPressed: () {}),
-            ),
-            IconButton(
-              onPressed: () {
-                _showInputModal(context);
-              },
-              icon: Icon(
-                Icons.search,
-                size: 30,
-              ),
-            )
-          ],
-        )),
-        Container(
-          color: Colors.grey,
-          padding: EdgeInsets.all(screenWidth * 0.02),
-          child: Row(
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: Column(
+        children: [
+          Container(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                color: Colors.amber,
-                width: screenWidth * 0.08,
-                child: Center(child: Text('#')),
+                child: TextButton(child: Text('\$currency'), onPressed: () {}),
               ),
               Container(
-                color: Colors.amber,
-                width: screenWidth * 0.15,
-                child: Center(child: Text('COIN')),
+                child: TextButton(child: Text('Category'), onPressed: () {}),
               ),
               Container(
-                decoration: BoxDecoration(color: Colors.green),
-                width: screenWidth * 0.25,
-                child: Center(
-                    child: TextButton(
-                  child: Text('PRICE'),
-                  onPressed: () {
-                    updateVariable(OrderBy.price);
-                  },
-                )),
+                child: TextButton(child: Text('Time period'), onPressed: () {}),
               ),
-              Container(
-                decoration: BoxDecoration(color: Colors.amber),
-                width: screenWidth * 0.15,
-                child: Center(
-                  child: TextButton(
-                    child: Text('24H'),
-                    onPressed: () {
-                      //BABOON TREBA NAPRAVI;
-                    },
-                  ),
+              IconButton(
+                onPressed: () {
+                  _showSearchModal(context);
+                },
+                icon: Icon(
+                  Icons.search,
+                  size: 30,
                 ),
-              ),
-              Container(
-                decoration: BoxDecoration(color: Colors.green),
-                width: screenWidth * 0.33,
-                child: Center(
-                    child: TextButton(
-                  child: Text('MARKET CAP'),
-                  onPressed: () {
-                    updateVariable(OrderBy.marketCap);
-                  },
-                )),
               )
             ],
+          )),
+          Container(
+            color: Colors.grey,
+            padding: EdgeInsets.all(screenWidth * 0.02),
+            child: Row(
+              children: [
+                Container(
+                  width: screenWidth * 0.08,
+                  child: Center(child: Text('#')),
+                ),
+                Container(
+                  width: screenWidth * 0.15,
+                  child: Center(child: Text('COIN')),
+                ),
+                Container(
+                  width: screenWidth * 0.25,
+                  child: Center(
+                      child: TextButton(
+                    child: Row(
+                      children: [
+                        Text('PRICE'),
+                      ],
+                    ),
+                    onPressed: () => _updateCurrentOrderBy(OrderBy.price),
+                  )),
+                ),
+                Container(
+                  width: screenWidth * 0.15,
+                  child: Center(
+                    child: TextButton(
+                      child: Text('24H'),
+                      onPressed: () {
+                        //BABOON TREBA NAPRAVI;
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  width: screenWidth * 0.33,
+                  child: Center(
+                      child: TextButton(
+                    child: Text('MARKET CAP'),
+                    onPressed: () => _updateCurrentOrderBy(OrderBy.marketCap),
+                  )),
+                )
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: FutureBuilder<CoinsResponseData>(
-            future: coinsResponseData,
-            builder: (ctx, snapshot) {
-              if (snapshot.hasError) {
-                //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(snapshot.error.toString())));
-              }
-
-              if (snapshot.hasData) {
-                if (snapshot.data!.statusCode == 200) {
-                  //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(coins.message!)));
+          Expanded(
+            child: FutureBuilder<CoinsResponseData>(
+              future: coinsResponseData,
+              builder: (ctx, snapshot) {
+                if (snapshot.hasError) {
+                  //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(snapshot.error.toString())));
                 }
 
-                return MarketListWidget(snapshot.data!);
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
+                if (snapshot.hasData) {
+                  if (snapshot.data!.statusCode == 200) {
+                    //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(coins.message!)));
+                  }
+
+                  return MarketListWidget(snapshot.data!);
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
