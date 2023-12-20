@@ -57,16 +57,23 @@ class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/Logo1.png',
-              height: 30, // Adjust the height as needed
-              width: 30, // Adjust the width as needed
-            ),
-            const Text('Crypto tracker'),
-          ],
+        backgroundColor: Color.fromARGB(255, 2, 32, 54),
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/Logo1.png',
+                height: 30, // Adjust the height as needed
+                width: 30, // Adjust the width as needed
+              ),
+              SizedBox(width: 10),
+              const Text(
+                'Crypto tracker',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
       body: Center(

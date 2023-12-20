@@ -53,9 +53,7 @@ class MarketListWidget extends StatelessWidget {
               title: Column(
                 children: [
                   InkWell(
-                    onTap: () {
-                      print(index);
-                    },
+                    onTap: () {},
                     child: Row(children: [
                       Container(
                           width: screenWidth * 0.08,
