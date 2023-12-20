@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   await dotenv.load();
-  runApp(const ProviderScope(child: BottomNavigationBarExampleApp()));
+  runApp(const ProviderScope(child: CryptoTrackerApp()));
 }
 
-class BottomNavigationBarExampleApp extends StatelessWidget {
-  const BottomNavigationBarExampleApp({super.key});
+class CryptoTrackerApp extends StatelessWidget {
+  const CryptoTrackerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class BottomNavigationBarExample extends StatefulWidget {
 
   @override
   State<BottomNavigationBarExample> createState() =>
-      _BottomNavigationBarExampleState();
+      _CryptoTrackerAppState();
 }
 
-class _BottomNavigationBarExampleState
+class _CryptoTrackerAppState
     extends State<BottomNavigationBarExample> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
