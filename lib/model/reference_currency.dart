@@ -8,19 +8,25 @@ class ReferenceCurrency {
   String? name;
   String? symbol;
   String? sign;
-}
 
-extension Equals on ReferenceCurrency {
-  bool equals(ReferenceCurrency currency) {
-    if (identical(this, currency)) {
+  @override
+  bool operator ==(other) {
+    if (identical(this, other)) {
       return true;
     }
 
-    return uuid == currency.uuid &&
-        type == currency.type &&
-        iconUrl == currency.iconUrl &&
-        name == currency.name &&
-        symbol == currency.symbol &&
-        sign == currency.sign;
+    if (other is! ReferenceCurrency) {
+      return false;
+    }
+
+    return uuid == other.uuid &&
+        type == other.type &&
+        name == other.name &&
+        symbol == other.symbol &&
+        iconUrl == other.iconUrl &&
+        sign == other.sign;
   }
+
+  @override
+  int get hashCode => Object.hash(uuid.hashCode, type.hashCode, name.hashCode, symbol.hashCode, iconUrl.hashCode, sign.hashCode);
 }

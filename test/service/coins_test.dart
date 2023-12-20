@@ -32,7 +32,16 @@ void main() {
                   "http",
                   "69000.00",
                   "50",
-                  "1B")
+                  "1B"),
+              Coin(
+                  "asdf2",
+                  2,
+                  "Etherium",
+                  "ETH",
+                  "http",
+                  null,
+                  "50",
+                  "500M"),
             ],
             null);
       });
@@ -40,8 +49,9 @@ void main() {
       (List<Coin>, String?) result = await service.getCoins(CoinsRequestData(),
           ReferenceCurrency("qwerty", "fiat", "http", "Dollar", "\$", "USD"));
 
+      expect(result.$1.length, 1, reason: "Coins array length is not equal");
       expect(
-          result.$1.first.equals(Coin(
+          result.$1.first == Coin(
               "asdf",
               1,
               "Bitcoin",
@@ -49,7 +59,7 @@ void main() {
               "http",
               "69.000,00 \$",
               "50",
-              "1B")),
+              "1B"),
           true,
           reason: "Coin is not equal");
       expect(result.$2, null, reason: "Message is not null");
@@ -65,6 +75,17 @@ void main() {
 
       expect(result.$1.length, 0, reason: "Coins are not empty");
       expect(result.$2, "Reference currency not available",
+          reason: "Message is not equal");
+    });
+
+    test('getCoins returns a exception from client', () async {
+      when(mockClient.getCoins(any)).thenThrow(Exception("Network error"));
+
+      (List<Coin>, String?) result = await service.getCoins(CoinsRequestData(),
+          ReferenceCurrency("qwerty", "fiat", "http", "Dollar", "\$", "USD"));
+
+      expect(result.$1.length, 0, reason: "Coins are not empty");
+      expect(result.$2, "Internal application error",
           reason: "Message is not equal");
     });
   });

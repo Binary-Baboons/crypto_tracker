@@ -10,21 +10,27 @@ class Coin {
   String? price;
   String? change;
   String? marketCap;
-}
 
-extension Equals on Coin {
-  bool equals(Coin coin) {
-    if (identical(this, coin)) {
+  @override
+  bool operator ==(other) {
+    if (identical(this, other)) {
       return true;
     }
 
-    return uuid == coin.uuid &&
-        rank == coin.rank &&
-        name == coin.name &&
-        symbol == coin.symbol &&
-        iconUrl == coin.iconUrl &&
-        price == coin.price &&
-        change == coin.change &&
-        marketCap == coin.marketCap;
+    if (other is! Coin) {
+      return false;
+    }
+
+    return uuid == other.uuid &&
+        rank == other.rank &&
+        name == other.name &&
+        symbol == other.symbol &&
+        iconUrl == other.iconUrl &&
+        price == other.price &&
+        change == other.change &&
+        marketCap == other.marketCap;
   }
+
+  @override
+  int get hashCode => Object.hash(uuid.hashCode, rank.hashCode, name.hashCode, symbol.hashCode, iconUrl.hashCode, price.hashCode, change.hashCode, marketCap.hashCode);
 }
