@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -88,22 +86,25 @@ class MarketListWidget extends StatelessWidget {
                         child:
                             Center(child: Text(coins[index].price.toString()))),
                     Container(
-                        width: screenWidth * 0.15,
+                        width: screenWidth * 0.17,
                         child: Center(
                             child: Text(
                           "${coins[index].change} %",
                           style: TextStyle(
-                              color: _getChangeColor(double.parse(coins[index].change!))),
+                              color: _getChangeColor(
+                                  double.parse(coins[index].change!))),
                         ))),
                     Container(
-                        decoration: const BoxDecoration(color: Colors.white),
-                        width: screenWidth * 0.33,
-                        child: Center(
-                            child: Text(
-                          coins[index].marketCap != null
-                              ? coins[index].marketCap!
-                              : "",
-                        ))),
+                      width: screenWidth * 0.31,
+                      child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Center(
+                              child: Text(
+                            coins[index].marketCap != null
+                                ? coins[index].marketCap!
+                                : "",
+                          ))),
+                    ),
                   ]),
                   const Divider(
                     color: Colors.black,

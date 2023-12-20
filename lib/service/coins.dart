@@ -18,7 +18,7 @@ class CoinsService {
       ResponseData<Coin> coinsData = await coinsApiClient.getCoins(requestData);
 
       String currencySymbol = referenceCurrency != null
-          ? referenceCurrency.symbol!
+          ? referenceCurrency.sign!
           : DefaultConfig.currencySymbol;
       return (format(coinsData.data, currencySymbol), coinsData.message);
     } catch (e) {
@@ -27,13 +27,15 @@ class CoinsService {
   }
 
   List<Coin> format(List<Coin> coinsData, String currencySymbol) {
-    return coinsData.where((coin) => coin.price != null || coin.marketCap != null).map((coin) {
+    return coinsData
+        .where((coin) => coin.price != null || coin.marketCap != null)
+        .map((coin) {
       coin.change = coin.change ?? "0.0";
       coin.marketCap = NumberFormat.currency(
-          locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
+              locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
           .format(double.parse(coin.marketCap!));
       coin.price = NumberFormat.currency(
-          locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
+              locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
           .format(double.parse(coin.price!));
       return coin;
     }).toList();

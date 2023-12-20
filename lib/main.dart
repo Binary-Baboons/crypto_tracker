@@ -3,6 +3,7 @@ import 'package:crypto_tracker/screens/market/market_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+//37,210,252 255,172,59
 void main() async {
   await dotenv.load();
   runApp(const ProviderScope(child: CryptoTrackerApp()));
@@ -23,12 +24,10 @@ class BottomNavigationBarExample extends StatefulWidget {
   const BottomNavigationBarExample({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() =>
-      _CryptoTrackerAppState();
+  State<BottomNavigationBarExample> createState() => _CryptoTrackerAppState();
 }
 
-class _CryptoTrackerAppState
-    extends State<BottomNavigationBarExample> {
+class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -74,7 +73,7 @@ class _CryptoTrackerAppState
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.orange,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
@@ -93,7 +92,7 @@ class _CryptoTrackerAppState
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue[800],
         onTap: _onItemTapped,
       ),
     );
