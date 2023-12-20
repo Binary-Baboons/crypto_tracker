@@ -1,6 +1,15 @@
+<<<<<<< HEAD:lib/api/data/coins/request_data.dart
 import 'package:crypto_tracker/config/default_api_params.dart';
 
 enum OrderBy { marketCap, price, change }
+=======
+import 'package:crypto_tracker/config/default_api_request.dart';
+
+enum OrderBy {
+  marketCap,
+  price,
+}
+>>>>>>> main:lib/api/data/coins.dart
 
 enum OrderDirection { asc, desc }
 
@@ -19,6 +28,7 @@ extension GetOnlyNumberAndTime on TimePeriod {
 }
 
 class CoinsRequestData {
+<<<<<<< HEAD:lib/api/data/coins/request_data.dart
   CoinsRequestData(
       {this.orderBy,
       this.orderDirection,
@@ -27,13 +37,26 @@ class CoinsRequestData {
       this.timePeriod,
       this.search,
       this.referenceCurrencyUuid}) {
+=======
+  CoinsRequestData({this.orderBy,
+    this.orderDirection,
+    this.limit,
+    this.offset,
+    this.timePeriod,
+    this.search,
+    this.referenceCurrencyUuid}) {
+>>>>>>> main:lib/api/data/coins.dart
     orderBy = orderBy ?? DefaultApiRequestConfig.orderBy;
     orderDirection = orderDirection ?? DefaultApiRequestConfig.orderDirection;
     limit = limit ?? DefaultApiRequestConfig.limit;
     offset = offset ?? DefaultApiRequestConfig.offset;
     timePeriod = timePeriod ?? DefaultApiRequestConfig.timePeriod;
+<<<<<<< HEAD:lib/api/data/coins/request_data.dart
     referenceCurrencyUuid =
         referenceCurrencyUuid ?? DefaultApiRequestConfig.referenceCurrencyUuid;
+=======
+    referenceCurrencyUuid = referenceCurrencyUuid ?? DefaultApiRequestConfig.referenceCurrencyUuid;
+>>>>>>> main:lib/api/data/coins.dart
     search = search;
   }
 
@@ -52,7 +75,11 @@ class CoinsRequestData {
       'limit': limit.toString(),
       'offset': offset.toString(),
       'timePeriod': timePeriod!.getTimePeriod,
+<<<<<<< HEAD:lib/api/data/coins/request_data.dart
       'referenceCurrencyUuid': referenceCurrencyUuid!,
+=======
+      'referenceCurrencyUuid': DefaultApiRequestConfig.referenceCurrencyUuid,
+>>>>>>> main:lib/api/data/coins.dart
       if (search != null) 'search': search!,
     };
   }
