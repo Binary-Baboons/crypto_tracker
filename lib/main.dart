@@ -60,7 +60,11 @@ class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.healing_outlined),
+            Image.asset(
+              'assets/Logo1.png',
+              height: 30, // Adjust the height as needed
+              width: 30, // Adjust the width as needed
+            ),
             const Text('Crypto tracker'),
           ],
         ),

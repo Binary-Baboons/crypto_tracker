@@ -45,67 +45,83 @@ class MarketListWidget extends StatelessWidget {
     return Container(
       child: ListView.builder(
         itemCount: coins.length,
+        itemExtent: 90.0,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
               contentPadding: EdgeInsets.only(
                   left: screenWidth * 0.02, right: screenWidth * 0.02),
               title: Column(
                 children: [
-                  Row(children: [
-                    Container(
-                        width: screenWidth * 0.08,
-                        decoration: const BoxDecoration(color: Colors.white),
-                        child: Center(
-                            child: Text(
-                          coins[index].rank != null
-                              ? coins[index].rank!.toString()
-                              : "",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w200, fontSize: 10),
-                        ))),
-                    Container(
-                      decoration: const BoxDecoration(color: Colors.white),
-                      width: screenWidth * 0.15,
-                      child: Column(children: [
-                        imageTypeFilter(
-                            coins[index].iconUrl != null
-                                ? coins[index].iconUrl!
-                                : "",
-                            index),
-                        Text(
-                          coins[index].symbol != null
-                              ? coins[index].symbol!
-                              : "",
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        )
-                      ]),
-                    ),
-                    Container(
-                        width: screenWidth * 0.25,
-                        decoration: const BoxDecoration(color: Colors.white),
-                        child:
-                            Center(child: Text(coins[index].price.toString()))),
-                    Container(
-                        width: screenWidth * 0.17,
-                        child: Center(
-                            child: Text(
-                          "${coins[index].change} %",
-                          style: TextStyle(
-                              color: _getChangeColor(
-                                  double.parse(coins[index].change!))),
-                        ))),
-                    Container(
-                      width: screenWidth * 0.31,
-                      child: FittedBox(
+                  InkWell(
+                    onTap: () {
+                      print(index);
+                    },
+                    child: Row(children: [
+                      Container(
+                          width: screenWidth * 0.08,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Center(
+                                child: Text(
+                              coins[index].rank != null
+                                  ? coins[index].rank!.toString()
+                                  : "",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w200, fontSize: 10),
+                            )),
+                          )),
+                      Container(
+                        width: screenWidth * 0.15,
+                        child: FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: Center(
-                              child: Text(
-                            coins[index].marketCap != null
-                                ? coins[index].marketCap!
-                                : "",
-                          ))),
-                    ),
-                  ]),
+                          child: Column(children: [
+                            imageTypeFilter(
+                                coins[index].iconUrl != null
+                                    ? coins[index].iconUrl!
+                                    : "",
+                                index),
+                            Text(
+                              coins[index].symbol != null
+                                  ? coins[index].symbol!
+                                  : "",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700),
+                            )
+                          ]),
+                        ),
+                      ),
+                      Container(
+                          width: screenWidth * 0.25,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Center(
+                                child: Text(coins[index].price.toString())),
+                          )),
+                      Container(
+                          width: screenWidth * 0.17,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Center(
+                                child: Text(
+                              "${coins[index].change} %",
+                              style: TextStyle(
+                                  color: _getChangeColor(
+                                      double.parse(coins[index].change!))),
+                            )),
+                          )),
+                      Container(
+                        width: screenWidth * 0.31,
+                        child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Center(
+                                child: Text(
+                              coins[index].marketCap != null
+                                  ? coins[index].marketCap!
+                                  : "",
+                            ))),
+                      ),
+                    ]),
+                  ),
                   const Divider(
                     color: Colors.black,
                     thickness: 0.5,
@@ -115,7 +131,6 @@ class MarketListWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () {},
               dense: true);
         },
       ),
