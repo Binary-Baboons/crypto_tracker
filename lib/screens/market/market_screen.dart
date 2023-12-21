@@ -251,8 +251,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
                 if (snapshot.hasData) {
                   if (snapshot.data![0].$2 != null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(snapshot.data![0].$2!)));
+                    //ScaffoldMessenger.of(context).showSnackBar(
+                    // SnackBar(content: Text(snapshot.data![0].$2!)));
                   }
 
                   if (snapshot.data![1].$2 != null) {
