@@ -82,8 +82,8 @@ class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.align_vertical_bottom),
+            label: 'Market',
             backgroundColor: Colors.orange,
           ),
           BottomNavigationBarItem(
