@@ -31,13 +31,29 @@ class CoinsService {
         .where((coin) => coin.price != null || coin.marketCap != null)
         .map((coin) {
       coin.change = coin.change ?? "0.0";
-      coin.marketCap = NumberFormat.currency(
-              locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
-          .format(double.parse(coin.marketCap!));
+      coin.marketCap =
+          NumberFormat.currency(symbol: currencySymbol, decimalDigits: 2)
+              .format(double.parse(coin.marketCap!));
+
+      double price = double.parse(coin.price!);
       coin.price = NumberFormat.currency(
-              locale: 'eu', symbol: currencySymbol, decimalDigits: 2)
-          .format(double.parse(coin.price!));
+          symbol: currencySymbol, decimalDigits: getDecimal(price))
+          .format(price);
       return coin;
     }).toList();
+  }
+
+  int getDecimal(double price) {
+    if (price >= 10) {
+      return 2;
+    }
+
+    if (price >= 1) {
+      return 3;
+    }
+
+    String priceStr = price.toString();
+    int firstNonZeroIndex = priceStr.indexOf(RegExp(r'[1-9]'));
+    return 5 + firstNonZeroIndex - priceStr.indexOf('.') - 1;
   }
 }
