@@ -1,5 +1,4 @@
 import 'package:crypto_tracker/api/client/coins.dart';
-import 'package:crypto_tracker/config/default_api_request.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:intl/intl.dart';
@@ -12,32 +11,30 @@ class CoinsService {
 
   CoinsApiClient<Coin> coinsApiClient;
 
-  Future<(List<Coin>, String?)> getCoins(CoinsRequestData requestData,
-      ReferenceCurrency? referenceCurrency) async {
+  Future<(List<Coin>, String?)> getCoins(
+      CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
     try {
       ResponseData<Coin> coinsData = await coinsApiClient.getCoins(requestData);
 
-      String currencySymbol = referenceCurrency != null
-          ? referenceCurrency.sign!
-          : DefaultConfig.currencySymbol;
-      return (format(coinsData.data, currencySymbol), coinsData.message);
+      return (format(coinsData.data, referenceCurrency), coinsData.message);
     } catch (e) {
       return (<Coin>[], "Internal application error");
     }
   }
 
-  List<Coin> format(List<Coin> coinsData, String currencySymbol) {
+  List<Coin> format(List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
     return coinsData
         .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {
       coin.change = coin.change ?? "0.0";
-      coin.marketCap =
-          NumberFormat.currency(symbol: currencySymbol, decimalDigits: 2)
-              .format(double.parse(coin.marketCap!));
+      coin.marketCap = NumberFormat.currency(
+              symbol: referenceCurrency.getSignSymbol(), decimalDigits: 2)
+          .format(double.parse(coin.marketCap!));
 
       double price = double.parse(coin.price!);
       coin.price = NumberFormat.currency(
-          symbol: currencySymbol, decimalDigits: getDecimal(price))
+              symbol: referenceCurrency.getSignSymbol(),
+              decimalDigits: getDecimal(price))
           .format(price);
       return coin;
     }).toList();

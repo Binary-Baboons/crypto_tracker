@@ -8,6 +8,15 @@ class ReferenceCurrency {
   String? name;
   String? symbol;
   String? sign;
+
+  String getSignSymbol() {
+    return sign != null ? sign! : symbol!;
+  }
+
+  @override
+  String toString() {
+    return "$name (${getSignSymbol()})";
+  }
 }
 
 extension Equals on ReferenceCurrency {

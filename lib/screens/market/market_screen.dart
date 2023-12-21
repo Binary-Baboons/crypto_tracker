@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../api/data/coins.dart';
-import '../../config/default_api_request.dart';
+import '../../config/default_config.dart';
 import '../../model/coin.dart';
 
 class MarketScreen extends ConsumerStatefulWidget {
@@ -35,7 +35,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   String? search;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  late ReferenceCurrency currentReferenceCurrency;
+  ReferenceCurrency currentReferenceCurrency = DefaultConfig.referenceCurrency;
 
   @override
   void dispose() {
@@ -48,7 +48,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     super.initState();
 
     coinsService = ref.read(coinsServiceProvider);
-    coins = coinsService.getCoins(CoinsRequestData(), null);
+    coins = coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency);
 
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
     currencies = referenceCurrenciesService.getReferenceCurrencies();
@@ -156,7 +156,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: TextButton(child: Text('\$currency'), onPressed: _showCurrencyModal),
+                child: TextButton(child: Text(currentReferenceCurrency.toString()), onPressed: _showCurrencyModal),
               ),
               Container(
                 child: TextButton(child: Text('Category'), onPressed: () {}),
