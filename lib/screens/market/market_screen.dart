@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
+import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     );
   }
 
+  void _showCurrencyModal() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => ReferenceCurrenciesModal(currencies));
+  }
+
   Widget sortingIconChanger(currentOrderBy, savedOrderBy, orderByFilter) {
     if (currentOrderBy == orderByFilter) {
       return Icon(
@@ -148,7 +156,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: TextButton(child: Text('\$currency'), onPressed: () {}),
+                child: TextButton(child: Text('\$currency'), onPressed: _showCurrencyModal),
               ),
               Container(
                 child: TextButton(child: Text('Category'), onPressed: () {}),

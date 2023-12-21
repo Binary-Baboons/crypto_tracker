@@ -3,7 +3,6 @@ import 'package:crypto_tracker/screens/market/market_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//37,210,252 255,172,59
 void main() async {
   await dotenv.load();
   runApp(const ProviderScope(child: CryptoTrackerApp()));

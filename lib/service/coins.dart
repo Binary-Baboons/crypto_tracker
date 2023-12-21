@@ -28,7 +28,7 @@ class CoinsService {
 
   List<Coin> format(List<Coin> coinsData, String currencySymbol) {
     return coinsData
-        .where((coin) => coin.price != null || coin.marketCap != null)
+        .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {
       coin.change = coin.change ?? "0.0";
       coin.marketCap =
