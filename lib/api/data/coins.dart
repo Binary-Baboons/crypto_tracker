@@ -18,7 +18,7 @@ extension GetOnlyNumberAndTime on TimePeriod {
   }
 }
 
-enum Tags {
+enum CategoryTag {
   defi,
   stablecoin,
   nft,
@@ -39,7 +39,7 @@ enum Tags {
   social
 }
 
-extension FromUnderscoreToDash on Tags {
+extension FromUnderscoreToDash on CategoryTag {
   String get getValueWithDash {
     return getValueOnly.replaceFirst("_", "-");
   }
@@ -72,7 +72,7 @@ class CoinsRequestData {
   TimePeriod? timePeriod;
   String? search;
   int? tier;
-  List<Tags>? tags;
+  Set<CategoryTag>? tags;
 
   Map<String, String> prepareParams(String referenceCurrencyUuid) {
     return {

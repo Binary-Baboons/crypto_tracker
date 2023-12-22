@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Bugfix">
-      <change afterPath="$PROJECT_DIR$/lib/screens/market/modal/time_period.dart" afterDir="false" />
+    <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Added time period modal">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/crypto_tracker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/data/coins.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/data/coins.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/coins_api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/coins_api_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/ioclient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/io_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/reference_currencies_api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/reference_currencies_api_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/reference_currency.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/reference_currency.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/service_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/service/service_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,11 +82,11 @@
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/provider/service" />
+      <recent name="$PROJECT_DIR$/lib/provider/api" />
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
       <recent name="$PROJECT_DIR$/test/mocks" />
       <recent name="$PROJECT_DIR$/lib/api/data" />
-      <recent name="$PROJECT_DIR$/lib/screens/market" />
-      <recent name="$PROJECT_DIR$/test/test_data" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -373,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703180217328</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat/3: Added time period modal">
+      <option name="closed" value="true" />
+      <created>1703270173440</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1703270173440</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +436,8 @@
     <MESSAGE value="feat/3: App name" />
     <MESSAGE value="feat/3: Modified price display logic" />
     <MESSAGE value="feat/3: Bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat/3: Bugfix" />
+    <MESSAGE value="feat/3: Added time period modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/3: Added time period modal" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -431,18 +447,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
-          <line>18</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
-          <line>24</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
           <line>37</line>
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/market/modal/categories.dart</url>
+          <line>81</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/market/modal/categories.dart</url>
+          <line>76</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

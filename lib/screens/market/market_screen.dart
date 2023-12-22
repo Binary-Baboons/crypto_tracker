@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:crypto_tracker/model/reference_currency.dart';
 
-import 'package:crypto_tracker/provider/reference_currency.dart';
-import 'package:crypto_tracker/provider/service_provider.dart';
+import 'package:crypto_tracker/provider/state/reference_currency.dart';
+import 'package:crypto_tracker/provider/service/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
 import 'package:crypto_tracker/screens/market/modal/categories.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
@@ -42,7 +42,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   String? search;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  late ReferenceCurrency currentReferenceCurrency;
+  late ReferenceCurrency selectedReferenceCurrency;
+  late Set<CategoryTag> selectedCategoryTags;
 
   @override
   void dispose() {
@@ -54,17 +55,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   void initState() {
     super.initState();
 
-    currentReferenceCurrency = ref.read(referenceCurrencyProvider);
+    selectedReferenceCurrency = ref.read(referenceCurrencyStateProvider);
     coinsService = ref.read(coinsServiceProvider);
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
 
     currencies = referenceCurrenciesService.getReferenceCurrencies();
-    coins = coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency);
+    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
   }
 
   @override
   Widget build(BuildContext context) {
-    currentReferenceCurrency = ref.watch(referenceCurrencyProvider);
+    selectedReferenceCurrency = ref.watch(referenceCurrencyStateProvider);
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -73,7 +74,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     ));
 
     return RefreshIndicator(
-      onRefresh: _refresh,
+      onRefresh: _refreshCoins,
       child: Column(
         children: [
           Container(
@@ -85,7 +86,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: TextButton(
-                      child: Text(currentReferenceCurrency.toString()),
+                      child: Text(selectedReferenceCurrency.toString()),
                       onPressed: _showCurrencyModal),
                 ),
               ),
@@ -253,24 +254,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       orderDirection = OrderDirection.desc;
     }
 
-    setState(() {
-      coins = coinsService.getCoins(
-        CoinsRequestData(
-            orderBy: orderBy, orderDirection: orderDirection, search: search),
-        currentReferenceCurrency,
-      );
-    });
-  }
-
-  void _search() {
-    setState(() {
-      coins = coinsService.getCoins(
-          CoinsRequestData(
-              orderBy: OrderBy.marketCap,
-              orderDirection: OrderDirection.desc,
-              search: search),
-          currentReferenceCurrency);
-    });
+    _refreshCoins();
   }
 
   void _showSearchModal(BuildContext context) {
@@ -287,7 +271,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             ElevatedButton(
               onPressed: () {
                 search = _searchController.text;
-                _search();
+                _refreshCoins();
 
                 Navigator.of(context).pop();
               },
@@ -306,19 +290,27 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             context: context,
             builder: (ctx) => ReferenceCurrenciesModal(currencies));
     futureCurrency.then((selectedCurrency) {
+      // TODO: check when selected and then unselected all
       if (selectedCurrency == null) {
         return;
       }
-      currentReferenceCurrency = selectedCurrency!;
-      _refresh();
+      selectedReferenceCurrency = selectedCurrency;
+      _refreshCoins();
     });
   }
 
   void _showCategoriesModal() {
-    showModalBottomSheet(
+    Future<Set<CategoryTag>?> futureTags = showModalBottomSheet<Set<CategoryTag>>(
         isScrollControlled: true,
         context: context,
         builder: (ctx) => CategoriesModal());
+    futureTags.then((selectedTags) {
+      if (selectedTags == null || selectedTags.isEmpty) {
+        return;
+      }
+      selectedCategoryTags = selectedTags;
+      _refreshCoins();
+    });
   }
 
   void _showTimePeriodModal() {
@@ -342,10 +334,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     }
   }
 
-  Future<void> _refresh() {
-    return coins = coinsService.getCoins(
-        CoinsRequestData(
-            orderBy: orderBy, orderDirection: orderDirection, search: search),
-        currentReferenceCurrency);
+  Future<void> _refreshCoins() async {
+    setState(() {
+      coins = coinsService.getCoins(
+          CoinsRequestData(
+              orderBy: orderBy, orderDirection: orderDirection, search: search, tags: selectedCategoryTags),
+          selectedReferenceCurrency);
+    });
+
   }
 }
