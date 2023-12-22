@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:crypto_tracker/model/reference_currency.dart';
 
-//phone navigation bar
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
@@ -36,6 +35,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   late ReferenceCurrenciesService referenceCurrenciesService;
 
   // Baboon code
+  TimePeriod? timePeriod = DefaultApiRequestConfig.timePeriod;
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
@@ -80,24 +80,41 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: TextButton(
-                    child: Text(currentReferenceCurrency.toString()),
-                    onPressed: _showCurrencyModal),
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: TextButton(
+                      child: Text(currentReferenceCurrency.toString()),
+                      onPressed: _showCurrencyModal),
+                ),
               ),
               Container(
-                child: TextButton(
-                    child: Text('Category'), onPressed: _showCategoriesModal),
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child:
+                        TextButton(child: Text('Category'), onPressed: _showCategoriesModal)),
               ),
               Container(
-                child: TextButton(child: Text('Time period'), onPressed: () {}),
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: TextButton(
+                        child: Text('Time period'), onPressed: () {})),
               ),
-              IconButton(
-                onPressed: () {
-                  _showSearchModal(context);
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 30,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.15,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: IconButton(
+                    onPressed: () {
+                      _showSearchModal(context);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 30,
+                    ),
+                  ),
                 ),
               )
             ],
