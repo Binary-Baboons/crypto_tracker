@@ -122,8 +122,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       child: Row(
                         children: [
                           Text('PRICE'),
-                          sortingIconChanger(currentOrderBy,
-                              savedCurrentOrderBy, OrderBy.price)
+                          sortingIconChanger(OrderBy.price)
                         ],
                       ),
                     ),
@@ -141,8 +140,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       child: Row(
                         children: [
                           Text('24H'),
-                          sortingIconChanger(currentOrderBy,
-                              savedCurrentOrderBy, OrderBy.change)
+                          sortingIconChanger(OrderBy.change)
                         ],
                       ),
                     ),
@@ -160,8 +158,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       child: Row(
                         children: [
                           Text('MARKET CAP'),
-                          sortingIconChanger(currentOrderBy,
-                              savedCurrentOrderBy, OrderBy.marketCap)
+                          sortingIconChanger(OrderBy.marketCap)
                         ],
                       ),
                     ),
@@ -283,22 +280,25 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   void _showCurrencyModal() {
-    showModalBottomSheet<ReferenceCurrency>(
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => ReferenceCurrenciesModal(currencies));
+    Future<ReferenceCurrency?> futureCurrency =
+        showModalBottomSheet<ReferenceCurrency>(
+            isScrollControlled: true,
+            context: context,
+            builder: (ctx) => ReferenceCurrenciesModal(currencies));
+    futureCurrency.then((selectedCurrency) {
+      currentReferenceCurrency = selectedCurrency!;
+      _refresh();
+    });
   }
 
-  Widget sortingIconChanger(currentOrderBy, savedOrderBy, orderByFilter) {
+  Widget sortingIconChanger(orderByFilter) {
     if (currentOrderBy == orderByFilter) {
       return const Icon(
-        Icons.keyboard_double_arrow_up,
-        color: Colors.green,
-      );
-    } else if (savedOrderBy == orderByFilter) {
-      return const Icon(
         Icons.keyboard_double_arrow_down,
-        color: Colors.red,
+      );
+    } else if (savedCurrentOrderBy == orderByFilter) {
+      return const Icon(
+        Icons.keyboard_double_arrow_up,
       );
     } else {
       return const Text('');

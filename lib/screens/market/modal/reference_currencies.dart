@@ -53,8 +53,10 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                     return ListTile(
                       title: TextButton(
                           onPressed: () {
-                            ref.read(referenceCurrencyProvider.notifier).state = snapshot.data!.$1[index];
-                            Navigator.of(context).pop();
+                            var selectedCurrency = snapshot.data!.$1[index];
+                            ref.read(referenceCurrencyProvider.notifier).state =
+                                selectedCurrency;
+                            Navigator.of(context).pop(selectedCurrency);
                           },
                           child: Text(snapshot.data!.$1[index].toString())),
                     );

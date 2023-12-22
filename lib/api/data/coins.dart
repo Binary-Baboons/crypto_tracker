@@ -19,7 +19,24 @@ extension GetOnlyNumberAndTime on TimePeriod {
 }
 
 enum Tags {
-  defi, stablecoin, nft, dex, exchange, staking, dao, meme, privacy, metaverse, gaming, wrapped, layer_1, layer_2, fan_token, football_club, web3, social
+  defi,
+  stablecoin,
+  nft,
+  dex,
+  exchange,
+  staking,
+  dao,
+  meme,
+  privacy,
+  metaverse,
+  gaming,
+  wrapped,
+  layer_1,
+  layer_2,
+  fan_token,
+  football_club,
+  web3,
+  social
 }
 
 extension FromUnderscoreToDash on Tags {
@@ -67,7 +84,7 @@ class CoinsRequestData {
       'tiers[0]': tier!.toString(),
       'referenceCurrencyUuid': referenceCurrencyUuid,
       if (search != null) 'search': search!,
-      if (tags == null) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
+      if (tags != null) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
     };
   }
 }
