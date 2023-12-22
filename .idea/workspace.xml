@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Bugfix">
+      <change afterPath="$PROJECT_DIR$/lib/screens/market/modal/time_period.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/crypto_tracker.iml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +52,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Merging feat/3",
+    "git-widget-placeholder": "feat/3",
     "go.import.settings.migrated": "true",
     "io.flutter.reload.alreadyRun": "true",
     "jdk.selected.JAVA_MODULE": "Android API 29 Platform",

@@ -84,7 +84,7 @@ class CoinsRequestData {
       'tiers[0]': tier!.toString(),
       'referenceCurrencyUuid': referenceCurrencyUuid,
       if (search != null) 'search': search!,
-      if (tags != null) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
+      if (tags != null && tags!.isNotEmpty) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
     };
   }
 }

@@ -7,6 +7,7 @@ import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
 import 'package:crypto_tracker/screens/market/modal/categories.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
+import 'package:crypto_tracker/screens/market/modal/time_period.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: TextButton(
-                        child: Text('Time period'), onPressed: () {})),
+                        child: Text('Time period'), onPressed: _showTimePeriodModal)),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.15,
@@ -314,10 +315,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   void _showCategoriesModal() {
-    showModalBottomSheet<ReferenceCurrency>(
+    showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         builder: (ctx) => CategoriesModal());
+  }
+
+  void _showTimePeriodModal() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => TimePeriodModal());
   }
 
   Widget sortingIconChanger(orderByFilter) {
