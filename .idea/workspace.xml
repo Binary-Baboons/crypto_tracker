@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Bugfix">
+      <change afterPath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/client/coins.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/client/coins.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/data/coins.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/data/coins.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/default_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/default_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/coin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/coin.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/model/reference_currency.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/reference_currency.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/service/coins.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/service/coins.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/service/reference_currency.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/service/reference_currency.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/client/coins_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/client/coins_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/client/coins_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/client/coins_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/service/coins_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/service/coins_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/service/coins_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/service/coins_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/service/reference_currencies_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/service/reference_currencies_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,33 +51,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/3&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;Android API 29 Platform&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mgojkovic/IdeaProjects/crypto_tracker&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "feat/3",
+    "go.import.settings.migrated": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "jdk.selected.JAVA_MODULE": "Android API 29 Platform",
+    "last_opened_file_path": "/home/mgojkovic/IdeaProjects/crypto_tracker/lib/screens/market/modal",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "flutter.settings",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
       <recent name="$PROJECT_DIR$/test/mocks" />
@@ -87,30 +90,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
-    <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="CoinsService" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="CoinsService" />
-      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
-      <option name="useRegexp" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration name="getCoins returns a exception from client" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="getCoins returns a exception from client" />
-      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
-      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="getCoins returns data from client" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testName" value="getCoins returns data from client" />
       <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="getReferenceCurrencies returns exception in service" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="getReferenceCurrencies returns exception in service" />
+      <option name="testFile" value="$PROJECT_DIR$/test/service/reference_currencies_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -120,8 +112,18 @@
       <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in coins_test.dart (1)" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/api/client/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="tests in coins_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in reference_currencies_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/service/reference_currencies_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -145,21 +147,21 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Dart Command Line App.main.dart" />
       <item itemvalue="Flutter.main.dart" />
       <item itemvalue="Flutter Test.tests in coin_ranking_test.dart" />
-      <item itemvalue="Flutter Test.CoinsService" />
+      <item itemvalue="Flutter Test.getReferenceCurrencies returns exception in service" />
+      <item itemvalue="Flutter Test.tests in coins_test.dart (1)" />
+      <item itemvalue="Flutter Test.tests in reference_currencies_test.dart" />
       <item itemvalue="Flutter Test.getCoins returns data from client" />
-      <item itemvalue="Flutter Test.getCoins returns a exception from client" />
       <item itemvalue="Flutter Test.tests in coins_test.dart" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.CoinsService" />
-        <item itemvalue="Dart Command Line App.main.dart" />
-        <item itemvalue="Flutter Test.getCoins returns data from client" />
-        <item itemvalue="Flutter Test.getCoins returns a exception from client" />
+        <item itemvalue="Flutter Test.tests in coins_test.dart (1)" />
         <item itemvalue="Flutter Test.tests in coins_test.dart" />
+        <item itemvalue="Flutter Test.getCoins returns data from client" />
+        <item itemvalue="Flutter Test.getReferenceCurrencies returns exception in service" />
+        <item itemvalue="Flutter Test.tests in reference_currencies_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -435,24 +437,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/test/api/client/coins_test.dart</url>
-          <line>41</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
           <line>18</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
-          <line>23</line>
+          <line>24</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/api/client/coins.dart</url>
-          <line>18</line>
-          <option name="timeStamp" value="19" />
+          <url>file://$PROJECT_DIR$/lib/service/coins.dart</url>
+          <line>37</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -460,5 +457,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="../../../IdeaProjects/crypto_tracker/coverage/lcov.info" NAME="tests in coins_test.dart Coverage Results" MODIFIED="1703267182909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="FlutterCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

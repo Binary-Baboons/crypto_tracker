@@ -10,13 +10,16 @@ class Coin {
   String? price;
   String? change;
   String? marketCap;
-}
 
-extension Equals on Coin {
-  bool equals(Coin coin) {
-    if (identical(this, coin)) {
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
       return true;
     }
+    if (other is! Coin) {
+      return false;
+    }
+    Coin coin = other;
 
     return uuid == coin.uuid &&
         rank == coin.rank &&
@@ -27,4 +30,7 @@ extension Equals on Coin {
         change == coin.change &&
         marketCap == coin.marketCap;
   }
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, uuid);
 }

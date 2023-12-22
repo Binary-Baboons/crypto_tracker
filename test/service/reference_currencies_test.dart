@@ -33,14 +33,14 @@ void main() {
       await service.getReferenceCurrencies();
 
       expect(
-          result.$1.first.equals(ReferenceCurrency(
-              "qwerty", "fiat", "http", "Dollar", "\$", "USD")),
+          result.$1.first == ReferenceCurrency(
+              "qwerty", "fiat", "http", "Dollar", "\$", "USD"),
           true,
           reason: "Reference currencies are not equal");
       expect(result.$2, null, reason: "Message is not null");
     });
 
-    test('getReferenceCurrencies returns data from client', () async {
+    test('getReferenceCurrencies returns error message from client', () async {
       when(mockClient.getReferenceCurrencies()).thenAnswer((_) async {
         return ResponseData(422, [], "Reference currency not available");
       });
@@ -50,6 +50,17 @@ void main() {
 
       expect(result.$1.length, 0, reason: "Reference currencies are not empty");
       expect(result.$2, "Reference currency not available",
+          reason: "Message is not equal");
+    });
+
+    test('getReferenceCurrencies returns exception in service', () async {
+      when(mockClient.getReferenceCurrencies()).thenThrow(Exception());
+
+      (List<ReferenceCurrency>, String?) result =
+      await service.getReferenceCurrencies();
+
+      expect(result.$1.length, 0, reason: "Reference currencies are not empty");
+      expect(result.$2, "Internal application error",
           reason: "Message is not equal");
     });
   });

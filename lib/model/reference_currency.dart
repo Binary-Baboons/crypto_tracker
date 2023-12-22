@@ -17,13 +17,16 @@ class ReferenceCurrency {
   String toString() {
     return "$name (${getSignSymbol()})";
   }
-}
 
-extension Equals on ReferenceCurrency {
-  bool equals(ReferenceCurrency currency) {
-    if (identical(this, currency)) {
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
       return true;
     }
+    if (other is! ReferenceCurrency) {
+      return false;
+    }
+    ReferenceCurrency currency = other;
 
     return uuid == currency.uuid &&
         type == currency.type &&
@@ -32,4 +35,8 @@ extension Equals on ReferenceCurrency {
         symbol == currency.symbol &&
         sign == currency.sign;
   }
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, uuid.hashCode);
+
 }

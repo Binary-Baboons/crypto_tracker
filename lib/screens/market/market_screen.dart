@@ -6,6 +6,7 @@ import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
+import 'package:crypto_tracker/screens/market/modal/categories.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
@@ -84,7 +85,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     onPressed: _showCurrencyModal),
               ),
               Container(
-                child: TextButton(child: Text('Category'), onPressed: () {}),
+                child: TextButton(
+                    child: Text('Category'), onPressed: _showCategoriesModal),
               ),
               Container(
                 child: TextButton(child: Text('Time period'), onPressed: () {}),
@@ -286,9 +288,19 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             context: context,
             builder: (ctx) => ReferenceCurrenciesModal(currencies));
     futureCurrency.then((selectedCurrency) {
+      if (selectedCurrency == null) {
+        return;
+      }
       currentReferenceCurrency = selectedCurrency!;
       _refresh();
     });
+  }
+
+  void _showCategoriesModal() {
+    showModalBottomSheet<ReferenceCurrency>(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => CategoriesModal());
   }
 
   Widget sortingIconChanger(orderByFilter) {

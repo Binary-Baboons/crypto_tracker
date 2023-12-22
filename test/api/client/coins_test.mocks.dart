@@ -72,18 +72,27 @@ class MockCoinsApiClient<T> extends _i1.Mock implements _i4.CoinsApiClient<T> {
       );
 
   @override
-  _i5.Future<_i3.ResponseData<T>> getCoins(_i6.CoinsRequestData? requestData) =>
+  _i5.Future<_i3.ResponseData<T>> getCoins(
+    _i6.CoinsRequestData? requestData,
+    String? referenceCurrencyUuid,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCoins,
-          [requestData],
+          [
+            requestData,
+            referenceCurrencyUuid,
+          ],
         ),
         returnValue:
             _i5.Future<_i3.ResponseData<T>>.value(_FakeResponseData_1<T>(
           this,
           Invocation.method(
             #getCoins,
-            [requestData],
+            [
+              requestData,
+              referenceCurrencyUuid,
+            ],
           ),
         )),
       ) as _i5.Future<_i3.ResponseData<T>>);
