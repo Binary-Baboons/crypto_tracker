@@ -51,7 +51,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     currentReferenceCurrency = ref.read(referenceCurrencyProvider);
 
     coinsService = ref.read(coinsServiceProvider);
-    coins = coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency!);
+    coins =
+        coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency!);
 
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
     currencies = referenceCurrenciesService.getReferenceCurrencies();
@@ -59,6 +60,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
   void _updateCurrentOrderBy(OrderBy selectedOrderBy) {
     savedCurrentOrderBy = selectedOrderBy;
+
     if (currentOrderBy == selectedOrderBy) {
       orderDirection = OrderDirection.asc;
       currentOrderBy = null;
@@ -70,13 +72,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
     setState(() {
       coins = coinsService.getCoins(
-        CoinsRequestData(orderBy: orderBy, orderDirection: orderDirection),
+        CoinsRequestData(
+            orderBy: orderBy, orderDirection: orderDirection, search: search),
         currentReferenceCurrency!,
       );
     });
   }
 
-  void _search(String search) {
+  void _search() {
+    savedCurrentOrderBy = null;
+    currentOrderBy = OrderBy.marketCap;
+
     setState(() {
       coins = coinsService.getCoins(
           CoinsRequestData(
@@ -100,8 +106,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
           actions: <Widget>[
             ElevatedButton(
               onPressed: () {
-                String search = _searchController.text;
-                _search(search);
+                search = _searchController.text;
+                _search();
 
                 Navigator.of(context).pop();
               },
@@ -148,6 +154,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
   @override
   Widget build(BuildContext context) {
+    referenceCurrenciesService = ref.watch(referenceCurrenciesServiceProvider);
     double screenWidth = MediaQuery.of(context).size.width;
 
 //phone navigation bar ONLY FOR ANDROID

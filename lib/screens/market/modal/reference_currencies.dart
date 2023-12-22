@@ -1,15 +1,17 @@
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker/screens/market/market_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:riverpod/riverpod.dart";
+import 'package:crypto_tracker/provider/reference_currency.dart';
 
-class ReferenceCurrenciesModal extends StatelessWidget {
+class ReferenceCurrenciesModal extends ConsumerWidget {
   ReferenceCurrenciesModal(this.currencies, {super.key});
 
   late Future<(List<ReferenceCurrency>, String?)> currencies;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
       Container(
         color: Color.fromARGB(255, 2, 32, 54),
@@ -52,7 +54,10 @@ class ReferenceCurrenciesModal extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       title: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            ref.read(referenceCurrencyProvider.notifier).state =
+                                snapshot.data!.$1[index];
+                          },
                           child: Text(snapshot.data!.$1[index].toString())),
                     );
                   },

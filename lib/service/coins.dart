@@ -14,6 +14,7 @@ class CoinsService {
   Future<(List<Coin>, String?)> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
     try {
+      requestData.referenceCurrencyUuid = referenceCurrency.uuid;
       ResponseData<Coin> coinsData = await coinsApiClient.getCoins(requestData);
 
       return (format(coinsData.data, referenceCurrency), coinsData.message);
