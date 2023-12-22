@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Bugfix" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HybrisDeveloperSpecificProjectSettings">
+    <option name="activeRemoteConnectionID" value="fa23a13e-1f34-4172-a245-f2dbc814e539" />
+    <option name="activeSolrConnectionID" value="9b03e1c3-7ef3-4aa9-85a6-0f7cef5da074" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2ZcNACC1P7Z9m0OSg4ufFs2q6CI" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/3&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;Android API 29 Platform&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mgojkovic/IdeaProjects/crypto_tracker&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
+      <recent name="$PROJECT_DIR$/test/mocks" />
+      <recent name="$PROJECT_DIR$/lib/api/data" />
+      <recent name="$PROJECT_DIR$/lib/screens/market" />
+      <recent name="$PROJECT_DIR$/test/test_data" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Flutter Test.CoinsService">
+    <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CoinsService" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="CoinsService" />
+      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="getCoins returns a exception from client" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="getCoins returns a exception from client" />
+      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="getCoins returns data from client" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="getCoins returns data from client" />
+      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in coin_ranking_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/api/service/coin_ranking_test.dart" />
+      <option name="useRegexp" value="false" />
+      <option name="additionalArgs" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in coins_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="crypto_tracker" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="crypto_tracker" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Dart Command Line App.main.dart" />
+      <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter Test.tests in coin_ranking_test.dart" />
+      <item itemvalue="Flutter Test.CoinsService" />
+      <item itemvalue="Flutter Test.getCoins returns data from client" />
+      <item itemvalue="Flutter Test.getCoins returns a exception from client" />
+      <item itemvalue="Flutter Test.tests in coins_test.dart" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.CoinsService" />
+        <item itemvalue="Dart Command Line App.main.dart" />
+        <item itemvalue="Flutter Test.getCoins returns data from client" />
+        <item itemvalue="Flutter Test.getCoins returns a exception from client" />
+        <item itemvalue="Flutter Test.tests in coins_test.dart" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="" />
+      <created>1702717262600</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702717262600</updated>
+      <workItem from="1702717265359" duration="13005000" />
+      <workItem from="1702731527745" duration="323000" />
+      <workItem from="1702741608506" duration="8864000" />
+      <workItem from="1702757978396" duration="2206000" />
+      <workItem from="1702800951516" duration="14515000" />
+      <workItem from="1702817868961" duration="935000" />
+      <workItem from="1702818812393" duration="1591000" />
+      <workItem from="1702830157327" duration="6999000" />
+      <workItem from="1702841805760" duration="10102000" />
+      <workItem from="1702891769989" duration="4895000" />
+      <workItem from="1702902918459" duration="686000" />
+      <workItem from="1702905739569" duration="5440000" />
+      <workItem from="1702913781892" duration="7343000" />
+      <workItem from="1702981756297" duration="160000" />
+      <workItem from="1703018021534" duration="5116000" />
+      <workItem from="1703058102386" duration="6013000" />
+      <workItem from="1703066218449" duration="13000" />
+      <workItem from="1703067023787" duration="3967000" />
+      <workItem from="1703078371280" duration="27000" />
+      <workItem from="1703078404454" duration="962000" />
+      <workItem from="1703079374297" duration="14782000" />
+      <workItem from="1703170290271" duration="10000" />
+      <workItem from="1703170306685" duration="1147000" />
+      <workItem from="1703179365895" duration="4225000" />
+      <workItem from="1703190875729" duration="2538000" />
+      <workItem from="1703239074291" duration="369000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat/1: [MARKET] Define model">
+      <option name="closed" value="true" />
+      <created>1702721296828</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702721296828</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat/1: [MARKET] Define model">
+      <option name="closed" value="true" />
+      <created>1702721418174</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702721418174</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat/1: Removed import">
+      <option name="closed" value="true" />
+      <created>1702721828471</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702721828471</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat/2: Start of api service">
+      <option name="closed" value="true" />
+      <created>1702743988869</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702743988869</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat/2: Start of api service">
+      <option name="closed" value="true" />
+      <created>1702745426220</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702745426220</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat/2: Working api">
+      <option name="closed" value="true" />
+      <created>1702749432455</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702749432455</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat/2: Added tests">
+      <option name="closed" value="true" />
+      <created>1702816038135</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702816038135</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat/2: Added .env">
+      <option name="closed" value="true" />
+      <created>1702818268032</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702818268032</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat/2: Added .env">
+      <option name="closed" value="true" />
+      <created>1702818272772</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702818272772</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat/2: Added api service provider">
+      <option name="closed" value="true" />
+      <created>1702819073203</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1702819073203</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat/2: Using real data from api">
+      <option name="closed" value="true" />
+      <created>1702831332824</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702831332824</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix: Api response data can have null fields">
+      <option name="closed" value="true" />
+      <created>1702837194037</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1702837194037</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat/2: Added referenceCurrencyUuid request field">
+      <option name="closed" value="true" />
+      <created>1702897108844</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1702897108844</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat/2: Added tests">
+      <option name="closed" value="true" />
+      <created>1702907393142</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1702907393142</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat/2: Added tests for service">
+      <option name="closed" value="true" />
+      <created>1703061290095</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1703061290095</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat/2: Added mocks">
+      <option name="closed" value="true" />
+      <created>1703061999851</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1703061999851</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat/2: Main reverted">
+      <option name="closed" value="true" />
+      <created>1703064314156</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1703064314156</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat/3: Resolving merge conflicts">
+      <option name="closed" value="true" />
+      <created>1703079214709</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1703079214709</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat/3: Merged">
+      <option name="closed" value="true" />
+      <created>1703083119642</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1703083119642</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat/3: App name">
+      <option name="closed" value="true" />
+      <created>1703083371636</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1703083371636</updated>
+    </task>
+    <task id="LOCAL-00021" summary="feat/3: Modified price display logic">
+      <option name="closed" value="true" />
+      <created>1703144985592</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1703144985592</updated>
+    </task>
+    <task id="LOCAL-00022" summary="feat/3: Bugfix">
+      <option name="closed" value="true" />
+      <created>1703180217328</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1703180217328</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feat/2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat/1: [MARKET] Define model" />
+    <MESSAGE value="feat/1: Removed import" />
+    <MESSAGE value="feat/2: Start of api service" />
+    <MESSAGE value="feat/2: Working api" />
+    <MESSAGE value="feat/2: Added .env" />
+    <MESSAGE value="feat/2: Added api service provider" />
+    <MESSAGE value="feat/2: Using real data from api" />
+    <MESSAGE value="fix: Api response data can have null fields" />
+    <MESSAGE value="feat/2: Added referenceCurrencyUuid request field" />
+    <MESSAGE value="feat/2: Added tests" />
+    <MESSAGE value="feat/2: Added tests for service" />
+    <MESSAGE value="feat/2: Added mocks" />
+    <MESSAGE value="feat/2: Main reverted" />
+    <MESSAGE value="feat/3: Resolving merge conflicts" />
+    <MESSAGE value="feat/3: Merged" />
+    <MESSAGE value="feat/3: App name" />
+    <MESSAGE value="feat/3: Modified price display logic" />
+    <MESSAGE value="feat/3: Bugfix" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/3: Bugfix" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/test/api/client/coins_test.dart</url>
+          <line>41</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

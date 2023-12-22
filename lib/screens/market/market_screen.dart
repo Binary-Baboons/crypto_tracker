@@ -37,7 +37,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   String? search;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  late ReferenceCurrency currentReferenceCurrency;
+  ReferenceCurrency? currentReferenceCurrency;
 
   @override
   void dispose() {
@@ -48,31 +48,30 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   @override
   void initState() {
     super.initState();
+    currentReferenceCurrency = ref.read(referenceCurrencyProvider);
 
     coinsService = ref.read(coinsServiceProvider);
-    coins = coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency);
+    coins = coinsService.getCoins(CoinsRequestData(), currentReferenceCurrency!);
 
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
     currencies = referenceCurrenciesService.getReferenceCurrencies();
-
-    currentReferenceCurrency = ref.watch(refrenceCurrencyProvider);
   }
 
-  void _updateCurrentOrderBy(OrderBy orderByVar) {
-    savedCurrentOrderBy = orderByVar;
-    if (currentOrderBy == orderByVar) {
+  void _updateCurrentOrderBy(OrderBy selectedOrderBy) {
+    savedCurrentOrderBy = selectedOrderBy;
+    if (currentOrderBy == selectedOrderBy) {
       orderDirection = OrderDirection.asc;
       currentOrderBy = null;
     } else {
-      currentOrderBy = orderByVar;
-      orderBy = orderByVar;
+      currentOrderBy = selectedOrderBy;
+      orderBy = selectedOrderBy;
       orderDirection = OrderDirection.desc;
     }
 
     setState(() {
       coins = coinsService.getCoins(
         CoinsRequestData(orderBy: orderBy, orderDirection: orderDirection),
-        currentReferenceCurrency,
+        currentReferenceCurrency!,
       );
     });
   }
@@ -84,7 +83,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
               orderBy: OrderBy.marketCap,
               orderDirection: OrderDirection.desc,
               search: search),
-          currentReferenceCurrency);
+          currentReferenceCurrency!);
     });
   }
 
@@ -143,7 +142,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       coins = coinsService.getCoins(
           CoinsRequestData(
               orderBy: orderBy, orderDirection: orderDirection, search: search),
-          currentReferenceCurrency);
+          currentReferenceCurrency!);
     });
   }
 
