@@ -81,8 +81,7 @@ class MarketListWidget extends StatelessWidget {
                             coins[index].symbol != null
                                 ? coins[index].symbol!
                                 : "",
-                            style:
-                                const TextStyle(fontWeight: FontWeight.w700),
+                            style: const TextStyle(fontWeight: FontWeight.w700),
                           )
                         ]),
                       ),

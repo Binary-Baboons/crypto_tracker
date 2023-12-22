@@ -17,17 +17,24 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.05,
-                )
+                Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'Select currency',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close)),
+                ),
               ],
             ),
           ],
@@ -50,15 +57,37 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                   itemCount: snapshot.data!.$1.length,
                   itemExtent: 70.0, // Fixed height for each item
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: TextButton(
-                          onPressed: () {
-                            var selectedCurrency = snapshot.data!.$1[index];
-                            ref.read(referenceCurrencyProvider.notifier).state =
-                                selectedCurrency;
-                            Navigator.of(context).pop(selectedCurrency);
-                          },
-                          child: Text(snapshot.data!.$1[index].toString())),
+                    return Container(
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              alignment: Alignment.centerLeft,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: TextButton(
+                                    onPressed: () {
+                                      var selectedCurrency =
+                                          snapshot.data!.$1[index];
+                                      ref
+                                          .read(referenceCurrencyProvider
+                                              .notifier)
+                                          .state = selectedCurrency;
+                                      Navigator.of(context)
+                                          .pop(selectedCurrency);
+                                    },
+                                    child: Text(
+                                        snapshot.data!.$1[index].toString())),
+                              ),
+                            ),
+                            currentCurrencyMarking(
+                                ref, snapshot.data!.$1[index])
+                          ],
+                        ),
+                      ),
                     );
                   },
                 );
@@ -68,5 +97,18 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
             }),
       )
     ]);
+  }
+
+  Widget currentCurrencyMarking(
+      WidgetRef ref, ReferenceCurrency currentCurrency) {
+    var activeCurrency = ref.read(referenceCurrencyProvider);
+    if (currentCurrency.uuid == activeCurrency.uuid) {
+      return Icon(
+        Icons.check_circle,
+        color: Color.fromARGB(255, 2, 32, 54),
+      );
+    } else {
+      return Text('');
+    }
   }
 }

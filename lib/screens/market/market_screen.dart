@@ -35,6 +35,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   late ReferenceCurrenciesService referenceCurrenciesService;
 
   // Baboon code
+  TimePeriod? timePeriod = DefaultApiRequestConfig.timePeriod;
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
@@ -79,23 +80,41 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: TextButton(
-                    child: Text(currentReferenceCurrency.toString()),
-                    onPressed: _showCurrencyModal),
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: TextButton(
+                      child: Text(currentReferenceCurrency.toString()),
+                      onPressed: _showCurrencyModal),
+                ),
               ),
               Container(
-                child: TextButton(child: Text('Category'), onPressed: () {}),
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child:
+                        TextButton(child: Text('Category'), onPressed: () {})),
               ),
               Container(
-                child: TextButton(child: Text('Time period'), onPressed: () {}),
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: TextButton(
+                        child: Text('Time period'), onPressed: () {})),
               ),
-              IconButton(
-                onPressed: () {
-                  _showSearchModal(context);
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 30,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.15,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: IconButton(
+                    onPressed: () {
+                      _showSearchModal(context);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 30,
+                    ),
+                  ),
                 ),
               )
             ],
