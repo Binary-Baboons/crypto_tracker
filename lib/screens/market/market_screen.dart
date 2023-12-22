@@ -1,5 +1,7 @@
 import 'dart:async';
-
+//phone navigation bar
+import 'package:crypto_tracker/provider/reference_currency.dart';
+import 'package:flutter/services.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/service_provider.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
@@ -35,7 +37,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   String? search;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  ReferenceCurrency currentReferenceCurrency = DefaultConfig.referenceCurrency;
+  late ReferenceCurrency currentReferenceCurrency;
 
   @override
   void dispose() {
@@ -52,6 +54,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
     currencies = referenceCurrenciesService.getReferenceCurrencies();
+
+    currentReferenceCurrency = ref.watch(refrenceCurrencyProvider);
   }
 
   void _updateCurrentOrderBy(OrderBy orderByVar) {
@@ -147,6 +151,12 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
+//phone navigation bar ONLY FOR ANDROID
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          Color.fromARGB(255, 2, 32, 54), // Set your desired color here
+    ));
+
     return RefreshIndicator(
       onRefresh: _refresh,
       child: Column(
@@ -156,7 +166,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: TextButton(child: Text(currentReferenceCurrency.toString()), onPressed: _showCurrencyModal),
+                child: TextButton(
+                    child: Text(currentReferenceCurrency.toString()),
+                    onPressed: _showCurrencyModal),
               ),
               Container(
                 child: TextButton(child: Text('Category'), onPressed: () {}),
