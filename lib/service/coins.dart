@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
@@ -14,11 +16,11 @@ class CoinsService {
   Future<(List<Coin>, String?)> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
     try {
-      requestData.referenceCurrencyUuid = referenceCurrency.uuid;
-      ResponseData<Coin> coinsData = await coinsApiClient.getCoins(requestData);
+      ResponseData<Coin> coinsData = await coinsApiClient.getCoins(requestData, referenceCurrency.uuid);
 
       return (format(coinsData.data, referenceCurrency), coinsData.message);
     } catch (e) {
+      log(e.toString());
       return (<Coin>[], "Internal application error");
     }
   }

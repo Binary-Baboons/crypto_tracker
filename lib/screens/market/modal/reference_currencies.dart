@@ -1,8 +1,6 @@
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_tracker/screens/market/market_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:riverpod/riverpod.dart";
 import 'package:crypto_tracker/provider/reference_currency.dart';
 
 class ReferenceCurrenciesModal extends ConsumerWidget {
@@ -55,8 +53,8 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                     return ListTile(
                       title: TextButton(
                           onPressed: () {
-                            ref.read(referenceCurrencyProvider.notifier).state =
-                                snapshot.data!.$1[index];
+                            ref.read(referenceCurrencyProvider.notifier).state = snapshot.data!.$1[index];
+                            Navigator.of(context).pop();
                           },
                           child: Text(snapshot.data!.$1[index].toString())),
                     );

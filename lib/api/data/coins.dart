@@ -18,6 +18,16 @@ extension GetOnlyNumberAndTime on TimePeriod {
   }
 }
 
+enum Tags {
+  defi, stablecoin, nft, dex, exchange, staking, dao, meme, privacy, metaverse, gaming, wrapped, layer_1, layer_2, fan_token, football_club, web3, social
+}
+
+extension FromUnderscoreToDash on Tags {
+  String get getValueWithDash {
+    return getValueOnly.replaceFirst("_", "-");
+  }
+}
+
 class CoinsRequestData {
   CoinsRequestData(
       {this.orderBy,
@@ -26,15 +36,16 @@ class CoinsRequestData {
       this.offset,
       this.timePeriod,
       this.search,
-      this.referenceCurrencyUuid}) {
+      this.tier,
+      this.tags}) {
     orderBy = orderBy ?? DefaultApiRequestConfig.orderBy;
     orderDirection = orderDirection ?? DefaultApiRequestConfig.orderDirection;
     limit = limit ?? DefaultApiRequestConfig.limit;
     offset = offset ?? DefaultApiRequestConfig.offset;
     timePeriod = timePeriod ?? DefaultApiRequestConfig.timePeriod;
-    referenceCurrencyUuid =
-        referenceCurrencyUuid ?? DefaultApiRequestConfig.referenceCurrencyUuid;
+    tier = tier ?? DefaultApiRequestConfig.tier;
     search = search;
+    tags = tags;
   }
 
   OrderBy? orderBy;
@@ -43,17 +54,20 @@ class CoinsRequestData {
   int? offset;
   TimePeriod? timePeriod;
   String? search;
-  String? referenceCurrencyUuid;
+  int? tier;
+  List<Tags>? tags;
 
-  Map<String, String> toJsonMap() {
+  Map<String, String> prepareParams(String referenceCurrencyUuid) {
     return {
       'orderBy': orderBy!.getValueOnly,
       'orderDirection': orderDirection!.getValueOnly,
       'limit': limit.toString(),
       'offset': offset.toString(),
       'timePeriod': timePeriod!.getTimePeriod,
-      'referenceCurrencyUuid': DefaultApiRequestConfig.referenceCurrencyUuid,
+      'tiers[0]': tier!.toString(),
+      'referenceCurrencyUuid': referenceCurrencyUuid,
       if (search != null) 'search': search!,
+      if (tags == null) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
     };
   }
 }

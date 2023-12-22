@@ -9,6 +9,7 @@ abstract class DefaultApiRequestConfig {
   static const limit = 50;
   static const offset = 0;
   static const timePeriod = TimePeriod.t24h;
+  static const tier = 1;
 }
 
 abstract class DefaultConfig {

@@ -15,8 +15,8 @@ class CoinsApiClient<T> {
 
   BaseClient client;
 
-  Future<ResponseData<T>> getCoins(CoinsRequestData requestData) async {
-    final uri = Uri.https(baseUrl, coinsApi, requestData.toJsonMap());
+  Future<ResponseData<T>> getCoins(CoinsRequestData requestData, String referenceCurrencyUuid) async {
+    final uri = Uri.https(baseUrl, coinsApi, requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
       "x-access-token": dotenv.env[coinRankingApiKey]!,
