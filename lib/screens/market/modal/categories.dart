@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CategoriesModal extends ConsumerStatefulWidget {
-  CategoriesModal({super.key});
+  CategoriesModal(this.selectedCategoryTags, {super.key});
 
-  Set<CategoryTag> selectedCategoryTags = {};
+  Set<CategoryTag> selectedCategoryTags;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {

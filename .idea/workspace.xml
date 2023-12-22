@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Added time period modal">
+      <change afterPath="$PROJECT_DIR$/untitled/crypto_tracker.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/data/coins.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/data/coins.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/coins_api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/coins_api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/ioclient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/io_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/reference_currencies_api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/api/reference_currencies_api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/reference_currency.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/reference_currency.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/service_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/service/service_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,22 +53,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "feat/3",
     "go.import.settings.migrated": "true",
     "io.flutter.reload.alreadyRun": "true",
     "jdk.selected.JAVA_MODULE": "Android API 29 Platform",
-    "last_opened_file_path": "/home/mgojkovic/IdeaProjects/crypto_tracker/lib/screens/market/modal",
+    "last_opened_file_path": "/home/mgojkovic/IdeaProjects/crypto_tracker",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "flutter.settings",
+    "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
@@ -82,11 +79,11 @@
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/provider/state" />
       <recent name="$PROJECT_DIR$/lib/provider/service" />
       <recent name="$PROJECT_DIR$/lib/provider/api" />
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
       <recent name="$PROJECT_DIR$/test/mocks" />
-      <recent name="$PROJECT_DIR$/lib/api/data" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -203,6 +200,7 @@
       <workItem from="1703190875729" duration="2538000" />
       <workItem from="1703239074291" duration="369000" />
       <workItem from="1703254998682" duration="5612000" />
+      <workItem from="1703282251809" duration="367000" />
     </task>
     <task id="LOCAL-00001" summary="feat/1: [MARKET] Define model">
       <option name="closed" value="true" />

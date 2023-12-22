@@ -43,7 +43,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   String? search;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
   late ReferenceCurrency selectedReferenceCurrency;
-  late Set<CategoryTag> selectedCategoryTags;
+  late Set<CategoryTag> selectedCategoryTags = {};
 
   @override
   void dispose() {
@@ -290,7 +290,6 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             context: context,
             builder: (ctx) => ReferenceCurrenciesModal(currencies));
     futureCurrency.then((selectedCurrency) {
-      // TODO: check when selected and then unselected all
       if (selectedCurrency == null) {
         return;
       }
@@ -303,12 +302,13 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     Future<Set<CategoryTag>?> futureTags = showModalBottomSheet<Set<CategoryTag>>(
         isScrollControlled: true,
         context: context,
-        builder: (ctx) => CategoriesModal());
+        builder: (ctx) => CategoriesModal(selectedCategoryTags));
     futureTags.then((selectedTags) {
-      if (selectedTags == null || selectedTags.isEmpty) {
-        return;
+      if (selectedTags != null) {
+        selectedCategoryTags = selectedTags;
+      } else {
+        selectedCategoryTags = {};
       }
-      selectedCategoryTags = selectedTags;
       _refreshCoins();
     });
   }
