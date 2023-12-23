@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TimePeriodModal extends ConsumerWidget {
-  TimePeriodModal({super.key});
+  TimePeriodModal(this.selectedTimePeriod, {super.key});
 
+  TimePeriod selectedTimePeriod;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
@@ -16,6 +17,14 @@ class TimePeriodModal extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'Select time period',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
                 IconButton(
                     color: Colors.white,
                     onPressed: () {
@@ -36,13 +45,53 @@ class TimePeriodModal extends ConsumerWidget {
         itemExtent: 70.0,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: TextButton(
-                onPressed: () {
-                },
-                child: Text(TimePeriod.values[index].getTimePeriod)),
+            contentPadding: EdgeInsets.all(0),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: TextButton(
+                        onPressed: () {
+                          selectedTimePeriod = TimePeriod.values[index];
+                          Navigator.of(context).pop(selectedTimePeriod);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Text(
+                                    TimePeriod.values[index].getTimePeriod),
+                              ),
+                              Container(
+                                child: currentTimePeriodMarking(
+                                    TimePeriod.values[index]),
+                              )
+                            ],
+                          ),
+                        )),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ))
     ]);
+  }
+
+  Widget currentTimePeriodMarking(TimePeriod currentTimePeriodVar) {
+    if (selectedTimePeriod == currentTimePeriodVar) {
+      return Icon(
+        Icons.check_circle,
+        color: Color.fromARGB(255, 2, 32, 54),
+      );
+    } else {
+      return Text('');
+    }
   }
 }
