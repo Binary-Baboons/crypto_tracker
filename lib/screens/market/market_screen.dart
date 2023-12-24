@@ -34,8 +34,6 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   late CoinsService coinsService;
   late ReferenceCurrenciesService referenceCurrenciesService;
 
-  // Baboon code
-
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
