@@ -22,4 +22,10 @@ jobs:
       run: flutter pub get
 
     - name: Run tests
-      run: flutter test
+      run: flutter test --coverage
+
+    - uses: actions/checkout@v2
+    - name: Very Good Coverage
+      uses: VeryGoodOpenSource/very_good_coverage@v2
+      with:
+        path: /crypto_tracker/coverage/lcov.info
