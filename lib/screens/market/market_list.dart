@@ -48,15 +48,16 @@ class MarketListWidget extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
             contentPadding: EdgeInsets.only(
-              left: screenWidth * 0.02,
-              right: screenWidth * 0.02,
-            ),
+                left: screenWidth * 0.02,
+                right: screenWidth * 0.02,
+                top: 0,
+                bottom: 0),
             title: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.111,
                     child: Row(children: [
                       Container(
                           width: screenWidth * 0.08,
