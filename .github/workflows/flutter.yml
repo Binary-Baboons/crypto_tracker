@@ -27,4 +27,4 @@ jobs:
     - name: Very Good Coverage
       uses: VeryGoodOpenSource/very_good_coverage@v2
       with:
-        path: /coverage/lcov.info
+        path: /crypto_tracker/coverage/lcov.info
