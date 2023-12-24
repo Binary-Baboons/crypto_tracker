@@ -18,9 +18,7 @@ class TimePeriodModal extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 0,
-                  ),
+                  SizedBox(),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
@@ -28,12 +26,14 @@ class TimePeriodModal extends ConsumerWidget {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
-                  IconButton(
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.close)),
+                  Container(
+                    child: IconButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.close)),
+                  ),
                 ],
               ),
             ],

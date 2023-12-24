@@ -17,17 +17,17 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
                     'Select currency',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
                   child: IconButton(
                       color: Colors.white,
                       onPressed: () {
@@ -60,45 +60,32 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                     return Container(
                       child: ListTile(
                         contentPadding: EdgeInsets.all(0),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: TextButton(
-                                    onPressed: () {
-                                      var selectedCurrency =
-                                          snapshot.data!.$1[index];
-                                      ref
-                                          .read(referenceCurrencyStateProvider
-                                              .notifier)
-                                          .state = selectedCurrency;
-                                      Navigator.of(context)
-                                          .pop(selectedCurrency);
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(snapshot.data!.$1[index]
-                                                .toString()),
-                                          ),
-                                          Container(
-                                            child: currentCurrencyMarking(
-                                                ref, snapshot.data!.$1[index]),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ),
-                          ],
+                        title: Container(
+                          child: TextButton(
+                              onPressed: () {
+                                var selectedCurrency = snapshot.data!.$1[index];
+                                ref
+                                    .read(
+                                        referenceCurrencyStateProvider.notifier)
+                                    .state = selectedCurrency;
+                                Navigator.of(context).pop(selectedCurrency);
+                              },
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                          snapshot.data!.$1[index].toString()),
+                                    ),
+                                    Container(
+                                      child: currentCurrencyMarking(
+                                          ref, snapshot.data!.$1[index]),
+                                    )
+                                  ],
+                                ),
+                              )),
                         ),
                       ),
                     );

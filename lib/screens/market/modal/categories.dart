@@ -23,25 +23,24 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
                     'Select categories',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
-                IconButton(
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pop(widget.selectedCategoryTags);
-                    },
-                    icon: const Icon(Icons.close)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.05,
-                )
+                Container(
+                  child: IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pop(widget.selectedCategoryTags);
+                      },
+                      icon: Icon(Icons.close)),
+                ),
               ],
             ),
           ],
@@ -55,36 +54,22 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
           return Container(
             child: ListTile(
               contentPadding: EdgeInsets.all(0),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: TextButton(
-                          onPressed: () =>
-                              selectCategoryTag(CategoryTag.values[index]),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Text(CategoryTag
-                                      .values[index].getValueWithDash),
-                                ),
-                                Container(
-                                  child: currentCategoryTagMarking(
-                                      CategoryTag.values[index]),
-                                )
-                              ],
-                            ),
-                          )),
+              title: TextButton(
+                  onPressed: () => selectCategoryTag(CategoryTag.values[index]),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            child: Text(
+                                CategoryTag.values[index].getValueWithDash)),
+                        Container(
+                          child: currentCategoryTagMarking(
+                              CategoryTag.values[index]),
+                        )
+                      ],
                     ),
-                  ),
-                ],
-              ),
+                  )),
             ),
           );
         },
