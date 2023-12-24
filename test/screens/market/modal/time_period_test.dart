@@ -18,11 +18,12 @@ void main() {
 
       for (var period in TimePeriod.values) {
         await tester.scrollUntilVisible(
-          find.text(period.getTimePeriod),
-          500.0,
+          find.text(period.getTimePeriod).last,
+          100.0,
           scrollable: find.byType(Scrollable),
         );
-        expect(find.text(period.getTimePeriod), findsOneWidget);
+        await tester.pump();
+        expect(find.text(period.getTimePeriod).last, findsOneWidget);
       }
     });
   });
