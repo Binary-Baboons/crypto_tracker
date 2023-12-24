@@ -7,11 +7,9 @@
     <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Added time period modal">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/categories.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/reference_currencies.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/market/modal/time_period.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/modal/time_period.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +54,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Merging feat/3",
+    "git-widget-placeholder": "feat/3",
     "go.import.settings.migrated": "true",
     "io.flutter.reload.alreadyRun": "true",
     "jdk.selected.JAVA_MODULE": "Android API 29 Platform",
@@ -86,7 +84,7 @@
       <recent name="$PROJECT_DIR$/test/mocks" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main.dart">
+  <component name="RunManager" selected="Flutter Test.renders correctly on button click">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
@@ -463,8 +461,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart</url>
-          <line>24</line>
+          <line>25</line>
           <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart</url>
+          <line>12</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

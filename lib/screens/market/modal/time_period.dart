@@ -41,6 +41,7 @@ class TimePeriodModal extends ConsumerWidget {
         ),
         Expanded(
             child: ListView.builder(
+              key: const Key('time-period-modal-list-view'),
           itemCount: TimePeriod.values.length,
           itemExtent: 70.0,
           itemBuilder: (BuildContext context, int index) {
