@@ -25,6 +25,14 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'Select categories',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
                 IconButton(
                     color: Colors.white,
                     onPressed: () {
@@ -51,18 +59,30 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
                     alignment: Alignment.centerLeft,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: TextButton(
                           onPressed: () =>
                               selectCategoryTag(CategoryTag.values[index]),
-                          child:
-                              Text(CategoryTag.values[index].getValueWithDash)),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Text(CategoryTag
+                                      .values[index].getValueWithDash),
+                                ),
+                                Container(
+                                  child: currentCategoryTagMarking(
+                                      CategoryTag.values[index]),
+                                )
+                              ],
+                            ),
+                          )),
                     ),
                   ),
-                  currentCategoryTagMarking(CategoryTag.values[index]),
                 ],
               ),
             ),
@@ -74,7 +94,10 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
 
   void selectCategoryTag(CategoryTag categoryTag) {
     setState(() {
-      widget.selectedCategoryTags.add(categoryTag);
+      bool isInSet = widget.selectedCategoryTags.add(categoryTag);
+      if (!isInSet) {
+        widget.selectedCategoryTags.remove(categoryTag);
+      }
     });
   }
 

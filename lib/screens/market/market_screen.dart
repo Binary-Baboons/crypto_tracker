@@ -36,7 +36,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   late ReferenceCurrenciesService referenceCurrenciesService;
 
   // Baboon code
-  TimePeriod? timePeriod = DefaultApiRequestConfig.timePeriod;
+
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
@@ -44,6 +44,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
   late ReferenceCurrency selectedReferenceCurrency;
   late Set<CategoryTag> selectedCategoryTags = {};
+  TimePeriod selectedTimePeriod = DefaultApiRequestConfig.timePeriod;
 
   @override
   void dispose() {
@@ -60,7 +61,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
 
     currencies = referenceCurrenciesService.getReferenceCurrencies();
-    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
+    coins =
+        coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
   }
 
   @override
@@ -94,15 +96,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 width: MediaQuery.of(context).size.width * 0.2,
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child:
-                        TextButton(child: Text('Category'), onPressed: _showCategoriesModal)),
+                    child: TextButton(
+                        child: Text('Category'),
+                        onPressed: _showCategoriesModal)),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: TextButton(
-                        child: Text('Time period'), onPressed: _showTimePeriodModal)),
+                        child: Text('Time period'),
+                        onPressed: _showTimePeriodModal)),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.15,
@@ -160,7 +164,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       fit: BoxFit.scaleDown,
                       child: Row(
                         children: [
-                          Text('24H'),
+                          Text(selectedTimePeriod.getTimePeriod.toString()),
                           sortingIconChanger(OrderBy.change)
                         ],
                       ),
@@ -299,10 +303,11 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   void _showCategoriesModal() {
-    Future<Set<CategoryTag>?> futureTags = showModalBottomSheet<Set<CategoryTag>>(
-        isScrollControlled: true,
-        context: context,
-        builder: (ctx) => CategoriesModal(selectedCategoryTags));
+    Future<Set<CategoryTag>?> futureTags =
+        showModalBottomSheet<Set<CategoryTag>>(
+            isScrollControlled: true,
+            context: context,
+            builder: (ctx) => CategoriesModal(selectedCategoryTags));
     futureTags.then((selectedTags) {
       if (selectedTags != null) {
         selectedCategoryTags = selectedTags;
@@ -314,10 +319,16 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   void _showTimePeriodModal() {
-    showModalBottomSheet(
+    Future<TimePeriod?> futureTimePeriod = showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (ctx) => TimePeriodModal());
+        builder: (ctx) => TimePeriodModal(selectedTimePeriod));
+    futureTimePeriod.then((timePeriod) {
+      if (timePeriod != null) {
+        selectedTimePeriod = timePeriod;
+      }
+      _refreshCoins();
+    });
   }
 
   Widget sortingIconChanger(orderByFilter) {
@@ -338,9 +349,12 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     setState(() {
       coins = coinsService.getCoins(
           CoinsRequestData(
-              orderBy: orderBy, orderDirection: orderDirection, search: search, tags: selectedCategoryTags),
+              orderBy: orderBy,
+              orderDirection: orderDirection,
+              search: search,
+              tags: selectedCategoryTags,
+              timePeriod: selectedTimePeriod),
           selectedReferenceCurrency);
     });
-
   }
 }

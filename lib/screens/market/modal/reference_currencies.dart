@@ -64,7 +64,6 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.85,
                               alignment: Alignment.centerLeft,
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -79,12 +78,26 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                                       Navigator.of(context)
                                           .pop(selectedCurrency);
                                     },
-                                    child: Text(
-                                        snapshot.data!.$1[index].toString())),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Text(snapshot.data!.$1[index]
+                                                .toString()),
+                                          ),
+                                          Container(
+                                            child: currentCurrencyMarking(
+                                                ref, snapshot.data!.$1[index]),
+                                          )
+                                        ],
+                                      ),
+                                    )),
                               ),
                             ),
-                            currentCurrencyMarking(
-                                ref, snapshot.data!.$1[index])
                           ],
                         ),
                       ),
