@@ -6,6 +6,7 @@ class TimePeriodModal extends ConsumerWidget {
   TimePeriodModal(this.selectedTimePeriod, {super.key});
 
   TimePeriod selectedTimePeriod;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -21,7 +22,7 @@ class TimePeriodModal extends ConsumerWidget {
                   SizedBox(),
                   Container(
                     alignment: Alignment.center,
-                    child: Text(
+                    child: const Text(
                       'Select time period',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
@@ -76,7 +77,7 @@ class TimePeriodModal extends ConsumerWidget {
 
   Widget currentTimePeriodMarking(TimePeriod currentTimePeriodVar) {
     if (selectedTimePeriod == currentTimePeriodVar) {
-      return Icon(
+      return const Icon(
         Icons.check_circle,
         color: Color.fromARGB(255, 2, 32, 54),
       );
