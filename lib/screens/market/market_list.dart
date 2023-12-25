@@ -16,98 +16,94 @@ class MarketListWidget extends StatelessWidget {
       itemExtent: 90.0,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-            contentPadding: EdgeInsets.only(
-                left: screenWidth * 0.02,
-                right: screenWidth * 0.02,
-                top: 0,
-                bottom: 0),
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    child: Row(children: [
-                      Container(
-                          width: screenWidth * 0.08,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Center(
-                                child: Text(
-                              coins[index].rank != null
-                                  ? coins[index].rank!.toString()
-                                  : "",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w200, fontSize: 10),
-                            )),
-                          )),
-                      Container(
-                        width: screenWidth * 0.15,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Column(children: [
-                            _imageTypeFilter(
-                                coins[index].iconUrl,
-                                index),
-                            Text(
-                              coins[index].symbol != null
-                                  ? coins[index].symbol!
-                                  : "",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w700),
-                            )
-                          ]),
-                        ),
-                      ),
-                      Container(
-                          width: screenWidth * 0.25,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Center(
-                                child: Text(coins[index].price.toString())),
-                          )),
-                      SizedBox(
-                        width: screenWidth * 0.01,
-                      ),
-                      Container(
-                          width: screenWidth * 0.17,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Center(
-                                child: Text(
-                              "${coins[index].change} %",
-                              style: TextStyle(
-                                  color: _getChangeColor(
-                                      double.parse(coins[index].change!))),
-                            )),
-                          )),
-                      SizedBox(
-                        width: screenWidth * 0.01,
-                      ),
-                      Container(
-                        width: screenWidth * 0.29,
-                        child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Center(
-                                child: Text(
-                              coins[index].marketCap != null
-                                  ? coins[index].marketCap!
-                                  : "",
-                            ))),
-                      ),
-                    ]),
+          contentPadding: EdgeInsets.only(
+              left: screenWidth * 0.02,
+              right: screenWidth * 0.02,
+              top: 0,
+              bottom: 0),
+          dense: true,
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Row(children: [
+                  Container(
+                      width: screenWidth * 0.08,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Center(
+                            child: Text(
+                          coins[index].rank != null
+                              ? coins[index].rank!.toString()
+                              : "",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w200, fontSize: 10),
+                        )),
+                      )),
+                  Container(
+                    width: screenWidth * 0.15,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Column(children: [
+                        _imageTypeFilter(coins[index].iconUrl, index),
+                        Text(
+                          coins[index].symbol != null
+                              ? coins[index].symbol!
+                              : "",
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        )
+                      ]),
+                    ),
                   ),
-                ),
-                const Divider(
-                  color: Colors.black,
-                  thickness: 0.2,
-                  height: 0,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-              ],
-            ),
-            dense: true);
+                  Container(
+                      width: screenWidth * 0.25,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child:
+                            Center(child: Text(coins[index].price.toString())),
+                      )),
+                  SizedBox(
+                    width: screenWidth * 0.01,
+                  ),
+                  Container(
+                      width: screenWidth * 0.17,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Center(
+                            child: Text(
+                          "${coins[index].change} %",
+                          style: TextStyle(
+                              color: _getChangeColor(
+                                  double.parse(coins[index].change!))),
+                        )),
+                      )),
+                  SizedBox(
+                    width: screenWidth * 0.01,
+                  ),
+                  Container(
+                    width: screenWidth * 0.29,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Center(
+                            child: Text(
+                          coins[index].marketCap != null
+                              ? coins[index].marketCap!
+                              : "",
+                        ))),
+                  ),
+                ]),
+              ),
+              const Divider(
+                color: Colors.black,
+                thickness: 0.2,
+                height: 0,
+                indent: 10,
+                endIndent: 10,
+              ),
+            ],
+          ),
+        );
       },
     );
   }
