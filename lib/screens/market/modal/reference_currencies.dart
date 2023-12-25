@@ -1,7 +1,7 @@
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:crypto_tracker/provider/state/reference_currency.dart';
+import 'package:crypto_tracker/provider/reference_currency.dart';
 
 class ReferenceCurrenciesModal extends ConsumerWidget {
   ReferenceCurrenciesModal(this.currencies, {super.key});

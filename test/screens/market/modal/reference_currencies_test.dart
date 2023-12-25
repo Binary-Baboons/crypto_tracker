@@ -2,7 +2,7 @@ import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
-import 'package:crypto_tracker/provider/service/service_provider.dart';
+import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

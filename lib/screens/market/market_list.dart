@@ -7,40 +7,9 @@ class MarketListWidget extends StatelessWidget {
 
   final List<Coin> coins;
 
-  Color _getChangeColor(double change) {
-    if (change <= 0) {
-      return Colors.red;
-    } else if (change == 0) {
-      return Colors.grey;
-    } else {
-      return Colors.green;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    Widget imageTypeFilter(String iconUrl, int index) {
-      var url = iconUrl.split('?');
-      int length = url[0].length;
-      String lastThreeCharacters = url[0].substring(length - 3);
-
-      if (lastThreeCharacters == "svg") {
-        return SvgPicture.network(
-          coins[index].iconUrl.toString(),
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
-        );
-      } else {
-        return Image.network(
-          coins[index].iconUrl.toString(),
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
-        );
-      }
-    }
 
     return ListView.builder(
       itemCount: coins.length,
@@ -77,10 +46,8 @@ class MarketListWidget extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Column(children: [
-                            imageTypeFilter(
-                                coins[index].iconUrl != null
-                                    ? coins[index].iconUrl!
-                                    : "",
+                            _imageTypeFilter(
+                                coins[index].iconUrl,
                                 index),
                             Text(
                               coins[index].symbol != null
@@ -143,5 +110,41 @@ class MarketListWidget extends StatelessWidget {
             dense: true);
       },
     );
+  }
+
+  Color _getChangeColor(double change) {
+    if (change <= 0) {
+      return Colors.red;
+    } else if (change == 0) {
+      return Colors.grey;
+    } else {
+      return Colors.green;
+    }
+  }
+
+  Widget _imageTypeFilter(String? iconUrl, int index) {
+    if (iconUrl == null) {
+      return const Text("");
+    }
+
+    var url = iconUrl.split('?');
+    int length = url[0].length;
+    String lastThreeCharacters = url[0].substring(length - 3);
+
+    if (lastThreeCharacters == "svg") {
+      return SvgPicture.network(
+        coins[index].iconUrl.toString(),
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.network(
+        coins[index].iconUrl.toString(),
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

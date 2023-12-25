@@ -62,7 +62,7 @@ class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/Logo1.png',
+                'assets/logo.png',
                 height: 30, // Adjust the height as needed
                 width: 30, // Adjust the width as needed
               ),

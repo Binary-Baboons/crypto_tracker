@@ -95,4 +95,4 @@ flutter:
   assets:
     - .env
     - test/resources/
-    - assets/Logo1.png
+    - assets/logo.png

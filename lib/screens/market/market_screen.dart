@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:crypto_tracker/model/reference_currency.dart';
-import 'package:crypto_tracker/provider/service/service_provider.dart';
-import 'package:crypto_tracker/provider/state/reference_currency.dart';
+import 'package:crypto_tracker/provider/service.dart';
+import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
 import 'package:crypto_tracker/screens/market/modal/categories.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
