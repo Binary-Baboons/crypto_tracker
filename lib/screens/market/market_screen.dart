@@ -68,7 +68,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
     double screenWidth = MediaQuery.of(context).size.width;
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Color.fromARGB(255, 2, 32, 54),
     ));
 
@@ -85,10 +85,10 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: TextButton(
+                      onPressed: _showCurrencyModal,
                       child: Text(
                           key: Key("referenceCurrencyFilterText"),
-                          selectedReferenceCurrency.toString()),
-                      onPressed: _showCurrencyModal),
+                          selectedReferenceCurrency.toString())),
                 ),
               ),
               Container(
@@ -96,16 +96,16 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: TextButton(
-                        child: Text('Category'),
-                        onPressed: _showCategoriesModal)),
+                        onPressed: _showCategoriesModal,
+                        child: Text('Category'))),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: TextButton(
-                        child: Text('Time period'),
-                        onPressed: _showTimePeriodModal)),
+                        onPressed: _showTimePeriodModal,
+                        child: Text('Time period'))),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.15,
@@ -115,7 +115,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     onPressed: () {
                       _showSearchModal(context);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search,
                       size: 30,
                     ),
@@ -125,7 +125,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             ],
           )),
           Container(
-            color: Color.fromARGB(255, 240, 239, 239),
+            color: const Color.fromARGB(255, 240, 239, 239),
             padding: EdgeInsets.all(screenWidth * 0.02),
             child: Row(
               children: [
