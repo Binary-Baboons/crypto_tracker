@@ -85,7 +85,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: TextButton(
-                      child: Text(selectedReferenceCurrency.toString()),
+                      child: Text(
+                          key: Key("referenceCurrencyFilterText"),
+                          selectedReferenceCurrency.toString()),
                       onPressed: _showCurrencyModal),
                 ),
               ),
@@ -162,7 +164,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       child: Row(
                         children: [
                           Text(
-                              key: const Key("changeSortButtonText"),
+                              key: const Key("changeSortText"),
                               selectedTimePeriod.getTimePeriod.toString()),
                           sortingIconChanger(OrderBy.change)
                         ],

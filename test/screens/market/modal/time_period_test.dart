@@ -37,12 +37,12 @@ void main() {
       await tester.tap(timePeriodSortButton);
       await tester.pump();
 
-      Finder orderBySortButtonTextFinder =
-          find.byKey(const Key("changeSortButtonText"));
-      Text orderBySortButtonText =
-          tester.widget(orderBySortButtonTextFinder) as Text;
+      Finder orderBySortTextFinder =
+          find.byKey(const Key("changeSortText"));
+      Text orderBySortText =
+          tester.widget(orderBySortTextFinder) as Text;
       expect(
-          orderBySortButtonText.data
+          orderBySortText.data
               ?.contains(DefaultApiRequestConfig.timePeriod.getTimePeriod),
           true);
 
@@ -51,11 +51,11 @@ void main() {
       await tester.tap(timePeriod1hButton);
       await tester.pumpAndSettle();
 
-      orderBySortButtonTextFinder =
-          find.byKey(const Key("changeSortButtonText"));
-      orderBySortButtonText =
-          tester.widget(orderBySortButtonTextFinder) as Text;
-      expect(orderBySortButtonText.data?.contains(TimePeriod.t1h.getTimePeriod),
+      orderBySortTextFinder =
+          find.byKey(const Key("changeSortText"));
+      orderBySortText =
+          tester.widget(orderBySortTextFinder) as Text;
+      expect(orderBySortText.data?.contains(TimePeriod.t1h.getTimePeriod),
           true);
     });
   });

@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Merged with main">
+    <list default="true" id="e774a090-2841-4960-9332-26d2c2b98ce6" name="Changes" comment="feat/3: Added tests for market_screen.dart">
+      <change afterPath="$PROJECT_DIR$/test/screens/market/modal/categories_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/screens/market/modal/reference_currencies_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/market/market_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/service/reference_currencies_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/service/reference_currencies_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/service/reference_currencies_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/service/reference_currencies_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/crypto_tracker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/untitled/crypto_tracker.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,33 +49,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "feat/3",
-    "go.import.settings.migrated": "true",
-    "io.flutter.reload.alreadyRun": "true",
-    "jdk.selected.JAVA_MODULE": "Android API 29 Platform",
-    "last_opened_file_path": "/home/mgojkovic/IdeaProjects/crypto_tracker",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "dart.settings",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/3&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;Android API 29 Platform&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mgojkovic/IdeaProjects/crypto_tracker&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/screens/market/modal" />
@@ -82,7 +88,7 @@
       <recent name="$PROJECT_DIR$/test/mocks" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in time_period_test.dart">
+  <component name="RunManager" selected="Flutter Test.renders correctly on button click">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="crypto_tracker" />
       <working_directory value="$PROJECT_DIR$" />
@@ -110,40 +116,27 @@
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="MarketScreen Widget Tests" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="MarketScreen Widget Tests" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
+    <configuration name="TimePeriodModal Widget Tests" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="TimePeriodModal Widget Tests" />
+      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="renders correctly (1)" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="renders correctly" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
     <configuration name="renders correctly on button click" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testName" value="renders correctly on button click" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" />
+      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/reference_currencies_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="renders correctly on button click" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="renders correctly on button click" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" />
+    <configuration name="renders correctly on show reference currencies modal" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="renders correctly on show reference currencies modal" />
+      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/reference_currencies_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="renders double_arrow_down and double_arrow_down icon for price orderBy correctly" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="renders double_arrow_down and double_arrow_down icon for price orderBy correctly" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="renders double_arrow_down icon for default orderBy correctly" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="renders double_arrow_down icon for default orderBy correctly" />
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
-      <option name="useRegexp" value="true" />
+    <configuration name="tests in categories_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/categories_test.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="tests in coin_ranking_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" nameIsGenerated="true">
@@ -158,23 +151,13 @@
       <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in coins_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/service/coins_test.dart" />
-      <option name="useRegexp" value="false" />
-      <method v="2" />
-    </configuration>
     <configuration name="tests in market_screen_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in market_screen_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/market_screen_test.dart" />
-      <option name="useRegexp" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tests in time_period_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/time_period_test.dart" />
+    <configuration name="tests in reference_currencies_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/screens/market/modal/reference_currencies_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -200,19 +183,19 @@
     <list>
       <item itemvalue="Flutter.main.dart" />
       <item itemvalue="Flutter Test.tests in coin_ranking_test.dart" />
-      <item itemvalue="Flutter Test.renders double_arrow_down and double_arrow_down icon for price orderBy correctly" />
-      <item itemvalue="Flutter Test.tests in coins_test.dart" />
-      <item itemvalue="Flutter Test.tests in time_period_test.dart" />
-      <item itemvalue="Flutter Test.tests in market_screen_test.dart" />
+      <item itemvalue="Flutter Test.TimePeriodModal Widget Tests" />
+      <item itemvalue="Flutter Test.renders correctly on show reference currencies modal" />
+      <item itemvalue="Flutter Test.tests in categories_test.dart" />
+      <item itemvalue="Flutter Test.tests in reference_currencies_test.dart" />
       <item itemvalue="Flutter Test.renders correctly on button click" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in time_period_test.dart" />
-        <item itemvalue="Flutter Test.tests in market_screen_test.dart" />
-        <item itemvalue="Flutter Test.renders double_arrow_down and double_arrow_down icon for price orderBy correctly" />
-        <item itemvalue="Flutter Test.tests in coins_test.dart" />
         <item itemvalue="Flutter Test.renders correctly on button click" />
+        <item itemvalue="Flutter Test.TimePeriodModal Widget Tests" />
+        <item itemvalue="Flutter Test.tests in reference_currencies_test.dart" />
+        <item itemvalue="Flutter Test.renders correctly on show reference currencies modal" />
+        <item itemvalue="Flutter Test.tests in categories_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -257,6 +240,8 @@
       <workItem from="1703282251809" duration="367000" />
       <workItem from="1703321733385" duration="11037000" />
       <workItem from="1703446377133" duration="2966000" />
+      <workItem from="1703492580545" duration="12000" />
+      <workItem from="1703498062602" duration="5023000" />
     </task>
     <task id="LOCAL-00001" summary="feat/1: [MARKET] Define model">
       <option name="closed" value="true" />
@@ -506,7 +491,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703452049723</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat/3: Added tests for market_screen.dart">
+      <option name="closed" value="true" />
+      <created>1703454062728</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1703454062728</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +529,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat/1: Removed import" />
     <MESSAGE value="feat/2: Start of api service" />
     <MESSAGE value="feat/2: Working api" />
     <MESSAGE value="feat/2: Added .env" />
@@ -561,7 +553,8 @@
     <MESSAGE value="main: Path to lcov.info file" />
     <MESSAGE value="main: Minimal coverage added" />
     <MESSAGE value="feat/3: Merged with main" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat/3: Merged with main" />
+    <MESSAGE value="feat/3: Added tests for market_screen.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/3: Added tests for market_screen.dart" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -586,7 +579,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/market/market_screen.dart</url>
-          <line>327</line>
+          <line>329</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -604,6 +597,11 @@
           <line>70</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/test/screens/market/modal/reference_currencies_test.dart</url>
+          <line>60</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -613,6 +611,5 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="../../../IdeaProjects/crypto_tracker/coverage/lcov.info" NAME="tests in coins_test.dart Coverage Results" MODIFIED="1703267182909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="FlutterCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="../../../IdeaProjects/crypto_tracker/coverage/lcov.info" NAME="tests in market_screen_test.dart Coverage Results" MODIFIED="1703452708923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="FlutterCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
