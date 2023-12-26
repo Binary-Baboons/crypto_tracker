@@ -1,5 +1,6 @@
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/response_data.dart';
+import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,7 +9,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../api/client/reference_currencies_test.mocks.dart';
-import 'reference_currencies_test.mocks.dart';
 
 @GenerateMocks([ReferenceCurrenciesService])
 void main() {
@@ -61,7 +61,7 @@ void main() {
       await service.getReferenceCurrencies();
 
       expect(result.$1.length, 0, reason: "Reference currencies are not empty");
-      expect(result.$2, "Internal application error",
+      expect(result.$2, ErrorHandler.internalAppError,
           reason: "Message is not equal");
     });
   });

@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:crypto_tracker/api/client/coins.dart';
+import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import '../api/data/coins.dart';
@@ -21,8 +23,7 @@ class CoinsService {
 
       return (format(coinsData.data, referenceCurrency), coinsData.message);
     } catch (e) {
-      log(e.toString());
-      return (<Coin>[], "Internal application error");
+      return (<Coin>[], ErrorHandler.getUserFriendlyMessage(e));
     }
   }
 

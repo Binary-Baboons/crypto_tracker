@@ -2,6 +2,7 @@ import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/api/data/response_data.dart';
 import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -73,7 +74,7 @@ void main() {
           CoinsRequestData(), DefaultConfig.referenceCurrency);
 
       expect(result.$1.length, 0, reason: "Coins are not empty");
-      expect(result.$2, "Internal application error",
+      expect(result.$2, ErrorHandler.internalAppError,
           reason: "Message is not equal");
     });
   });
