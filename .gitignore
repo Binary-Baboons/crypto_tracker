@@ -27,7 +27,6 @@
 .pub-cache/
 .pub/
 /build/
-.env/
 coverage/
 
 # Android related

@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:crypto_tracker/api/client/reference_currencies.dart' as _i4;
-import 'package:crypto_tracker/api/data/response_data.dart' as _i3;
-import 'package:http/http.dart' as _i2;
+import 'package:crypto_tracker/api/client/reference_currencies.dart' as _i2;
+import 'package:crypto_tracker/model/reference_currency.dart' as _i4;
+import 'package:crypto_tracker/service/reference_currency.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -23,8 +23,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeBaseClient_0 extends _i1.SmartFake implements _i2.BaseClient {
-  _FakeBaseClient_0(
+class _FakeReferenceCurrenciesApiClient_0<T> extends _i1.SmartFake
+    implements _i2.ReferenceCurrenciesApiClient<T> {
+  _FakeReferenceCurrenciesApiClient_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -33,58 +34,46 @@ class _FakeBaseClient_0 extends _i1.SmartFake implements _i2.BaseClient {
         );
 }
 
-class _FakeResponseData_1<T1> extends _i1.SmartFake
-    implements _i3.ResponseData<T1> {
-  _FakeResponseData_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [ReferenceCurrenciesApiClient].
+/// A class which mocks [ReferenceCurrenciesService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockReferenceCurrenciesApiClient<T> extends _i1.Mock
-    implements _i4.ReferenceCurrenciesApiClient<T> {
-  MockReferenceCurrenciesApiClient() {
+class MockReferenceCurrenciesService extends _i1.Mock
+    implements _i3.ReferenceCurrenciesService {
+  MockReferenceCurrenciesService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.BaseClient get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeBaseClient_0(
-          this,
-          Invocation.getter(#client),
-        ),
-      ) as _i2.BaseClient);
+  _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>
+      get referenceCurrenciesApiClient => (super.noSuchMethod(
+            Invocation.getter(#referenceCurrenciesApiClient),
+            returnValue:
+                _FakeReferenceCurrenciesApiClient_0<_i4.ReferenceCurrency>(
+              this,
+              Invocation.getter(#referenceCurrenciesApiClient),
+            ),
+          ) as _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>);
 
   @override
-  set client(_i2.BaseClient? _client) => super.noSuchMethod(
+  set referenceCurrenciesApiClient(
+          _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>?
+              _referenceCurrenciesApiClient) =>
+      super.noSuchMethod(
         Invocation.setter(
-          #client,
-          _client,
+          #referenceCurrenciesApiClient,
+          _referenceCurrenciesApiClient,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i5.Future<_i3.ResponseData<T>> getReferenceCurrencies() =>
+  _i5.Future<(List<_i4.ReferenceCurrency>, String?)> getReferenceCurrencies() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceCurrencies,
           [],
         ),
-        returnValue:
-            _i5.Future<_i3.ResponseData<T>>.value(_FakeResponseData_1<T>(
-          this,
-          Invocation.method(
-            #getReferenceCurrencies,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i3.ResponseData<T>>);
+        returnValue: _i5.Future<(List<_i4.ReferenceCurrency>, String?)>.value(
+            (<_i4.ReferenceCurrency>[], null)),
+      ) as _i5.Future<(List<_i4.ReferenceCurrency>, String?)>);
 }

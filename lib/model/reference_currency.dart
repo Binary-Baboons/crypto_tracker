@@ -1,20 +1,32 @@
 class ReferenceCurrency {
-  ReferenceCurrency(this.uuid, this.type, this.iconUrl, this.name, this.symbol,
-      this.sign);
+  ReferenceCurrency(
+      this.uuid, this.type, this.iconUrl, this.name, this.symbol, this.sign);
 
-  String? uuid;
+  String uuid;
   String? type;
   String? iconUrl;
   String? name;
   String? symbol;
   String? sign;
-}
 
-extension Equals on ReferenceCurrency {
-  bool equals(ReferenceCurrency currency) {
-    if (identical(this, currency)) {
+  String getSignSymbol() {
+    return sign != null ? sign! : symbol!;
+  }
+
+  @override
+  String toString() {
+    return "$name (${getSignSymbol()})";
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
       return true;
     }
+    if (other is! ReferenceCurrency) {
+      return false;
+    }
+    ReferenceCurrency currency = other;
 
     return uuid == currency.uuid &&
         type == currency.type &&
@@ -23,4 +35,8 @@ extension Equals on ReferenceCurrency {
         symbol == currency.symbol &&
         sign == currency.sign;
   }
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, uuid.hashCode);
+
 }

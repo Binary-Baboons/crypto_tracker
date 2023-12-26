@@ -14,21 +14,19 @@ class CryptoTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: BottomNavigationBarExample(),
+      home: CryptoTrackerAppState(),
     );
   }
 }
 
-class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+class CryptoTrackerAppState extends StatefulWidget {
+  const CryptoTrackerAppState({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() =>
-      _CryptoTrackerAppState();
+  State<CryptoTrackerAppState> createState() => _CryptoTrackerAppState();
 }
 
-class _CryptoTrackerAppState
-    extends State<BottomNavigationBarExample> {
+class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -58,12 +56,23 @@ class _CryptoTrackerAppState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.healing_outlined),
-            const Text('Crypto tracker'),
-          ],
+        backgroundColor: Color.fromARGB(255, 2, 32, 54),
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                height: 30,
+                width: 30,
+              ),
+              SizedBox(width: 10),
+              const Text(
+                'Crypto tracker',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
       body: Center(
@@ -72,9 +81,9 @@ class _CryptoTrackerAppState
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.green,
+            icon: Icon(Icons.align_vertical_bottom),
+            label: 'Market',
+            backgroundColor: Colors.orange,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
@@ -93,7 +102,7 @@ class _CryptoTrackerAppState
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue[800],
         onTap: _onItemTapped,
       ),
     );

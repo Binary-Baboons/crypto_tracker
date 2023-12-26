@@ -1,3 +1,5 @@
+import 'package:crypto_tracker/model/reference_currency.dart';
+
 import '../api/data/coins.dart';
 
 abstract class DefaultApiRequestConfig {
@@ -7,8 +9,15 @@ abstract class DefaultApiRequestConfig {
   static const limit = 50;
   static const offset = 0;
   static const timePeriod = TimePeriod.t24h;
+  static const tier = 1;
 }
 
 abstract class DefaultConfig {
-  static const currencySymbol = "\$";
+  static final ReferenceCurrency referenceCurrency = ReferenceCurrency(
+      "yhjMzLPhuIDl",
+      "fiat",
+      "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
+      "US Dollar",
+      "USD",
+      "\$");
 }

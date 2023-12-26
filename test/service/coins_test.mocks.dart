@@ -81,13 +81,13 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
       ) as _i5.Future<(List<_i4.Coin>, String?)>);
 
   @override
-  List<_i4.Coin> formatPrice(
+  List<_i4.Coin> format(
     List<_i4.Coin>? coinsData,
     _i7.ReferenceCurrency? referenceCurrency,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #formatPrice,
+          #format,
           [
             coinsData,
             referenceCurrency,
@@ -95,4 +95,13 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
         ),
         returnValue: <_i4.Coin>[],
       ) as List<_i4.Coin>);
+
+  @override
+  int getDecimal(double? price) => (super.noSuchMethod(
+        Invocation.method(
+          #getDecimal,
+          [price],
+        ),
+        returnValue: 0,
+      ) as int);
 }
