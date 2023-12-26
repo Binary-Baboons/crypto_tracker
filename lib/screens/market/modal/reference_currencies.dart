@@ -33,7 +33,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close)),
+                      icon: const Icon(Icons.close)),
                 ),
               ],
             ),
@@ -99,7 +99,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
     ]);
   }
 
-  Widget currentCurrencyMarking(
+  Widget? currentCurrencyMarking(
       WidgetRef ref, ReferenceCurrency currentCurrency) {
     var activeCurrency = ref.read(referenceCurrencyStateProvider);
     if (currentCurrency.uuid == activeCurrency.uuid) {
@@ -108,7 +108,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
         color: Color.fromARGB(255, 2, 32, 54),
       );
     } else {
-      return Text('');
+      return null;
     }
   }
 }

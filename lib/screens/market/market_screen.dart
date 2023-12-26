@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:crypto_tracker/model/reference_currency.dart';
-import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
+import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/screens/market/market_list.dart';
 import 'package:crypto_tracker/screens/market/modal/categories.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
@@ -131,11 +131,11 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
               children: [
                 Container(
                   width: screenWidth * 0.08,
-                  child: Center(child: Text('#')),
+                  child: const Center(child: Text('#')),
                 ),
                 Container(
                   width: screenWidth * 0.15,
-                  child: Center(child: Text('COIN')),
+                  child: const Center(child: Text('COIN')),
                 ),
                 Container(
                   width: screenWidth * 0.25,
@@ -145,8 +145,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       fit: BoxFit.scaleDown,
                       child: Row(
                         children: [
-                          Text('PRICE'),
-                          sortingIconChanger(OrderBy.price)
+                          const Text('PRICE'),
+                          if (sortingIconChanger(OrderBy.price) != null)
+                            sortingIconChanger(OrderBy.price)!
                         ],
                       ),
                     ),
@@ -166,7 +167,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                           Text(
                               key: const Key("changeSortText"),
                               selectedTimePeriod.getTimePeriod.toString()),
-                          sortingIconChanger(OrderBy.change)
+                          if (sortingIconChanger(OrderBy.change) != null)
+                            sortingIconChanger(OrderBy.change)!
                         ],
                       ),
                     ),
@@ -184,7 +186,8 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                       child: Row(
                         children: [
                           Text('MARKET CAP'),
-                          sortingIconChanger(OrderBy.marketCap)
+                          if (sortingIconChanger(OrderBy.marketCap) != null)
+                            sortingIconChanger(OrderBy.marketCap)!
                         ],
                       ),
                     ),
@@ -332,7 +335,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     });
   }
 
-  Widget sortingIconChanger(orderByFilter) {
+  Widget? sortingIconChanger(orderByFilter) {
     if (currentOrderBy == orderByFilter) {
       return const Icon(
         Icons.keyboard_double_arrow_down,
@@ -342,7 +345,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
         Icons.keyboard_double_arrow_up,
       );
     } else {
-      return const Text('');
+      return null;
     }
   }
 

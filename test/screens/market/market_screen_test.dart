@@ -60,6 +60,7 @@ void main() {
         of: priceButton,
         matching: find.byType(Row),
       );
+
       Finder iconFinder =
           find.descendant(of: parentRow.first, matching: find.byType(Icon));
       Icon icon = tester.widget(iconFinder);

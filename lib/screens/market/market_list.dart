@@ -34,9 +34,7 @@ class MarketListWidget extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Center(
                             child: Text(
-                          coins[index].rank != null
-                              ? coins[index].rank!.toString()
-                              : "",
+                          coins[index].rank!.toString(),
                           style: const TextStyle(
                               fontWeight: FontWeight.w200, fontSize: 10),
                         )),
@@ -46,11 +44,11 @@ class MarketListWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Column(children: [
-                        _imageTypeFilter(coins[index].iconUrl, index),
+                        if (_imageTypeFilter(coins[index].iconUrl, index) !=
+                            null)
+                          _imageTypeFilter(coins[index].iconUrl, index)!,
                         Text(
-                          coins[index].symbol != null
-                              ? coins[index].symbol!
-                              : "",
+                          coins[index].symbol!,
                           style: const TextStyle(fontWeight: FontWeight.w700),
                         )
                       ]),
@@ -60,8 +58,7 @@ class MarketListWidget extends StatelessWidget {
                       width: screenWidth * 0.25,
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child:
-                            Center(child: Text(coins[index].price.toString())),
+                        child: Center(child: Text(coins[index].price!)),
                       )),
                   SizedBox(
                     width: screenWidth * 0.01,
@@ -85,12 +82,7 @@ class MarketListWidget extends StatelessWidget {
                     width: screenWidth * 0.29,
                     child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Center(
-                            child: Text(
-                          coins[index].marketCap != null
-                              ? coins[index].marketCap!
-                              : "",
-                        ))),
+                        child: Center(child: Text(coins[index].marketCap!))),
                   ),
                 ]),
               ),
@@ -118,9 +110,9 @@ class MarketListWidget extends StatelessWidget {
     }
   }
 
-  Widget _imageTypeFilter(String? iconUrl, int index) {
+  Widget? _imageTypeFilter(String? iconUrl, int index) {
     if (iconUrl == null) {
-      return const Text("");
+      return null;
     }
 
     var url = iconUrl.split('?');

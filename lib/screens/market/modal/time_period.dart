@@ -75,14 +75,14 @@ class TimePeriodModal extends ConsumerWidget {
     );
   }
 
-  Widget currentTimePeriodMarking(TimePeriod currentTimePeriodVar) {
+  Widget? currentTimePeriodMarking(TimePeriod currentTimePeriodVar) {
     if (selectedTimePeriod == currentTimePeriodVar) {
       return const Icon(
         Icons.check_circle,
         color: Color.fromARGB(255, 2, 32, 54),
       );
     } else {
-      return Text('');
+      return null;
     }
   }
 }

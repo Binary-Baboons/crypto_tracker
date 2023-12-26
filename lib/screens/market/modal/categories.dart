@@ -86,14 +86,14 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
     });
   }
 
-  Widget currentCategoryTagMarking(CategoryTag categoryTag) {
+  Widget? currentCategoryTagMarking(CategoryTag categoryTag) {
     if (widget.selectedCategoryTags.contains(categoryTag)) {
-      return Icon(
+      return const Icon(
         Icons.check_circle,
         color: Color.fromARGB(255, 2, 32, 54),
       );
     } else {
-      return Text('');
+      return null;
     }
   }
 }
