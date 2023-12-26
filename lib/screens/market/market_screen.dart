@@ -270,10 +270,10 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Search by Name'),
+          title: const Text('Search by Name'),
           content: TextField(
             controller: _searchController,
-            decoration: InputDecoration(hintText: 'Type here...'),
+            decoration: const InputDecoration(hintText: 'Type here...'),
           ),
           actions: <Widget>[
             ElevatedButton(

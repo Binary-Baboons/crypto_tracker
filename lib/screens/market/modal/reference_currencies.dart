@@ -45,12 +45,22 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
             future: currencies,
             builder: (ctx, snapshot) {
               if (snapshot.hasError) {
-                throw Exception();
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                        SnackBar(content: Text(snapshot.error.toString())));
+                });
               }
 
               if (snapshot.hasData) {
                 if (snapshot.data!.$2 != null) {
-                  throw Exception();
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                          SnackBar(content: Text(snapshot.data!.$2!)));
+                  });
                 }
 
                 return ListView.builder(
