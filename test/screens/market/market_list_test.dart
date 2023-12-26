@@ -33,7 +33,7 @@ void main() {
       await tester.pumpAndSettle();
 
       for (var coin in mockCoins) {
-        //expect(find.text(coin.rank.toString()), findsOneWidget);
+        expect(find.text(coin.rank.toString()), findsOneWidget);
         expect(find.text(coin.symbol!), findsOneWidget);
         expect(find.text(coin.price!), findsOneWidget);
         expect(find.text(coin.marketCap!), findsOneWidget);

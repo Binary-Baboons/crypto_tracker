@@ -22,7 +22,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
                 SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Select currency',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
@@ -55,11 +55,11 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
 
                 return ListView.builder(
                   itemCount: snapshot.data!.$1.length,
-                  itemExtent: 70.0, // Fixed height for each item
+                  itemExtent: 70.0,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: ListTile(
-                        contentPadding: EdgeInsets.all(0),
+                        contentPadding: const EdgeInsets.all(0),
                         title: Container(
                           child: TextButton(
                               onPressed: () {
@@ -103,7 +103,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
       WidgetRef ref, ReferenceCurrency currentCurrency) {
     var activeCurrency = ref.read(referenceCurrencyStateProvider);
     if (currentCurrency.uuid == activeCurrency.uuid) {
-      return Icon(
+      return const Icon(
         Icons.check_circle,
         color: Color.fromARGB(255, 2, 32, 54),
       );

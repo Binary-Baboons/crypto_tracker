@@ -14,19 +14,19 @@ class CryptoTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: BottomNavigationBarExample(),
+      home: CryptoTrackerAppState(),
     );
   }
 }
 
-class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+class CryptoTrackerAppState extends StatefulWidget {
+  const CryptoTrackerAppState({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() => _CryptoTrackerAppState();
+  State<CryptoTrackerAppState> createState() => _CryptoTrackerAppState();
 }
 
-class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
+class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -63,8 +63,8 @@ class _CryptoTrackerAppState extends State<BottomNavigationBarExample> {
             children: [
               Image.asset(
                 'assets/logo.png',
-                height: 30, // Adjust the height as needed
-                width: 30, // Adjust the width as needed
+                height: 30,
+                width: 30,
               ),
               SizedBox(width: 10),
               const Text(

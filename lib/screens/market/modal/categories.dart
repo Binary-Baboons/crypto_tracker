@@ -18,7 +18,7 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        color: Color.fromARGB(255, 2, 32, 54),
+        color: const Color.fromARGB(255, 2, 32, 54),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -28,7 +28,7 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                 SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Select categories',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
@@ -39,7 +39,7 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                       onPressed: () {
                         Navigator.of(context).pop(widget.selectedCategoryTags);
                       },
-                      icon: Icon(Icons.close)),
+                      icon: const Icon(Icons.close)),
                 ),
               ],
             ),
@@ -49,11 +49,11 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
       Expanded(
           child: ListView.builder(
         itemCount: CategoryTag.values.length,
-        itemExtent: 70.0, // Fixed height for each item
+        itemExtent: 70.0,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             child: ListTile(
-              contentPadding: EdgeInsets.all(0),
+              contentPadding: const EdgeInsets.all(0),
               title: TextButton(
                   onPressed: () => selectCategoryTag(CategoryTag.values[index]),
                   child: Container(
