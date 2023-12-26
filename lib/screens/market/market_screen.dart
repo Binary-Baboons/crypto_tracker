@@ -37,10 +37,11 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
   OrderBy orderBy = DefaultApiRequestConfig.orderBy;
+
   String? search;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  late ReferenceCurrency selectedReferenceCurrency;
-  late Set<CategoryTag> selectedCategoryTags = {};
+  ReferenceCurrency selectedReferenceCurrency = DefaultConfig.referenceCurrency;
+  Set<CategoryTag> selectedCategoryTags = {};
   TimePeriod selectedTimePeriod = DefaultApiRequestConfig.timePeriod;
 
   @override
