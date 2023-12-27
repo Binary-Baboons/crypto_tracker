@@ -3,11 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:crypto_tracker/api/client/coins.dart' as _i4;
+import 'package:crypto_tracker/api/client/coins.dart' as _i3;
 import 'package:crypto_tracker/api/data/coins.dart' as _i6;
-import 'package:crypto_tracker/api/data/response_data.dart' as _i3;
+import 'package:crypto_tracker/model/coin.dart' as _i5;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -34,21 +34,10 @@ class _FakeBaseClient_0 extends _i1.SmartFake implements _i2.BaseClient {
         );
 }
 
-class _FakeResponseData_1<T1> extends _i1.SmartFake
-    implements _i3.ResponseData<T1> {
-  _FakeResponseData_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [CoinsApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCoinsApiClient<T> extends _i1.Mock implements _i4.CoinsApiClient<T> {
+class MockCoinsApiClient<T> extends _i1.Mock implements _i3.CoinsApiClient<T> {
   MockCoinsApiClient() {
     _i1.throwOnMissingStub(this);
   }
@@ -72,7 +61,7 @@ class MockCoinsApiClient<T> extends _i1.Mock implements _i4.CoinsApiClient<T> {
       );
 
   @override
-  _i5.Future<_i3.ResponseData<T>> getCoins(
+  _i4.Future<List<_i5.Coin>> getCoins(
     _i6.CoinsRequestData? requestData,
     String? referenceCurrencyUuid,
   ) =>
@@ -84,16 +73,6 @@ class MockCoinsApiClient<T> extends _i1.Mock implements _i4.CoinsApiClient<T> {
             referenceCurrencyUuid,
           ],
         ),
-        returnValue:
-            _i5.Future<_i3.ResponseData<T>>.value(_FakeResponseData_1<T>(
-          this,
-          Invocation.method(
-            #getCoins,
-            [
-              requestData,
-              referenceCurrencyUuid,
-            ],
-          ),
-        )),
-      ) as _i5.Future<_i3.ResponseData<T>>);
+        returnValue: _i4.Future<List<_i5.Coin>>.value(<_i5.Coin>[]),
+      ) as _i4.Future<List<_i5.Coin>>);
 }

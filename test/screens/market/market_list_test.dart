@@ -1,9 +1,11 @@
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/model/coin.dart';
+import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../service/coins_test.mocks.dart';
@@ -36,11 +38,11 @@ void main() {
             (WidgetTester tester) async {
           var coinsService = MockCoinsService();
           when(coinsService.getCoins(any, any))
-              .thenAnswer((_) => Future.value((mockCoins, null)));
+              .thenAnswer((_) => Future.value(mockCoins));
 
           var currenciesService = MockReferenceCurrenciesService();
           when(currenciesService.getReferenceCurrencies()).thenAnswer((_) =>
-              Future.value(([DefaultConfig.referenceCurrency], null)));
+              Future.value([DefaultConfig.referenceCurrency]));
 
           await tester.pumpWidget(ProviderScope(overrides: [
             coinsServiceProvider.overrideWithValue(coinsService),
@@ -62,11 +64,15 @@ void main() {
           var coinsService = MockCoinsService();
           when(coinsService.getCoins(any, any))
               .thenAnswer((_) =>
-              Future.value((<Coin>[], "Internal application error")));
+              Future.delayed(
+                  const Duration(seconds: 1),
+                      () => throw ClientException("exception")));
 
           var currenciesService = MockReferenceCurrenciesService();
           when(currenciesService.getReferenceCurrencies()).thenAnswer((_) =>
-              Future.value(([DefaultConfig.referenceCurrency], null)));
+              Future.delayed(
+                  const Duration(seconds: 1),
+                      () => throw ClientException("exception")));
 
           await tester.pumpWidget(ProviderScope(overrides: [
             coinsServiceProvider.overrideWithValue(coinsService),
@@ -75,7 +81,7 @@ void main() {
           ], child: const CryptoTrackerApp()));
           await tester.pumpAndSettle();
 
-          var snackBarFinder = find.text("Internal application error");
+          var snackBarFinder = find.text("exception");
           expect(snackBarFinder, findsOneWidget);
         });
   });

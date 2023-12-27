@@ -64,7 +64,7 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
       );
 
   @override
-  _i5.Future<(List<_i4.Coin>, String?)> getCoins(
+  _i5.Future<List<_i4.Coin>> getCoins(
     _i6.CoinsRequestData? requestData,
     _i7.ReferenceCurrency? referenceCurrency,
   ) =>
@@ -76,9 +76,8 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
             referenceCurrency,
           ],
         ),
-        returnValue:
-            _i5.Future<(List<_i4.Coin>, String?)>.value((<_i4.Coin>[], null)),
-      ) as _i5.Future<(List<_i4.Coin>, String?)>);
+        returnValue: _i5.Future<List<_i4.Coin>>.value(<_i4.Coin>[]),
+      ) as _i5.Future<List<_i4.Coin>>);
 
   @override
   List<_i4.Coin> format(

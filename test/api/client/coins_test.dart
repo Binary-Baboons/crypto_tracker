@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
-import 'package:crypto_tracker/api/data/response_data.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/model/coin.dart';
-import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -27,12 +25,10 @@ void main() {
 
       final client = CoinsApiClient<Coin>(mockClient);
 
-      ResponseData<Coin> result = await client.getCoins(CoinsRequestData(), DefaultConfig.referenceCurrency.uuid);
+      List<Coin> result = await client.getCoins(CoinsRequestData(), DefaultConfig.referenceCurrency.uuid);
 
-      expect(result.data.length, 3,
+      expect(result.length, 3,
           reason: "Response is not of expected length");
-      expect(result.statusCode, 200, reason: "Status code is not 200");
-      expect(result.message, null, reason: "Message is not null");
     });
 
     test('getCoins returns a http client error', () async {
@@ -45,12 +41,7 @@ void main() {
       final client = CoinsApiClient(mockClient);
       final requestData = CoinsRequestData(search: "testcoin");
 
-      final result = await client.getCoins(requestData, DefaultConfig.referenceCurrency.uuid);
-
-      expect(result.data, [], reason: "Response is not empty");
-      expect(result.statusCode, 422, reason: "Status code is not 422");
-      expect(result.message, "Reference currency not available",
-          reason: "Message is not equal");
+      expect(() => client.getCoins(requestData, DefaultConfig.referenceCurrency.uuid), throwsA(isA<http.ClientException>()));
     });
   });
 }

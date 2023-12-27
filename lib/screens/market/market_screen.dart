@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
@@ -27,8 +28,8 @@ class MarketScreen extends ConsumerStatefulWidget {
 }
 
 class _MarketScreenState extends ConsumerState<MarketScreen> {
-  late Future<(List<Coin>, String?)> coins;
-  late Future<(List<ReferenceCurrency>, String?)> currencies;
+  late Future<List<Coin>> coins;
+  late Future<List<ReferenceCurrency>> currencies;
 
   final TextEditingController _searchController = TextEditingController();
   late CoinsService coinsService;
@@ -88,7 +89,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                   child: TextButton(
                       onPressed: _showCurrencyModal,
                       child: Text(
-                          key: Key("referenceCurrencyFilterText"),
+                          key: const Key("referenceCurrencyFilterText"),
                           selectedReferenceCurrency.toString())),
                 ),
               ),
@@ -202,47 +203,23 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: Future.wait([coins, currencies]),
+              future: coins,
               builder: (ctx, snapshot) {
-                if (snapshot.hasError) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
-                          SnackBar(content: Text(snapshot.error.toString())));
+                          SnackBar(content: Text(ErrorHandler.getUserFriendlyMessage(snapshot.error!))));
                   });
                   return Container();
+                } else if (snapshot.hasData) {
+                  return MarketListWidget(snapshot.data!);
+                } else {
+                  return const MarketListWidget([]);
                 }
-
-                if (snapshot.hasData) {
-                  if (snapshot.data![0].$2 != null) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(
-                            SnackBar(content: Text(snapshot.data![0].$2!)));
-                    });
-                    return Container();
-                  }
-
-                  if (snapshot.data![1].$2 != null) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(
-                            SnackBar(content: Text(snapshot.data![1].$2!)));
-                    });
-                    return Container();
-                  }
-
-                  if (snapshot.data![0].$2 == null &&
-                      snapshot.data![1].$2 == null) {
-                    return MarketListWidget(snapshot.data![0].$1 as List<Coin>);
-                  } else {
-                    return const MarketListWidget([]);
-                  }
-                }
-                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),
