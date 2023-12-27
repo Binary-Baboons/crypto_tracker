@@ -5,7 +5,7 @@
       {
         "uuid": "yhjMzLPhuIDl",
         "type": "fiat",
-        "iconUrl": "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
+        "iconUrl": null,
         "name": "US Dollar",
         "symbol": "USD",
         "sign": "$"
@@ -13,7 +13,7 @@
       {
         "uuid": "5k-_VTxqtCEI",
         "type": "fiat",
-        "iconUrl": "https://cdn.coinranking.com/fz3P5lsJY/eur.svg",
+        "iconUrl": null,
         "name": "Euro",
         "symbol": "EUR",
         "sign": "e"
@@ -21,7 +21,7 @@
       {
         "uuid": "K4iOZMuz76cc",
         "type": "fiat",
-        "iconUrl": "https://cdn.coinranking.com/tDtpsWiy9/malaysian-ringgit.svg",
+        "iconUrl": null,
         "name": "Malaysian Ringgit",
         "symbol": "MYR",
         "sign": "RM"

@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ReferenceCurrenciesModal extends ConsumerWidget {
-  ReferenceCurrenciesModal(this.currencies, {super.key});
+  ReferenceCurrenciesModal({super.key});
 
-  Future<List<ReferenceCurrency>> currencies;
+  late Future<List<ReferenceCurrency>> currencies;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     return Column(children: [
       Container(
         color: const Color.fromARGB(255, 2, 32, 54),

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 
-const referenceCurrenciesDataPath = "test/resources/reference_currencies.json";
+import '../../provider/api_client_test.dart';
 
 @GenerateMocks([ReferenceCurrenciesApiClient])
 void main() {
@@ -17,12 +17,7 @@ void main() {
   group('ReferenceCurrenciesApiClient', () {
     test('getReferenceCurrencies returns data on successful http call',
         () async {
-      var data = await File(referenceCurrenciesDataPath).readAsString();
-      final mockClient = MockClient((request) async {
-        return http.Response(data, 200);
-      });
-
-      final client = ReferenceCurrenciesApiClient(mockClient);
+      final client = ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk());
       final result = await client.getReferenceCurrencies();
       expect(result.length, 3, reason: "Response is not of expected length");
     });

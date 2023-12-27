@@ -1,11 +1,19 @@
+import 'package:crypto_tracker/api/client/coins.dart';
+import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
+import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../provider/api_client_test.dart';
+
 void main() {
+  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',
         (WidgetTester tester) async {
@@ -50,7 +58,12 @@ void main() {
     testWidgets(
         'renders double_arrow_down and double_arrow_down icon for price orderBy correctly',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const ProviderScope(child: CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider
+                .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(
+                ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+          ], child: const CryptoTrackerApp()));
 
       final Finder priceButton = find.text("PRICE");
       await tester.tap(priceButton);

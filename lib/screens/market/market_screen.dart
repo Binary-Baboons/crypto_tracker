@@ -29,11 +29,11 @@ class MarketScreen extends ConsumerStatefulWidget {
 
 class _MarketScreenState extends ConsumerState<MarketScreen> {
   late Future<List<Coin>> coins;
-  late Future<List<ReferenceCurrency>> currencies;
 
   final TextEditingController _searchController = TextEditingController();
   late CoinsService coinsService;
   late ReferenceCurrenciesService referenceCurrenciesService;
+  late ReferenceCurrency selectedReferenceCurrency;
 
   OrderBy? currentOrderBy = DefaultApiRequestConfig.orderBy;
   OrderBy? savedCurrentOrderBy;
@@ -41,7 +41,6 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
 
   String? search;
   OrderDirection orderDirection = DefaultApiRequestConfig.orderDirection;
-  ReferenceCurrency selectedReferenceCurrency = DefaultConfig.referenceCurrency;
   Set<CategoryTag> selectedCategoryTags = {};
   TimePeriod selectedTimePeriod = DefaultApiRequestConfig.timePeriod;
 
@@ -52,24 +51,19 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    coinsService = ref.watch(coinsServiceProvider);
+    referenceCurrenciesService = ref.watch(referenceCurrenciesServiceProvider);
 
-    selectedReferenceCurrency = ref.read(referenceCurrencyStateProvider);
-    coinsService = ref.read(coinsServiceProvider);
-    referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
-
-    currencies = referenceCurrenciesService.getReferenceCurrencies();
-    coins =
-        coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
+    selectedReferenceCurrency = ref.watch(referenceCurrencyStateProvider);
   }
 
   @override
   Widget build(BuildContext context) {
-    selectedReferenceCurrency = ref.watch(referenceCurrencyStateProvider);
+    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
 
     double screenWidth = MediaQuery.of(context).size.width;
-
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Color.fromARGB(255, 2, 32, 54),
     ));
@@ -211,8 +205,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                          SnackBar(content: Text(ErrorHandler.getUserFriendlyMessage(snapshot.error!))));
+                      ..showSnackBar(SnackBar(
+                          content: Text(ErrorHandler.getUserFriendlyMessage(
+                              snapshot.error!))));
                   });
                   return Container();
                 } else if (snapshot.hasData) {
@@ -274,7 +269,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
         showModalBottomSheet<ReferenceCurrency>(
             isScrollControlled: true,
             context: context,
-            builder: (ctx) => ReferenceCurrenciesModal(currencies));
+            builder: (ctx) => ReferenceCurrenciesModal());
     futureCurrency.then((selectedCurrency) {
       if (selectedCurrency == null) {
         return;

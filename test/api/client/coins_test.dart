@@ -7,10 +7,9 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 
-const coinsDataPath = "test/resources/coins.json";
+import '../../provider/api_client_test.dart';
 
 @GenerateMocks([CoinsApiClient])
 void main() {
@@ -18,12 +17,7 @@ void main() {
 
   group('CoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
-      var data = await File(coinsDataPath).readAsString();
-      final mockClient = MockClient((request) async {
-        return http.Response(data, 200);
-      });
-
-      final client = CoinsApiClient<Coin>(mockClient);
+      final client = CoinsApiClient<Coin>(mockCoinsClientOk());
 
       List<Coin> result = await client.getCoins(CoinsRequestData(), DefaultConfig.referenceCurrency.uuid);
 
@@ -32,13 +26,7 @@ void main() {
     });
 
     test('getCoins returns a http client error', () async {
-      final mockClient = MockClient((request) async {
-        return http.Response(
-            '{"data":{"coins":[]},"message":"Reference currency not available"}',
-            422);
-      });
-
-      final client = CoinsApiClient(mockClient);
+      final client = CoinsApiClient(mockCoinsClientError());
       final requestData = CoinsRequestData(search: "testcoin");
 
       expect(() => client.getCoins(requestData, DefaultConfig.referenceCurrency.uuid), throwsA(isA<http.ClientException>()));
