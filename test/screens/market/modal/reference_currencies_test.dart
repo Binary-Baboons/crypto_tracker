@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
@@ -7,6 +6,7 @@ import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../service/reference_currencies_test.mocks.dart';
@@ -43,17 +43,17 @@ void main() {
     testWidgets('renders correctly on show reference currencies modal',
         (WidgetTester tester) async {
       var service = MockReferenceCurrenciesService();
-      when(service.getReferenceCurrencies()).thenAnswer((_) => Future.value((mockCurrencies,null)));
+      when(service.getReferenceCurrencies())
+          .thenAnswer((_) => Future.value(mockCurrencies));
 
       await tester.pumpWidget(ProviderScope(overrides: [
-        referenceCurrenciesServiceProvider
-            .overrideWithValue(service),
+        referenceCurrenciesServiceProvider.overrideWithValue(service),
       ], child: const CryptoTrackerApp()));
 
-      final Finder timePeriodSortButton =
+      final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
       await tester.pumpAndSettle();
-      await tester.tap(timePeriodSortButton);
+      await tester.tap(currencyFilterButton);
       await tester.pumpAndSettle();
 
       expect(find.byType(ReferenceCurrenciesModal), findsOneWidget);
@@ -65,19 +65,19 @@ void main() {
 
     testWidgets('renders correctly on button click',
         (WidgetTester tester) async {
-          var service = MockReferenceCurrenciesService();
-          when(service.getReferenceCurrencies()).thenAnswer((_) => Future.value((mockCurrencies,null)));
+      var service = MockReferenceCurrenciesService();
+      when(service.getReferenceCurrencies())
+          .thenAnswer((_) => Future.value(mockCurrencies));
 
-          await tester.pumpWidget(ProviderScope(overrides: [
-            referenceCurrenciesServiceProvider
-                .overrideWithValue(service),
-          ], child: const CryptoTrackerApp()));
+      await tester.pumpWidget(ProviderScope(overrides: [
+        referenceCurrenciesServiceProvider.overrideWithValue(service),
+      ], child: const CryptoTrackerApp()));
 
-          final Finder timePeriodSortButton =
+      final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
-          await tester.pumpAndSettle();
-          await tester.tap(timePeriodSortButton);
-          await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      await tester.tap(currencyFilterButton);
+      await tester.pumpAndSettle();
 
       Finder referenceCurrencyFilterTextFinder =
           find.byKey(const Key("referenceCurrencyFilterText"));
@@ -88,17 +88,42 @@ void main() {
               ?.contains(DefaultConfig.referenceCurrency.toString()),
           true);
 
-      final Finder euroReferenceCurrency = find.text(mockCurrencies[1].toString());
+      final Finder euroReferenceCurrency =
+          find.text(mockCurrencies[1].toString());
       await tester.pumpAndSettle();
       await tester.tap(euroReferenceCurrency);
       await tester.pumpAndSettle();
 
-          referenceCurrencyFilterTextFinder =
+      referenceCurrencyFilterTextFinder =
           find.byKey(const Key("referenceCurrencyFilterText"));
-          referenceCurrencyFilterText =
+      referenceCurrencyFilterText =
           tester.widget(referenceCurrencyFilterTextFinder) as Text;
-      expect(referenceCurrencyFilterText.data?.contains(mockCurrencies[1].toString()),
+      expect(
+          referenceCurrencyFilterText.data
+              ?.contains(mockCurrencies[1].toString()),
           true);
+    });
+
+    testWidgets('renders correctly default currency on error',
+        (WidgetTester tester) async {
+      var service = MockReferenceCurrenciesService();
+      when(service.getReferenceCurrencies()).thenAnswer((_) => Future.delayed(
+          const Duration(seconds: 1),
+          () => throw ClientException("exception")));
+
+      await tester.pumpWidget(ProviderScope(overrides: [
+        referenceCurrenciesServiceProvider.overrideWithValue(service),
+      ], child: const CryptoTrackerApp()));
+
+      Finder currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+      await tester.pumpAndSettle();
+      await tester.tap(currencyFilterButton);
+      await tester.pumpAndSettle();
+
+      currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+      expect(currencyFilterButton.last, findsOneWidget);
     });
   });
 }

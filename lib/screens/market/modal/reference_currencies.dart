@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ReferenceCurrenciesModal extends ConsumerWidget {
   ReferenceCurrenciesModal(this.currencies, {super.key});
 
-  late Future<(List<ReferenceCurrency>, String?)> currencies;
+  Future<List<ReferenceCurrency>> currencies;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
       Container(
-        color: Color.fromARGB(255, 2, 32, 54),
+        color: const Color.fromARGB(255, 2, 32, 54),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -44,50 +45,54 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
         child: FutureBuilder(
             future: currencies,
             builder: (ctx, snapshot) {
-              if (!snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return createListTile(
+                    context, ref, DefaultConfig.referenceCurrency);
+              } else if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemExtent: 70.0,
+                  itemBuilder: (BuildContext context, int index) {
+                    return createListTile(ctx, ref, snapshot.data![index]);
+                  },
+                );
+              } else {
+                return createListTile(
+                    context, ref, DefaultConfig.referenceCurrency);
               }
-
-              return ListView.builder(
-                itemCount: snapshot.data!.$1.length,
-                itemExtent: 70.0,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(0),
-                      title: Container(
-                        child: TextButton(
-                            onPressed: () {
-                              var selectedCurrency = snapshot.data!.$1[index];
-                              ref
-                                  .read(referenceCurrencyStateProvider.notifier)
-                                  .state = selectedCurrency;
-                              Navigator.of(context).pop(selectedCurrency);
-                            },
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                        snapshot.data!.$1[index].toString()),
-                                  ),
-                                  Container(
-                                    child: currentCurrencyMarking(
-                                        ref, snapshot.data!.$1[index]),
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                    ),
-                  );
-                },
-              );
             }),
       )
     ]);
+  }
+
+  Widget createListTile(
+      BuildContext context, WidgetRef ref, ReferenceCurrency currency) {
+    return ListTile(
+      contentPadding: const EdgeInsets.all(0),
+      title: Container(
+        child: TextButton(
+            onPressed: () {
+              ref.read(referenceCurrencyStateProvider.notifier).state =
+                  currency;
+              Navigator.of(context).pop(currency);
+            },
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(currency.toString()),
+                  ),
+                  Container(
+                    child: currentCurrencyMarking(ref, currency),
+                  )
+                ],
+              ),
+            )),
+      ),
+    );
   }
 
   Widget? currentCurrencyMarking(

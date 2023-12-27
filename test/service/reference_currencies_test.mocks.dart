@@ -67,13 +67,13 @@ class MockReferenceCurrenciesService extends _i1.Mock
       );
 
   @override
-  _i5.Future<(List<_i4.ReferenceCurrency>, String?)> getReferenceCurrencies() =>
+  _i5.Future<List<_i4.ReferenceCurrency>> getReferenceCurrencies() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceCurrencies,
           [],
         ),
-        returnValue: _i5.Future<(List<_i4.ReferenceCurrency>, String?)>.value(
-            (<_i4.ReferenceCurrency>[], null)),
-      ) as _i5.Future<(List<_i4.ReferenceCurrency>, String?)>);
+        returnValue: _i5.Future<List<_i4.ReferenceCurrency>>.value(
+            <_i4.ReferenceCurrency>[]),
+      ) as _i5.Future<List<_i4.ReferenceCurrency>>);
 }

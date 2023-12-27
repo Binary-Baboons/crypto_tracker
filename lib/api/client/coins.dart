@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:crypto_tracker/api/data/coins.dart';
-import 'package:crypto_tracker/api/data/response_data.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
@@ -15,7 +14,7 @@ class CoinsApiClient<T> {
 
   BaseClient client;
 
-  Future<ResponseData<T>> getCoins(CoinsRequestData requestData, String referenceCurrencyUuid) async {
+  Future<List<Coin>> getCoins(CoinsRequestData requestData, String referenceCurrencyUuid) async {
     final uri = Uri.https(baseUrl, coinsApi, requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
@@ -25,6 +24,10 @@ class CoinsApiClient<T> {
     var body = json.decode(response.body);
 
     String? message = body['message'];
+    if (response.statusCode != 200) {
+      throw ClientException(message!);
+    }
+
     List<Coin> coins = (body['data']['coins'] as List)
         .map((coin) =>
         Coin(
@@ -38,6 +41,6 @@ class CoinsApiClient<T> {
             coin['marketCap']))
         .toList();
 
-    return ResponseData<T>(response.statusCode, coins.cast<T>(), message);
+    return coins;
   }
 }

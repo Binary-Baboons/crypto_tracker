@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:crypto_tracker/api/client/reference_currencies.dart' as _i4;
-import 'package:crypto_tracker/api/data/response_data.dart' as _i3;
+import 'package:crypto_tracker/api/client/reference_currencies.dart' as _i3;
+import 'package:crypto_tracker/model/reference_currency.dart' as _i5;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -33,22 +33,11 @@ class _FakeBaseClient_0 extends _i1.SmartFake implements _i2.BaseClient {
         );
 }
 
-class _FakeResponseData_1<T1> extends _i1.SmartFake
-    implements _i3.ResponseData<T1> {
-  _FakeResponseData_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [ReferenceCurrenciesApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockReferenceCurrenciesApiClient<T> extends _i1.Mock
-    implements _i4.ReferenceCurrenciesApiClient<T> {
+    implements _i3.ReferenceCurrenciesApiClient<T> {
   MockReferenceCurrenciesApiClient() {
     _i1.throwOnMissingStub(this);
   }
@@ -72,19 +61,13 @@ class MockReferenceCurrenciesApiClient<T> extends _i1.Mock
       );
 
   @override
-  _i5.Future<_i3.ResponseData<T>> getReferenceCurrencies() =>
+  _i4.Future<List<_i5.ReferenceCurrency>> getReferenceCurrencies() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceCurrencies,
           [],
         ),
-        returnValue:
-            _i5.Future<_i3.ResponseData<T>>.value(_FakeResponseData_1<T>(
-          this,
-          Invocation.method(
-            #getReferenceCurrencies,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i3.ResponseData<T>>);
+        returnValue: _i4.Future<List<_i5.ReferenceCurrency>>.value(
+            <_i5.ReferenceCurrency>[]),
+      ) as _i4.Future<List<_i5.ReferenceCurrency>>);
 }
