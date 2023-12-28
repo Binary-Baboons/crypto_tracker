@@ -38,60 +38,60 @@ void main() {
       }
     });
 
-    // testWidgets('renders correctly on button click',
-    //     (WidgetTester tester) async {
-    //   await tester.pumpWidget(ProviderScope(overrides: [
-    //     coinsApiClientProvider
-    //         .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
-    //     referenceCurrenciesApiClientProvider.overrideWithValue(
-    //         ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-    //   ], child: const CryptoTrackerApp()));
-    //
-    //   final Finder currencyFilterButton =
-    //       find.text(DefaultConfig.referenceCurrency.toString());
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(currencyFilterButton);
-    //   await tester.pumpAndSettle();
-    //
-    //   Finder referenceCurrencyFilterTextFinder =
-    //       find.byKey(const Key("referenceCurrencyFilterText"));
-    //   Text referenceCurrencyFilterText =
-    //       tester.widget(referenceCurrencyFilterTextFinder) as Text;
-    //   expect(
-    //       referenceCurrencyFilterText.data
-    //           ?.contains(DefaultConfig.referenceCurrency.toString()),
-    //       true);
-    //
-    //   final Finder euroReferenceCurrency = find.text("Euro (e)");
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(euroReferenceCurrency);
-    //   await tester.pumpAndSettle();
-    //
-    //   referenceCurrencyFilterTextFinder =
-    //       find.byKey(const Key("referenceCurrencyFilterText"));
-    //   referenceCurrencyFilterText =
-    //       tester.widget(referenceCurrencyFilterTextFinder) as Text;
-    //   expect(referenceCurrencyFilterText.data?.contains("Euro (e)"), true);
-    // });
-    //
-    // testWidgets('renders correctly default currency on error',
-    //     (WidgetTester tester) async {
-    //   await tester.pumpWidget(ProviderScope(overrides: [
-    //     coinsApiClientProvider
-    //         .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
-    //     referenceCurrenciesApiClientProvider.overrideWithValue(
-    //         ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
-    //   ], child: const CryptoTrackerApp()));
-    //
-    //   Finder currencyFilterButton =
-    //       find.text(DefaultConfig.referenceCurrency.toString());
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(currencyFilterButton);
-    //   await tester.pumpAndSettle();
-    //
-    //   currencyFilterButton =
-    //       find.text(DefaultConfig.referenceCurrency.toString());
-    //   expect(currencyFilterButton.last, findsOneWidget);
-    // });
+    testWidgets('renders correctly on button click',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+      ], child: const CryptoTrackerApp()));
+
+      final Finder currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+      await tester.pumpAndSettle();
+      await tester.tap(currencyFilterButton);
+      await tester.pumpAndSettle();
+
+      Finder referenceCurrencyFilterTextFinder =
+          find.byKey(const Key("referenceCurrencyFilterText"));
+      Text referenceCurrencyFilterText =
+          tester.widget(referenceCurrencyFilterTextFinder) as Text;
+      expect(
+          referenceCurrencyFilterText.data
+              ?.contains(DefaultConfig.referenceCurrency.toString()),
+          true);
+
+      final Finder euroReferenceCurrency = find.text("Euro (e)");
+      await tester.pumpAndSettle();
+      await tester.tap(euroReferenceCurrency);
+      await tester.pumpAndSettle();
+
+      referenceCurrencyFilterTextFinder =
+          find.byKey(const Key("referenceCurrencyFilterText"));
+      referenceCurrencyFilterText =
+          tester.widget(referenceCurrencyFilterTextFinder) as Text;
+      expect(referenceCurrencyFilterText.data?.contains("Euro (e)"), true);
+    });
+
+    testWidgets('renders correctly default currency on error',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
+      ], child: const CryptoTrackerApp()));
+
+      Finder currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+      await tester.pumpAndSettle();
+      await tester.tap(currencyFilterButton);
+      await tester.pumpAndSettle();
+
+      currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+      expect(currencyFilterButton.last, findsOneWidget);
+    });
   });
 }
