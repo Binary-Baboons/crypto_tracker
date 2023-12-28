@@ -56,7 +56,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     coinsService = ref.watch(coinsServiceProvider);
     referenceCurrenciesService = ref.watch(referenceCurrenciesServiceProvider);
 
-    selectedReferenceCurrency = ref.watch(referenceCurrencyStateProvider);
+    selectedReferenceCurrency = ref.watch(selectedReferenceCurrencyStateProvider);
   }
 
   @override

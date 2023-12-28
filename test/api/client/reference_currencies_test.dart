@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 
-import '../../provider/api_client_test.dart';
+import '../../provider/api_client.dart';
 
 @GenerateMocks([ReferenceCurrenciesApiClient])
 void main() {

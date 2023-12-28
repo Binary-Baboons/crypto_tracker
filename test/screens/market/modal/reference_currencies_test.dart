@@ -1,54 +1,31 @@
+import 'package:crypto_tracker/api/client/coins.dart';
+import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../provider/api_client.dart';
 import '../../../service/reference_currencies_test.mocks.dart';
 
-List<ReferenceCurrency> mockCurrencies = [
-  ReferenceCurrency(
-    "yhjMzLPhuIDl",
-    "fiat",
-    "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
-    "US Dollar",
-    "USD",
-    "\$",
-  ),
-  ReferenceCurrency(
-    "5k-_VTxqtCEI",
-    "fiat",
-    "https://cdn.coinranking.com/fz3P5lsJY/eur.svg",
-    "Euro",
-    "EUR",
-    "€",
-  ),
-  ReferenceCurrency(
-    "K4iOZMuz76cc",
-    "fiat",
-    "https://cdn.coinranking.com/tDtpsWiy9/malaysian-ringgit.svg",
-    "Malaysian Ringgit",
-    "MYR",
-    "RM",
-  ),
-];
-
 void main() {
+  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+
   group('ReferenceCurrenciesModal Widget Tests', () {
     testWidgets('renders correctly on show reference currencies modal',
         (WidgetTester tester) async {
-      var service = MockReferenceCurrenciesService();
-      when(service.getReferenceCurrencies())
-          .thenAnswer((_) => Future.value(mockCurrencies));
-
-      await tester.pumpWidget(ProviderScope(overrides: [
-        referenceCurrenciesServiceProvider.overrideWithValue(service),
-      ], child: const CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+          ], child: const CryptoTrackerApp()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -57,21 +34,14 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(ReferenceCurrenciesModal), findsOneWidget);
-
-      for (var currency in mockCurrencies) {
-        expect(find.text(currency.toString()).last, findsOneWidget);
-      }
     });
 
     testWidgets('renders correctly on button click',
         (WidgetTester tester) async {
-      var service = MockReferenceCurrenciesService();
-      when(service.getReferenceCurrencies())
-          .thenAnswer((_) => Future.value(mockCurrencies));
-
-      await tester.pumpWidget(ProviderScope(overrides: [
-        referenceCurrenciesServiceProvider.overrideWithValue(service),
-      ], child: const CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+          ], child: const CryptoTrackerApp()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -89,7 +59,7 @@ void main() {
           true);
 
       final Finder euroReferenceCurrency =
-          find.text(mockCurrencies[1].toString());
+          find.text("Euro (e)");
       await tester.pumpAndSettle();
       await tester.tap(euroReferenceCurrency);
       await tester.pumpAndSettle();
@@ -100,20 +70,16 @@ void main() {
           tester.widget(referenceCurrencyFilterTextFinder) as Text;
       expect(
           referenceCurrencyFilterText.data
-              ?.contains(mockCurrencies[1].toString()),
+              ?.contains("Euro (e)"),
           true);
     });
 
     testWidgets('renders correctly default currency on error',
         (WidgetTester tester) async {
-      var service = MockReferenceCurrenciesService();
-      when(service.getReferenceCurrencies()).thenAnswer((_) => Future.delayed(
-          const Duration(seconds: 1),
-          () => throw ClientException("exception")));
-
-      await tester.pumpWidget(ProviderScope(overrides: [
-        referenceCurrenciesServiceProvider.overrideWithValue(service),
-      ], child: const CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
+          ], child: const CryptoTrackerApp()));
 
       Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());

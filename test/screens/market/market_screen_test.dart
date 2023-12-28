@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../provider/api_client_test.dart';
+import '../../provider/api_client.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
@@ -17,7 +17,10 @@ void main() {
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const ProviderScope(child: CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+          ], child: const CryptoTrackerApp()));
 
       final Finder currentReferenceCurrency =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -34,7 +37,10 @@ void main() {
 
     testWidgets('renders double_arrow_down icon for default orderBy correctly',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const ProviderScope(child: CryptoTrackerApp()));
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+          ], child: const CryptoTrackerApp()));
 
       var mapOrderByToText = {
         OrderBy.marketCap: "MARKET CAP",

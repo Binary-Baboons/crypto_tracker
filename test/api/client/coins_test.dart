@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 
-import '../../provider/api_client_test.dart';
+import '../../provider/api_client.dart';
 
 @GenerateMocks([CoinsApiClient])
 void main() {
