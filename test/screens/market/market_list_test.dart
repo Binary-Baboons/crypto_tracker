@@ -6,7 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../provider/api_client.dart';
+import '../../test_data/api_client.dart';
+import '../../test_data/expected_data.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
@@ -20,6 +21,15 @@ void main() {
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
       ], child: const CryptoTrackerApp()));
+      await tester.pumpAndSettle();
+
+      for (var coin in expectedCoins) {
+        expect(find.text(coin.rank.toString()), findsOneWidget);
+        expect(find.text(coin.symbol!), findsOneWidget);
+        expect(find.text(coin.change!), findsOneWidget);
+        expect(find.text(coin.price!), findsOneWidget);
+        expect(find.text(coin.marketCap!), findsOneWidget);
+      }
     });
 
     testWidgets('renders correctly snackbar with error',

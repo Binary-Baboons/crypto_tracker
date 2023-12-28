@@ -9,11 +9,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'api_client.dart';
 
 final coinsServiceProvider = Provider<CoinsService>((ref) {
-  CoinsApiClient<Coin> coinsClient = ref.watch(coinsApiClientProvider);
+  CoinsApiClient coinsClient = ref.watch(coinsApiClientProvider);
   return CoinsService(coinsClient);
 });
 
 final referenceCurrenciesServiceProvider = Provider<ReferenceCurrenciesService>((ref) {
-  ReferenceCurrenciesApiClient<ReferenceCurrency> referenceCurrenciesService = ref.watch(referenceCurrenciesApiClientProvider);
+  ReferenceCurrenciesApiClient referenceCurrenciesService = ref.watch(referenceCurrenciesApiClientProvider);
   return ReferenceCurrenciesService(referenceCurrenciesService);
 });

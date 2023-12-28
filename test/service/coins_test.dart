@@ -15,7 +15,7 @@ import '../api/client/coins_test.mocks.dart';
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
 
-  MockCoinsApiClient<Coin> mockClient = MockCoinsApiClient();
+  MockCoinsApiClient mockClient = MockCoinsApiClient();
   CoinsService service = CoinsService(mockClient);
 
   group('CoinsService', () {
@@ -43,7 +43,7 @@ void main() {
       expect(
           result[1] ==
               Coin("qwerty", 2, "Etherium", "ETH", "http", "\$0.0000012346",
-                  "0.0", "\$0.12"),
+                  "0.00", "\$0.12"),
           true,
           reason: "Coin is not equal");
     });

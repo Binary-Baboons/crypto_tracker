@@ -14,7 +14,7 @@ void main() {
   dotenv.testLoad(
       mergeWith: {ReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"});
 
-  MockReferenceCurrenciesApiClient<ReferenceCurrency> mockClient =
+  MockReferenceCurrenciesApiClient mockClient =
       MockReferenceCurrenciesApiClient();
   ReferenceCurrenciesService service = ReferenceCurrenciesService(mockClient);
 

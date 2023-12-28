@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 
-const _coins = "test/resources/coins.json";
-const _coinsError = "test/resources/coins_error.json";
-const _referenceCurrencies = "test/resources/reference_currencies.json";
-const _referenceCurrenciesError = "test/resources/reference_currencies_error.json";
+const _coins = "test/test_data/json/coins.json";
+const _coinsError = "test/test_data/json/coins_error.json";
+const _referenceCurrencies = "test/test_data/json/reference_currencies.json";
+const _referenceCurrenciesError = "test/test_data/json/reference_currencies_error.json";
 
 BaseClient mockCoinsClientOk() {
   var data = File(_coins).readAsStringSync();

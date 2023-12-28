@@ -36,8 +36,8 @@ class _FakeBaseClient_0 extends _i1.SmartFake implements _i2.BaseClient {
 /// A class which mocks [ReferenceCurrenciesApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockReferenceCurrenciesApiClient<T> extends _i1.Mock
-    implements _i3.ReferenceCurrenciesApiClient<T> {
+class MockReferenceCurrenciesApiClient extends _i1.Mock
+    implements _i3.ReferenceCurrenciesApiClient {
   MockReferenceCurrenciesApiClient() {
     _i1.throwOnMissingStub(this);
   }

@@ -4,7 +4,7 @@ import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
-class ReferenceCurrenciesApiClient<T> {
+class ReferenceCurrenciesApiClient {
   static const String baseUrl = "api.coinranking.com";
   static const String coinsApi = "v2/reference-currencies";
   static const String coinRankingApiKey = "COIN_RANKING_API_KEY";

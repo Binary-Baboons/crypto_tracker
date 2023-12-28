@@ -11,12 +11,12 @@ final ioClientProvider = Provider<BaseClient>((ref) {
   return IOClient();
 });
 
-final coinsApiClientProvider = Provider<CoinsApiClient<Coin>>((ref) {
+final coinsApiClientProvider = Provider<CoinsApiClient>((ref) {
   final client = ref.watch(ioClientProvider);
   return CoinsApiClient(client);
 });
 
-final referenceCurrenciesApiClientProvider = Provider<ReferenceCurrenciesApiClient<ReferenceCurrency>>((ref) {
+final referenceCurrenciesApiClientProvider = Provider<ReferenceCurrenciesApiClient>((ref) {
   final client = ref.watch(ioClientProvider);
   return ReferenceCurrenciesApiClient(client);
 });

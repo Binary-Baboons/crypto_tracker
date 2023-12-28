@@ -5,7 +5,7 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
-class CoinsApiClient<T> {
+class CoinsApiClient {
   static const String baseUrl = "api.coinranking.com";
   static const String coinsApi = "v2/coins";
   static const String coinRankingApiKey = "COIN_RANKING_API_KEY";

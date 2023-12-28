@@ -9,7 +9,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../provider/api_client.dart';
+import '../../../test_data/api_client.dart';
+
 
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});

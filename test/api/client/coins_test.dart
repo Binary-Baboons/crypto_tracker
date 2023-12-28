@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 
-import '../../provider/api_client.dart';
+import '../../test_data/api_client.dart';
 
 @GenerateMocks([CoinsApiClient])
 void main() {
@@ -17,7 +17,7 @@ void main() {
 
   group('CoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
-      final client = CoinsApiClient<Coin>(mockCoinsClientOk());
+      final client = CoinsApiClient(mockCoinsClientOk());
 
       List<Coin> result = await client.getCoins(CoinsRequestData(), DefaultConfig.referenceCurrency.uuid);
 
