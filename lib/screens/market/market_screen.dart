@@ -56,15 +56,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     coinsService = ref.read(coinsServiceProvider);
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
 
-    selectedReferenceCurrency = ref.read(selectedReferenceCurrencyStateProvider);
-    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
+    selectedReferenceCurrency =
+        ref.read(selectedReferenceCurrencyStateProvider);
+    coins =
+        coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color.fromARGB(255, 2, 32, 54),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Theme.of(context).colorScheme.primary,
     ));
 
     return RefreshIndicator(
@@ -72,61 +74,94 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       child: Column(
         children: [
           Container(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+              color: Theme.of(context).colorScheme.primary,
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.35,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: TextButton(
-                      onPressed: _showCurrencyModal,
-                      child: Text(
-                          key: const Key("referenceCurrencyFilterText"),
-                          selectedReferenceCurrency.toString())),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: TextButton(
-                        onPressed: _showCategoriesModal,
-                        child: Text('Category'))),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: TextButton(
-                        onPressed: _showTimePeriodModal,
-                        child: Text('Time period'))),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.15,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: IconButton(
-                    onPressed: () {
-                      _showSearchModal(context);
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                      size: 30,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: TextButton(
+                          onPressed: _showCurrencyModal,
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                                style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary),
+                                key: const Key("referenceCurrencyFilterText"),
+                                selectedReferenceCurrency.toString()),
+                          )),
                     ),
                   ),
-                ),
-              )
-            ],
-          )),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: TextButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showCategoriesModal,
+                            child: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text('Category'),
+                            ))),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: TextButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showTimePeriodModal,
+                            child: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text('Time period'),
+                            ))),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: IconButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer),
+                        onPressed: () {
+                          _showSearchModal(context);
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )),
           Container(
-            color: const Color.fromARGB(255, 240, 239, 239),
+            color: Theme.of(context).colorScheme.primaryContainer,
             padding: EdgeInsets.all(screenWidth * 0.02),
             child: Row(
               children: [
                 Container(
                   width: screenWidth * 0.08,
-                  child: const Center(child: Text('#')),
+                  child: Center(
+                      child: Text('#',
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer))),
                 ),
                 Container(
                   width: screenWidth * 0.15,

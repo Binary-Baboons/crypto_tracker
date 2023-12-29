@@ -29,7 +29,7 @@ class _ReferenceCurrenciesModalState
 
     return Column(children: [
       Container(
-        color: const Color.fromARGB(255, 2, 32, 54),
+        color: Theme.of(context).colorScheme.primary,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -39,14 +39,16 @@ class _ReferenceCurrenciesModalState
                 SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  child: const Text(
+                  child: Text(
                     'Select currency',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontSize: 20),
                   ),
                 ),
                 Container(
                   child: IconButton(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -115,9 +117,9 @@ class _ReferenceCurrenciesModalState
       WidgetRef ref, ReferenceCurrency currentCurrency) {
     var activeCurrency = ref.read(selectedReferenceCurrencyStateProvider);
     if (currentCurrency.uuid == activeCurrency.uuid) {
-      return const Icon(
+      return Icon(
         Icons.check_circle,
-        color: Color.fromARGB(255, 2, 32, 54),
+        color: Theme.of(context).colorScheme.primary,
       );
     } else {
       return null;

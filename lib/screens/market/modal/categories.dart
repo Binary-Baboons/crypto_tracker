@@ -18,7 +18,7 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        color: const Color.fromARGB(255, 2, 32, 54),
+        color: Theme.of(context).colorScheme.primary,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -28,14 +28,14 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                 SizedBox(),
                 Container(
                   alignment: Alignment.center,
-                  child: const Text(
+                  child: Text(
                     'Select categories',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 20),
                   ),
                 ),
                 Container(
                   child: IconButton(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       onPressed: () {
                         Navigator.of(context).pop(widget.selectedCategoryTags);
                       },
@@ -88,9 +88,9 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
 
   Widget? currentCategoryTagMarking(CategoryTag categoryTag) {
     if (widget.selectedCategoryTags.contains(categoryTag)) {
-      return const Icon(
+      return Icon(
         Icons.check_circle,
-        color: Color.fromARGB(255, 2, 32, 54),
+        color: Theme.of(context).colorScheme.primary,
       );
     } else {
       return null;

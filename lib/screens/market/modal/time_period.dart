@@ -12,7 +12,7 @@ class TimePeriodModal extends ConsumerWidget {
     return Container(
       child: Column(children: [
         Container(
-          color: Color.fromARGB(255, 2, 32, 54),
+          color: Theme.of(context).colorScheme.primary,
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -22,14 +22,16 @@ class TimePeriodModal extends ConsumerWidget {
                   SizedBox(),
                   Container(
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
                       'Select time period',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: 20),
                     ),
                   ),
                   Container(
                     child: IconButton(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -62,7 +64,7 @@ class TimePeriodModal extends ConsumerWidget {
                           ),
                           Container(
                             child: currentTimePeriodMarking(
-                                TimePeriod.values[index]),
+                                context, TimePeriod.values[index]),
                           )
                         ],
                       ),
@@ -75,11 +77,12 @@ class TimePeriodModal extends ConsumerWidget {
     );
   }
 
-  Widget? currentTimePeriodMarking(TimePeriod currentTimePeriodVar) {
+  Widget? currentTimePeriodMarking(
+      BuildContext context, TimePeriod currentTimePeriodVar) {
     if (selectedTimePeriod == currentTimePeriodVar) {
-      return const Icon(
+      return Icon(
         Icons.check_circle,
-        color: Color.fromARGB(255, 2, 32, 54),
+        color: Theme.of(context).colorScheme.primary,
       );
     } else {
       return null;
