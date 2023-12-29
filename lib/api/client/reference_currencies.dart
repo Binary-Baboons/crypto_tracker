@@ -4,20 +4,20 @@ import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
-class ReferenceCurrenciesApiClient<T> {
-  static const String baseUrl = "api.coinranking.com";
+import 'base_client_config.dart';
+
+class ReferenceCurrenciesApiClient {
   static const String coinsApi = "v2/reference-currencies";
-  static const String coinRankingApiKey = "COIN_RANKING_API_KEY";
 
   ReferenceCurrenciesApiClient(this.client);
 
   BaseClient client;
 
   Future<List<ReferenceCurrency>> getReferenceCurrencies() async {
-      final uri = Uri.https(baseUrl, coinsApi);
+      final uri = Uri.https(BaseClientConfig.baseUrl, coinsApi);
       final response = await client.get(uri, headers: {
         "Content-Type": "application/json",
-        "x-access-token": dotenv.env[coinRankingApiKey]!,
+        "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
       });
 
       var body = json.decode(response.body);

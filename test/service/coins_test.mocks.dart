@@ -3,11 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:crypto_tracker/api/client/coins.dart' as _i2;
 import 'package:crypto_tracker/api/data/coins.dart' as _i6;
-import 'package:crypto_tracker/model/coin.dart' as _i4;
+import 'package:crypto_tracker/model/coin.dart' as _i5;
 import 'package:crypto_tracker/model/reference_currency.dart' as _i7;
 import 'package:crypto_tracker/service/coins.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -25,8 +25,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeCoinsApiClient_0<T> extends _i1.SmartFake
-    implements _i2.CoinsApiClient<T> {
+class _FakeCoinsApiClient_0 extends _i1.SmartFake
+    implements _i2.CoinsApiClient {
   _FakeCoinsApiClient_0(
     Object parent,
     Invocation parentInvocation,
@@ -45,17 +45,16 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
   }
 
   @override
-  _i2.CoinsApiClient<_i4.Coin> get coinsApiClient => (super.noSuchMethod(
+  _i2.CoinsApiClient get coinsApiClient => (super.noSuchMethod(
         Invocation.getter(#coinsApiClient),
-        returnValue: _FakeCoinsApiClient_0<_i4.Coin>(
+        returnValue: _FakeCoinsApiClient_0(
           this,
           Invocation.getter(#coinsApiClient),
         ),
-      ) as _i2.CoinsApiClient<_i4.Coin>);
+      ) as _i2.CoinsApiClient);
 
   @override
-  set coinsApiClient(_i2.CoinsApiClient<_i4.Coin>? _coinsApiClient) =>
-      super.noSuchMethod(
+  set coinsApiClient(_i2.CoinsApiClient? _coinsApiClient) => super.noSuchMethod(
         Invocation.setter(
           #coinsApiClient,
           _coinsApiClient,
@@ -64,7 +63,7 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
       );
 
   @override
-  _i5.Future<List<_i4.Coin>> getCoins(
+  _i4.Future<List<_i5.Coin>> getCoins(
     _i6.CoinsRequestData? requestData,
     _i7.ReferenceCurrency? referenceCurrency,
   ) =>
@@ -76,12 +75,12 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
             referenceCurrency,
           ],
         ),
-        returnValue: _i5.Future<List<_i4.Coin>>.value(<_i4.Coin>[]),
-      ) as _i5.Future<List<_i4.Coin>>);
+        returnValue: _i4.Future<List<_i5.Coin>>.value(<_i5.Coin>[]),
+      ) as _i4.Future<List<_i5.Coin>>);
 
   @override
-  List<_i4.Coin> format(
-    List<_i4.Coin>? coinsData,
+  List<_i5.Coin> format(
+    List<_i5.Coin>? coinsData,
     _i7.ReferenceCurrency? referenceCurrency,
   ) =>
       (super.noSuchMethod(
@@ -92,8 +91,8 @@ class MockCoinsService extends _i1.Mock implements _i3.CoinsService {
             referenceCurrency,
           ],
         ),
-        returnValue: <_i4.Coin>[],
-      ) as List<_i4.Coin>);
+        returnValue: <_i5.Coin>[],
+      ) as List<_i5.Coin>);
 
   @override
   int getDecimal(double? price) => (super.noSuchMethod(

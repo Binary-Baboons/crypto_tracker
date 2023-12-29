@@ -4,13 +4,29 @@ import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ReferenceCurrenciesModal extends ConsumerWidget {
-  ReferenceCurrenciesModal(this.currencies, {super.key});
+class ReferenceCurrenciesModal extends ConsumerStatefulWidget {
+  ReferenceCurrenciesModal({super.key});
 
-  Future<List<ReferenceCurrency>> currencies;
+  Future<List<ReferenceCurrency>>? currencies;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _ReferenceCurrenciesModalState();
+  }
+}
+
+class _ReferenceCurrenciesModalState
+    extends ConsumerState<ReferenceCurrenciesModal> {
+  @override
+  void initState() {
+    super.initState();
+    widget.currencies = ref.read(referenceCurrenciesStateProvider);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var currencies = widget.currencies;
+
     return Column(children: [
       Container(
         color: const Color.fromARGB(255, 2, 32, 54),
@@ -74,7 +90,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
       title: Container(
         child: TextButton(
             onPressed: () {
-              ref.read(referenceCurrencyStateProvider.notifier).state =
+              ref.read(selectedReferenceCurrencyStateProvider.notifier).state =
                   currency;
               Navigator.of(context).pop(currency);
             },
@@ -97,7 +113,7 @@ class ReferenceCurrenciesModal extends ConsumerWidget {
 
   Widget? currentCurrencyMarking(
       WidgetRef ref, ReferenceCurrency currentCurrency) {
-    var activeCurrency = ref.read(referenceCurrencyStateProvider);
+    var activeCurrency = ref.read(selectedReferenceCurrencyStateProvider);
     if (currentCurrency.uuid == activeCurrency.uuid) {
       return const Icon(
         Icons.check_circle,

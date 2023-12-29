@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
@@ -7,23 +8,18 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
+import 'package:http/io_client.dart';
 import 'package:mockito/annotations.dart';
 
-const coinsDataPath = "test/resources/coins.json";
+import '../../test_data/api_client.dart';
 
-@GenerateMocks([CoinsApiClient])
+@GenerateMocks([CoinsApiClient, IOClient])
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('CoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
-      var data = await File(coinsDataPath).readAsString();
-      final mockClient = MockClient((request) async {
-        return http.Response(data, 200);
-      });
-
-      final client = CoinsApiClient<Coin>(mockClient);
+      final client = CoinsApiClient(mockCoinsClientOk());
 
       List<Coin> result = await client.getCoins(CoinsRequestData(), DefaultConfig.referenceCurrency.uuid);
 
@@ -32,13 +28,7 @@ void main() {
     });
 
     test('getCoins returns a http client error', () async {
-      final mockClient = MockClient((request) async {
-        return http.Response(
-            '{"data":{"coins":[]},"message":"Reference currency not available"}',
-            422);
-      });
-
-      final client = CoinsApiClient(mockClient);
+      final client = CoinsApiClient(mockCoinsClientError());
       final requestData = CoinsRequestData(search: "testcoin");
 
       expect(() => client.getCoins(requestData, DefaultConfig.referenceCurrency.uuid), throwsA(isA<http.ClientException>()));

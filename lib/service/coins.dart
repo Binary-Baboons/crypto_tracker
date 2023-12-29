@@ -8,7 +8,7 @@ import '../api/data/coins.dart';
 class CoinsService {
   CoinsService(this.coinsApiClient);
 
-  CoinsApiClient<Coin> coinsApiClient;
+  CoinsApiClient coinsApiClient;
 
   Future<List<Coin>> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
@@ -22,7 +22,7 @@ class CoinsService {
     return coinsData
         .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {
-      coin.change = coin.change ?? "0.0";
+      coin.change = coin.change ?? "0.00";
       coin.marketCap = NumberFormat.currency(
               symbol: referenceCurrency.getSignSymbol(), decimalDigits: 2)
           .format(double.parse(coin.marketCap!));

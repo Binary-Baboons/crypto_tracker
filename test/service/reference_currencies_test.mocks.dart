@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:crypto_tracker/api/client/reference_currencies.dart' as _i2;
-import 'package:crypto_tracker/model/reference_currency.dart' as _i4;
+import 'package:crypto_tracker/model/reference_currency.dart' as _i5;
 import 'package:crypto_tracker/service/reference_currency.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -23,8 +23,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeReferenceCurrenciesApiClient_0<T> extends _i1.SmartFake
-    implements _i2.ReferenceCurrenciesApiClient<T> {
+class _FakeReferenceCurrenciesApiClient_0 extends _i1.SmartFake
+    implements _i2.ReferenceCurrenciesApiClient {
   _FakeReferenceCurrenciesApiClient_0(
     Object parent,
     Invocation parentInvocation,
@@ -44,20 +44,18 @@ class MockReferenceCurrenciesService extends _i1.Mock
   }
 
   @override
-  _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>
-      get referenceCurrenciesApiClient => (super.noSuchMethod(
-            Invocation.getter(#referenceCurrenciesApiClient),
-            returnValue:
-                _FakeReferenceCurrenciesApiClient_0<_i4.ReferenceCurrency>(
-              this,
-              Invocation.getter(#referenceCurrenciesApiClient),
-            ),
-          ) as _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>);
+  _i2.ReferenceCurrenciesApiClient get referenceCurrenciesApiClient =>
+      (super.noSuchMethod(
+        Invocation.getter(#referenceCurrenciesApiClient),
+        returnValue: _FakeReferenceCurrenciesApiClient_0(
+          this,
+          Invocation.getter(#referenceCurrenciesApiClient),
+        ),
+      ) as _i2.ReferenceCurrenciesApiClient);
 
   @override
   set referenceCurrenciesApiClient(
-          _i2.ReferenceCurrenciesApiClient<_i4.ReferenceCurrency>?
-              _referenceCurrenciesApiClient) =>
+          _i2.ReferenceCurrenciesApiClient? _referenceCurrenciesApiClient) =>
       super.noSuchMethod(
         Invocation.setter(
           #referenceCurrenciesApiClient,
@@ -67,13 +65,13 @@ class MockReferenceCurrenciesService extends _i1.Mock
       );
 
   @override
-  _i5.Future<List<_i4.ReferenceCurrency>> getReferenceCurrencies() =>
+  _i4.Future<List<_i5.ReferenceCurrency>> getReferenceCurrencies() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceCurrencies,
           [],
         ),
-        returnValue: _i5.Future<List<_i4.ReferenceCurrency>>.value(
-            <_i4.ReferenceCurrency>[]),
-      ) as _i5.Future<List<_i4.ReferenceCurrency>>);
+        returnValue: _i4.Future<List<_i5.ReferenceCurrency>>.value(
+            <_i5.ReferenceCurrency>[]),
+      ) as _i4.Future<List<_i5.ReferenceCurrency>>);
 }

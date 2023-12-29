@@ -94,5 +94,5 @@ flutter:
 
   assets:
     - .env
-    - test/resources/
+    - test/test_data/json/
     - assets/logo.png

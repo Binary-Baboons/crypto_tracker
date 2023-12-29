@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
@@ -13,9 +14,9 @@ import '../api/client/coins_test.mocks.dart';
 
 @GenerateMocks([CoinsService])
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
-  MockCoinsApiClient<Coin> mockClient = MockCoinsApiClient();
+  MockCoinsApiClient mockClient = MockCoinsApiClient();
   CoinsService service = CoinsService(mockClient);
 
   group('CoinsService', () {
@@ -43,7 +44,7 @@ void main() {
       expect(
           result[1] ==
               Coin("qwerty", 2, "Etherium", "ETH", "http", "\$0.0000012346",
-                  "0.0", "\$0.12"),
+                  "0.00", "\$0.12"),
           true,
           reason: "Coin is not equal");
     });

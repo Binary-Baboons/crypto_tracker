@@ -1,88 +1,51 @@
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/coins.dart';
+import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/main.dart';
-import 'package:crypto_tracker/model/coin.dart';
-import 'package:crypto_tracker/model/reference_currency.dart';
-import 'package:crypto_tracker/provider/service.dart';
+import 'package:crypto_tracker/provider/api_client.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
-import 'package:mockito/mockito.dart';
 
-import '../../service/coins_test.mocks.dart';
-import '../../service/reference_currencies_test.mocks.dart';
-
-List<Coin> mockCoins = [
-  Coin(
-      "asdf",
-      1,
-      "Bitcoin",
-      "BTC",
-      null,
-      "\$69,000.00",
-      "50",
-      "\$8,000.00"),
-  Coin(
-      "qwerty",
-      2,
-      "Etherium",
-      "ETH",
-      null,
-      "\$0.0000012346",
-      "0.0",
-      "\$0.12")
-];
+import '../../test_data/api_client.dart';
+import '../../test_data/expected_data.dart';
 
 void main() {
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+
   group('MarketListWidget Widget Tests', () {
     testWidgets('renders correctly market list with coins',
-            (WidgetTester tester) async {
-          var coinsService = MockCoinsService();
-          when(coinsService.getCoins(any, any))
-              .thenAnswer((_) => Future.value(mockCoins));
+        (WidgetTester tester) async {
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+      ], child: const CryptoTrackerApp()));
+      await tester.pumpAndSettle();
 
-          var currenciesService = MockReferenceCurrenciesService();
-          when(currenciesService.getReferenceCurrencies()).thenAnswer((_) =>
-              Future.value([DefaultConfig.referenceCurrency]));
-
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsServiceProvider.overrideWithValue(coinsService),
-            referenceCurrenciesServiceProvider.overrideWithValue(
-                currenciesService),
-          ], child: const CryptoTrackerApp()));
-          await tester.pumpAndSettle();
-
-          for (var coin in mockCoins) {
-            expect(find.text(coin.rank.toString()), findsOneWidget);
-            expect(find.text(coin.symbol!), findsOneWidget);
-            expect(find.text(coin.price!), findsOneWidget);
-            expect(find.text(coin.marketCap!), findsOneWidget);
-          }
-        });
+      for (var coin in expectedCoins) {
+        expect(find.text(coin.rank.toString()), findsOneWidget);
+        expect(find.text(coin.symbol!), findsOneWidget);
+        expect(find.text(coin.change!), findsOneWidget);
+        expect(find.text(coin.price!), findsOneWidget);
+        expect(find.text(coin.marketCap!), findsOneWidget);
+      }
+    });
 
     testWidgets('renders correctly snackbar with error',
-            (WidgetTester tester) async {
-          var coinsService = MockCoinsService();
-          when(coinsService.getCoins(any, any))
-              .thenAnswer((_) =>
-              Future.delayed(
-                  const Duration(seconds: 1),
-                      () => throw ClientException("exception")));
+        (WidgetTester tester) async {
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientError())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+      ], child: const CryptoTrackerApp()));
+      await tester.pumpAndSettle();
 
-          var currenciesService = MockReferenceCurrenciesService();
-          when(currenciesService.getReferenceCurrencies()).thenAnswer((_) =>
-              Future.delayed(
-                  const Duration(seconds: 1),
-                      () => throw ClientException("exception")));
-
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsServiceProvider.overrideWithValue(coinsService),
-            referenceCurrenciesServiceProvider.overrideWithValue(
-                currenciesService),
-          ], child: const CryptoTrackerApp()));
-          await tester.pumpAndSettle();
-
-          var snackBarFinder = find.text("exception");
-          expect(snackBarFinder, findsOneWidget);
-        });
+      var snackBarFinder =
+          find.text("ClientException: Reference currency not available");
+      expect(snackBarFinder, findsOneWidget);
+    });
   });
 }
