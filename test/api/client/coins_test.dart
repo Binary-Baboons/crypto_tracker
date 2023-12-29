@@ -7,11 +7,12 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 import 'package:mockito/annotations.dart';
 
 import '../../test_data/api_client.dart';
 
-@GenerateMocks([CoinsApiClient])
+@GenerateMocks([CoinsApiClient, IOClient])
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
 

@@ -51,18 +51,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    coinsService = ref.watch(coinsServiceProvider);
-    referenceCurrenciesService = ref.watch(referenceCurrenciesServiceProvider);
+  void initState() {
+    super.initState();
+    coinsService = ref.read(coinsServiceProvider);
+    referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
 
-    selectedReferenceCurrency = ref.watch(selectedReferenceCurrencyStateProvider);
+    selectedReferenceCurrency = ref.read(selectedReferenceCurrencyStateProvider);
+    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
   }
 
   @override
   Widget build(BuildContext context) {
-    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
-
     double screenWidth = MediaQuery.of(context).size.width;
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Color.fromARGB(255, 2, 32, 54),

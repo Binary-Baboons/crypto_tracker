@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../test_data/api_client.dart';
 import '../../../test_data/expected_data.dart';
@@ -93,5 +94,46 @@ void main() {
           find.text(DefaultConfig.referenceCurrency.toString());
       expect(currencyFilterButton.last, findsOneWidget);
     });
+
+    testWidgets('calls GET reference currency api only once',
+            (WidgetTester tester) async {
+          var currencyClient = mockReferenceCurrenciesClientOk();
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider
+                .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(
+                ReferenceCurrenciesApiClient(currencyClient))
+          ], child: const CryptoTrackerApp()));
+
+          final Finder currencyFilterButton =
+          find.text(DefaultConfig.referenceCurrency.toString());
+          await tester.pumpAndSettle();
+          await tester.tap(currencyFilterButton);
+          await tester.pumpAndSettle();
+
+          currencyClient.close();
+          currencyClient.close();
+
+          Finder referenceCurrencyFilterTextFinder =
+          find.byKey(const Key("referenceCurrencyFilterText"));
+          Text referenceCurrencyFilterText =
+          tester.widget(referenceCurrencyFilterTextFinder) as Text;
+          expect(
+              referenceCurrencyFilterText.data
+                  ?.contains(DefaultConfig.referenceCurrency.toString()),
+              true);
+
+          Finder euroReferenceCurrency = find.text("Euro (e)");
+          await tester.pumpAndSettle();
+          await tester.tap(euroReferenceCurrency);
+          await tester.pumpAndSettle();
+
+          euroReferenceCurrency = find.text("Euro (e)");
+          await tester.pumpAndSettle();
+          await tester.tap(euroReferenceCurrency);
+          await tester.pumpAndSettle();
+
+          verify(currencyClient.get(any, headers: anyNamed("headers"))).called(1);
+        });
   });
 }

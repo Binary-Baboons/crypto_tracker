@@ -11,7 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../test_data/api_client.dart';
 
-
 void main() {
   dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
 

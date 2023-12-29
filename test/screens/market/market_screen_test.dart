@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../test_data/api_client.dart';
 
@@ -64,9 +65,10 @@ void main() {
     testWidgets(
         'renders double_arrow_down and double_arrow_down icon for price orderBy correctly',
         (WidgetTester tester) async {
+          var coinsClient = mockCoinsClientOk();
           await tester.pumpWidget(ProviderScope(overrides: [
             coinsApiClientProvider
-                .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+                .overrideWithValue(CoinsApiClient(coinsClient)),
             referenceCurrenciesApiClientProvider.overrideWithValue(
                 ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
           ], child: const CryptoTrackerApp()));
@@ -100,6 +102,8 @@ void main() {
 
       expect(iconFinder, findsOneWidget);
       expect(icon.icon! == Icons.keyboard_double_arrow_up, true);
+
+      verify(coinsClient.get(any, headers: anyNamed("headers"))).called(3);
     });
   });
 }
