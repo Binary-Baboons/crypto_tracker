@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,13 +10,13 @@ import '../../test_data/api_client.dart';
 
 @GenerateMocks([ReferenceCurrenciesApiClient])
 void main() {
-  dotenv.testLoad(
-      mergeWith: {ReferenceCurrenciesApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('ReferenceCurrenciesApiClient', () {
     test('getReferenceCurrencies returns data on successful http call',
         () async {
-      final client = ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk());
+      final client =
+          ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk());
       final result = await client.getReferenceCurrencies();
       expect(result.length, 3, reason: "Response is not of expected length");
     });
@@ -31,7 +30,8 @@ void main() {
 
       final client = ReferenceCurrenciesApiClient(mockClient);
 
-      expect(() => client.getReferenceCurrencies(), throwsA(isA<http.ClientException>()));
+      expect(() => client.getReferenceCurrencies(),
+          throwsA(isA<http.ClientException>()));
     });
   });
 }

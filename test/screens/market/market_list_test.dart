@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/main.dart';
@@ -10,7 +11,7 @@ import '../../test_data/api_client.dart';
 import '../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('MarketListWidget Widget Tests', () {
     testWidgets('renders correctly market list with coins',

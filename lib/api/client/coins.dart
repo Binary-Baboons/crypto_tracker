@@ -5,20 +5,19 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
+import 'base_client_config.dart';
+
 class CoinsApiClient {
-  static const String baseUrl = "api.coinranking.com";
   static const String coinsApi = "v2/coins";
-  static const String coinRankingApiKey = "COIN_RANKING_API_KEY";
+  BaseClient client;
 
   CoinsApiClient(this.client);
 
-  BaseClient client;
-
   Future<List<Coin>> getCoins(CoinsRequestData requestData, String referenceCurrencyUuid) async {
-    final uri = Uri.https(baseUrl, coinsApi, requestData.prepareParams(referenceCurrencyUuid));
+    final uri = Uri.https(BaseClientConfig.baseUrl, coinsApi, requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
-      "x-access-token": dotenv.env[coinRankingApiKey]!,
+      "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
     });
 
     var body = json.decode(response.body);

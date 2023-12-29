@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/config/default_config.dart';
@@ -14,7 +15,7 @@ import '../../../test_data/api_client.dart';
 import '../../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('ReferenceCurrenciesModal Widget Tests', () {
     testWidgets('renders correctly on show reference currencies modal',

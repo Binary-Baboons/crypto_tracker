@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../test_data/api_client.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('CategoriesModal Widget Tests', () {
     testWidgets('renders correctly on show categories modal',

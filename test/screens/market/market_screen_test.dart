@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
@@ -13,7 +14,7 @@ import 'package:mockito/mockito.dart';
 import '../../test_data/api_client.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',

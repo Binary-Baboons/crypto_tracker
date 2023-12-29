@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
@@ -14,7 +15,7 @@ import '../../test_data/api_client.dart';
 
 @GenerateMocks([CoinsApiClient, IOClient])
 void main() {
-  dotenv.testLoad(mergeWith: {CoinsApiClient.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('CoinsApiClient', () {
     test('getCoins returns data on successful http call', () async {
