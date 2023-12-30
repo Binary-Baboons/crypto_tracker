@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
@@ -11,7 +10,6 @@ import 'package:crypto_tracker/screens/market/modal/time_period.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../api/data/coins.dart';
@@ -66,182 +64,184 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreenWidget> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return RefreshIndicator(
-      onRefresh: _refreshCoins,
-      child: Column(
-        children: [
-          Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.05,
-                  vertical: 10),
-              color: Theme.of(context).colorScheme.primary,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    child: FittedBox(
+    return Column(
+      children: [
+        Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: 10),
+            color: Theme.of(context).colorScheme.primary,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: _showCurrencyModal,
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer),
+                          child: SizedBox(
+                            child: Text(
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                                key: const Key("referenceCurrencyFilterText"),
+                                selectedReferenceCurrency.toString()),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 50,
+                  child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: _showCurrencyModal,
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primaryContainer),
-                            child: SizedBox(
-                              child: Text(
-                                  style: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary),
-                                  key: const Key("referenceCurrencyFilterText"),
-                                  selectedReferenceCurrency.toString()),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    height: 50,
-                    child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer),
-                            onPressed: _showCategoriesModal,
-                            child: Text('Category'),
-                          ),
-                        )),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    height: 50,
-                    child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer),
-                            onPressed: _showTimePeriodModal,
-                            child: Text('Time period'),
-                          ),
-                        )),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: IconButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer),
-                        onPressed: () {
-                          _showSearchModal(context);
-                        },
-                        icon: const Icon(
-                          Icons.search,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )),
-          Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            padding: EdgeInsets.all(screenWidth * 0.02),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: screenWidth * 0.08,
-                  child: Center(
-                      child: Text('#',
-                          style: TextStyle(
-                              color: Theme.of(context)
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
                                   .colorScheme
-                                  .onPrimaryContainer))),
+                                  .primaryContainer),
+                          onPressed: _showCategoriesModal,
+                          child: Text('Category'),
+                        ),
+                      )),
                 ),
                 SizedBox(
-                  width: screenWidth * 0.15,
-                  child: const Center(child: Text('COIN')),
-                ),
-                SizedBox(
-                  width: screenWidth * 0.25,
-                  child: Center(
-                      child: TextButton(
-                    child: FittedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 50,
+                  child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          const Text('PRICE'),
-                          if (sortingIconChanger(OrderBy.price) != null)
-                            sortingIconChanger(OrderBy.price)!
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer),
+                          onPressed: _showTimePeriodModal,
+                          child: Text('Time period'),
+                        ),
+                      )),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: IconButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer),
+                      onPressed: () {
+                        _showSearchModal(context);
+                      },
+                      icon: const Icon(
+                        Icons.search,
+                        size: 20,
                       ),
                     ),
-                    onPressed: () {
-                      _updateCurrentOrderBy(OrderBy.price);
-                    },
-                  )),
-                ),
-                SizedBox(
-                  width: screenWidth * 0.17,
-                  child: Center(
-                      child: TextButton(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          Text(
-                              key: const Key("changeSortText"),
-                              selectedTimePeriod.getTimePeriod.toString()),
-                          if (sortingIconChanger(OrderBy.change) != null)
-                            sortingIconChanger(OrderBy.change)!
-                        ],
-                      ),
-                    ),
-                    onPressed: () {
-                      _updateCurrentOrderBy(OrderBy.change);
-                    },
-                  )),
-                ),
-                SizedBox(
-                  width: screenWidth * 0.31,
-                  child: Center(
-                      child: TextButton(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          Text('MARKET CAP'),
-                          if (sortingIconChanger(OrderBy.marketCap) != null)
-                            sortingIconChanger(OrderBy.marketCap)!
-                        ],
-                      ),
-                    ),
-                    onPressed: () {
-                      _updateCurrentOrderBy(OrderBy.marketCap);
-                    },
-                  )),
-                ),
+                  ),
+                )
               ],
-            ),
+            )),
+        Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          padding: EdgeInsets.all(screenWidth * 0.02),
+          child: Row(
+            children: [
+              SizedBox(
+                width: screenWidth * 0.08,
+                child: Center(
+                    child: Text('#',
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer))),
+              ),
+              SizedBox(
+                width: screenWidth * 0.15,
+                child: const Center(child: Text('COIN')),
+              ),
+              SizedBox(
+                width: screenWidth * 0.25,
+                child: Center(
+                    child: TextButton(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      children: [
+                        const Text('PRICE'),
+                        if (sortingIconChanger(OrderBy.price) != null)
+                          sortingIconChanger(OrderBy.price)!
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    _updateCurrentOrderBy(OrderBy.price);
+                  },
+                )),
+              ),
+              SizedBox(
+                width: screenWidth * 0.17,
+                child: Center(
+                    child: TextButton(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      children: [
+                        Text(
+                            key: const Key("changeSortText"),
+                            selectedTimePeriod.getTimePeriod.toString()),
+                        if (sortingIconChanger(OrderBy.change) != null)
+                          sortingIconChanger(OrderBy.change)!
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    _updateCurrentOrderBy(OrderBy.change);
+                  },
+                )),
+              ),
+              SizedBox(
+                width: screenWidth * 0.31,
+                child: Center(
+                    child: TextButton(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      children: [
+                        Text('MARKET CAP'),
+                        if (sortingIconChanger(OrderBy.marketCap) != null)
+                          sortingIconChanger(OrderBy.marketCap)!
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    _updateCurrentOrderBy(OrderBy.marketCap);
+                  },
+                )),
+              ),
+            ],
           ),
-          Expanded(
-            child: MarketListWidget(coins),
-          ),
-        ],
-      ),
+        ),
+        Expanded(
+          child: RefreshIndicator(
+              onRefresh: _refreshCoins,
+                child: MarketListWidget(coins),
+              ),
+        )
+      ],
     );
   }
 
@@ -273,9 +273,9 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreenWidget> {
           actions: <Widget>[
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.primary,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer
-              ),
+                  foregroundColor: Theme.of(context).colorScheme.primary,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer),
               onPressed: () {
                 search = _searchController.text;
                 _refreshCoins();

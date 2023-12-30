@@ -58,8 +58,8 @@ class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
                 'assets/logo.png',
                 height: 30,
                 width: 30,
-                cacheWidth: 30,
-                cacheHeight: 30,
+                cacheWidth: 300,
+                cacheHeight: 300,
               ),
               SizedBox(width: 10),
               Text(

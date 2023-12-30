@@ -6,8 +6,8 @@ class CoinsDatabase {
     initDatabase();
   }
 
-  final String databaseName = "crypto-tracker";
-  final String tableName = "coins";
+  final String databaseName = "crypto_tracker";
+  final String tableName = "coin";
   late Database database;
 
   Future<void> initDatabase() async {
@@ -15,7 +15,7 @@ class CoinsDatabase {
     String path = join(databasesPath, '$databaseName.database');
     database = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute('CREATE TABLE $tableName (id INTEGER PRIMARY KEY, uuid TEXT)');
+      await db.execute('CREATE TABLE $tableName (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE)');
     });
   }
 

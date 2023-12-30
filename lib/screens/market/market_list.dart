@@ -159,8 +159,8 @@ class MarketListWidget extends ConsumerWidget {
       return Image.network(
         coins[index].iconUrl.toString(),
         width: 20,
-        cacheHeight: 20,
-        cacheWidth: 20,
+        cacheHeight: 100,
+        cacheWidth: 100,
         height: 20,
         fit: BoxFit.scaleDown,
       );
