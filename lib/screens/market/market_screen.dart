@@ -273,7 +273,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Search by Name'),
+          title: const Text('Search'),
           content: TextField(
             controller: _searchController,
             decoration: const InputDecoration(hintText: 'Type here...'),

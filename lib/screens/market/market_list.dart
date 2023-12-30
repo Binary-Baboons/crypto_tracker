@@ -18,13 +18,11 @@ class MarketListWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.background,
           child: Column(
             children: [
-              ListTile(
-                minVerticalPadding: 0,
-                contentPadding: EdgeInsets.zero,
-                dense: false,
-                title: Material(
-                  child: InkWell(
-                    onTap: () {},
+              Material(
+                child: InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(children: [
                       SizedBox(
                           width: screenWidth * 0.08,

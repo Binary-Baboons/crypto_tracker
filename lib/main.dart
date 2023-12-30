@@ -89,26 +89,26 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
           BottomNavigationBarItem(
             icon: Icon(Icons.align_vertical_bottom),
             label: 'Market',
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             label: 'Tracker',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
+        selectedItemColor: Theme.of(context).colorScheme.onSurface,
         onTap: _onItemTapped,
       ),
     );
