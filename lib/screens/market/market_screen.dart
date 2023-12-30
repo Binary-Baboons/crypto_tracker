@@ -56,83 +56,126 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
     coinsService = ref.read(coinsServiceProvider);
     referenceCurrenciesService = ref.read(referenceCurrenciesServiceProvider);
 
-    selectedReferenceCurrency = ref.read(selectedReferenceCurrencyStateProvider);
-    coins = coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
+    selectedReferenceCurrency =
+        ref.read(selectedReferenceCurrencyStateProvider);
+    coins =
+        coinsService.getCoins(CoinsRequestData(), selectedReferenceCurrency);
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color.fromARGB(255, 2, 32, 54),
-    ));
 
     return RefreshIndicator(
       onRefresh: _refreshCoins,
       child: Column(
         children: [
           Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05,
+                  vertical: 10),
+              color: Theme.of(context).colorScheme.primary,
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.35,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: TextButton(
-                      onPressed: _showCurrencyModal,
-                      child: Text(
-                          key: const Key("referenceCurrencyFilterText"),
-                          selectedReferenceCurrency.toString())),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: TextButton(
-                        onPressed: _showCategoriesModal,
-                        child: Text('Category'))),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: TextButton(
-                        onPressed: _showTimePeriodModal,
-                        child: Text('Time period'))),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.15,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: IconButton(
-                    onPressed: () {
-                      _showSearchModal(context);
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                      size: 30,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: _showCurrencyModal,
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primaryContainer),
+                            child: SizedBox(
+                              child: Text(
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary),
+                                  key: const Key("referenceCurrencyFilterText"),
+                                  selectedReferenceCurrency.toString()),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: 50,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showCategoriesModal,
+                            child: Text('Category'),
+                          ),
+                        )),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: 50,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showTimePeriodModal,
+                            child: Text('Time period'),
+                          ),
+                        )),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: IconButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer),
+                        onPressed: () {
+                          _showSearchModal(context);
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )),
           Container(
-            color: const Color.fromARGB(255, 240, 239, 239),
+            color: Theme.of(context).colorScheme.primaryContainer,
             padding: EdgeInsets.all(screenWidth * 0.02),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: screenWidth * 0.08,
-                  child: const Center(child: Text('#')),
+                  child: Center(
+                      child: Text('#',
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer))),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.15,
                   child: const Center(child: Text('COIN')),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.25,
                   child: Center(
                       child: TextButton(
@@ -151,7 +194,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     },
                   )),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.17,
                   child: Center(
                       child: TextButton(
@@ -172,7 +215,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     },
                   )),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.31,
                   child: Center(
                       child: TextButton(
@@ -205,8 +248,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(SnackBar(
+                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
                           content: Text(ErrorHandler.getUserFriendlyMessage(
-                              snapshot.error!))));
+                              snapshot.error!), style: TextStyle(color: Theme.of(context).colorScheme.error),)));
                   });
                   return Container();
                 } else if (snapshot.hasData) {
@@ -242,13 +286,17 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Search by Name'),
+          title: const Text('Search'),
           content: TextField(
             controller: _searchController,
             decoration: const InputDecoration(hintText: 'Type here...'),
           ),
           actions: <Widget>[
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer
+              ),
               onPressed: () {
                 search = _searchController.text;
                 _refreshCoins();

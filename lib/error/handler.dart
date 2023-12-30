@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 
+import 'empty_result_exception.dart';
+
 class ErrorHandler {
   static String internalAppError =
       "We have encountered a internal application error. Please report it to the devs.";
 
-  static Set<Type> exceptions = {ClientException};
+  static Set<Type> exceptions = {ClientException, EmptyResultException};
 
   static Map<Type, String> exceptionToMessage = {
     SocketException:

@@ -1,4 +1,5 @@
 import 'package:crypto_tracker/api/client/coins.dart';
+import 'package:crypto_tracker/error/empty_result_exception.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +15,10 @@ class CoinsService {
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
     List<Coin> coins =
         await coinsApiClient.getCoins(requestData, referenceCurrency.uuid);
+
+    if (coins.isEmpty) {
+      throw EmptyResultException();
+    }
 
     return (format(coins, referenceCurrency));
   }

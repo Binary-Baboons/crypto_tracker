@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:crypto_tracker/screens/market/market_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,8 +13,13 @@ class CryptoTrackerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CryptoTrackerAppState(),
+    return MaterialApp(
+      home: const CryptoTrackerAppState(),
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromRGBO(8, 42, 64, 1),
+              brightness: Brightness.light)),
     );
   }
 }
@@ -56,7 +61,7 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 2, 32, 54),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +72,10 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
                 width: 30,
               ),
               SizedBox(width: 10),
-              const Text(
+              Text(
                 'Crypto tracker',
-                style: TextStyle(color: Colors.white),
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ],
           ),
@@ -79,30 +85,30 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.align_vertical_bottom),
             label: 'Market',
-            backgroundColor: Colors.orange,
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Colors.cyan,
+            icon: Icon(Icons.star),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            label: 'Favorites',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-            backgroundColor: Colors.red,
+            icon: Icon(Icons.account_balance_wallet),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            label: 'Tracker',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.donut_small),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Colors.black,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[800],
+        selectedItemColor: Theme.of(context).colorScheme.onSurface,
         onTap: _onItemTapped,
       ),
     );
