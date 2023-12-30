@@ -65,9 +65,6 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Theme.of(context).colorScheme.primary,
-    ));
 
     return RefreshIndicator(
       onRefresh: _refreshCoins,
@@ -85,43 +82,59 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: TextButton(
-                        onPressed: _showCurrencyModal,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer),
-                        child: Text(
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
-                            key: const Key("referenceCurrencyFilterText"),
-                            selectedReferenceCurrency.toString()),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: _showCurrencyModal,
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primaryContainer),
+                            child: SizedBox(
+                              child: Text(
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary),
+                                  key: const Key("referenceCurrencyFilterText"),
+                                  selectedReferenceCurrency.toString()),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
+                    height: 50,
                     child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: TextButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer),
-                          onPressed: _showCategoriesModal,
-                          child: Text('Category'),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showCategoriesModal,
+                            child: Text('Category'),
+                          ),
                         )),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
+                    height: 50,
                     child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: TextButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer),
-                          onPressed: _showTimePeriodModal,
-                          child: Text('Time period'),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            onPressed: _showTimePeriodModal,
+                            child: Text('Time period'),
+                          ),
                         )),
                   ),
                   SizedBox(
@@ -235,9 +248,9 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(SnackBar(
-                        backgroundColor: Theme.of(context).colorScheme.error,
+                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
                           content: Text(ErrorHandler.getUserFriendlyMessage(
-                              snapshot.error!))));
+                              snapshot.error!), style: TextStyle(color: Theme.of(context).colorScheme.error),)));
                   });
                   return Container();
                 } else if (snapshot.hasData) {
@@ -280,6 +293,10 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
           ),
           actions: <Widget>[
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer
+              ),
               onPressed: () {
                 search = _searchController.text;
                 _refreshCoins();

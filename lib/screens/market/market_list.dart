@@ -87,8 +87,7 @@ class MarketListWidget extends StatelessWidget {
                 ),
               ),
               Divider(
-                color: Theme.of(context).colorScheme.outline,
-                thickness: 0.5,
+                color: Theme.of(context).colorScheme.outlineVariant,
                 height: 0,
                 indent: 0,
                 endIndent: 0,
