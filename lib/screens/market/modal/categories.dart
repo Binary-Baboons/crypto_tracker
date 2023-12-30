@@ -33,14 +33,12 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                     style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 20),
                   ),
                 ),
-                Container(
-                  child: IconButton(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      onPressed: () {
-                        Navigator.of(context).pop(widget.selectedCategoryTags);
-                      },
-                      icon: const Icon(Icons.close)),
-                ),
+                IconButton(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    onPressed: () {
+                      Navigator.of(context).pop(widget.selectedCategoryTags);
+                    },
+                    icon: const Icon(Icons.close)),
               ],
             ),
           ],
@@ -49,26 +47,22 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
       Expanded(
           child: ListView.builder(
         itemCount: CategoryTag.values.length,
-        itemExtent: 70.0,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              title: TextButton(
+          return ListTile(
+            title: SizedBox(
+              height: 50,
+              child: TextButton(
                   onPressed: () => selectCategoryTag(CategoryTag.values[index]),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            child: Text(
-                                CategoryTag.values[index].getValueWithDash)),
-                        Container(
-                          child: currentCategoryTagMarking(
-                              CategoryTag.values[index]),
-                        )
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          CategoryTag.values[index].getValueWithDash),
+                      Container(
+                        child: currentCategoryTagMarking(
+                            CategoryTag.values[index]),
+                      )
+                    ],
                   )),
             ),
           );

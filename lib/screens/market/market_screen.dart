@@ -74,62 +74,57 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05,
+                  vertical: 10),
               color: Theme.of(context).colorScheme.primary,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: TextButton(
-                          onPressed: _showCurrencyModal,
+                        onPressed: _showCurrencyModal,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer),
+                        child: Text(
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                            key: const Key("referenceCurrencyFilterText"),
+                            selectedReferenceCurrency.toString()),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: TextButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context)
                                   .colorScheme
                                   .primaryContainer),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary),
-                                key: const Key("referenceCurrencyFilterText"),
-                                selectedReferenceCurrency.toString()),
-                          )),
-                    ),
+                          onPressed: _showCategoriesModal,
+                          child: Text('Category'),
+                        )),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
                     child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: TextButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer),
-                            onPressed: _showCategoriesModal,
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text('Category'),
-                            ))),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer),
+                          onPressed: _showTimePeriodModal,
+                          child: Text('Time period'),
+                        )),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: TextButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer),
-                            onPressed: _showTimePeriodModal,
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text('Time period'),
-                            ))),
-                  ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.15,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -142,7 +137,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                         },
                         icon: const Icon(
                           Icons.search,
-                          size: 30,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -154,7 +149,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             padding: EdgeInsets.all(screenWidth * 0.02),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: screenWidth * 0.08,
                   child: Center(
                       child: Text('#',
@@ -163,11 +158,11 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                                   .colorScheme
                                   .onPrimaryContainer))),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.15,
                   child: const Center(child: Text('COIN')),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.25,
                   child: Center(
                       child: TextButton(
@@ -186,7 +181,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     },
                   )),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.17,
                   child: Center(
                       child: TextButton(
@@ -207,7 +202,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     },
                   )),
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth * 0.31,
                   child: Center(
                       child: TextButton(
@@ -240,6 +235,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(SnackBar(
+                        backgroundColor: Theme.of(context).colorScheme.error,
                           content: Text(ErrorHandler.getUserFriendlyMessage(
                               snapshot.error!))));
                   });

@@ -19,7 +19,7 @@ class CryptoTrackerApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromRGBO(8, 42, 64, 1),
-          brightness: Brightness.light)),
+              brightness: Brightness.light)),
     );
   }
 }
@@ -74,7 +74,8 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
               SizedBox(width: 10),
               Text(
                 'Crypto tracker',
-                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ],
           ),
@@ -88,26 +89,26 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
           BottomNavigationBarItem(
             icon: Icon(Icons.align_vertical_bottom),
             label: 'Market',
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            icon: Icon(Icons.star),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            label: 'Favorites',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            icon: Icon(Icons.account_balance_wallet),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            label: 'Tracker',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.donut_small),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.inverseSurface,
+        selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
         onTap: _onItemTapped,
       ),
     );

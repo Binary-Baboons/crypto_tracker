@@ -88,26 +88,22 @@ class _ReferenceCurrenciesModalState
   Widget createListTile(
       BuildContext context, WidgetRef ref, ReferenceCurrency currency) {
     return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      title: Container(
+      title: SizedBox(
+        height: 50,
         child: TextButton(
             onPressed: () {
               ref.read(selectedReferenceCurrencyStateProvider.notifier).state =
                   currency;
               Navigator.of(context).pop(currency);
             },
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text(currency.toString()),
-                  ),
-                  Container(
-                    child: currentCurrencyMarking(ref, currency),
-                  )
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(currency.toString()),
+                Container(
+                  child: currentCurrencyMarking(ref, currency),
+                )
+              ],
             )),
       ),
     );

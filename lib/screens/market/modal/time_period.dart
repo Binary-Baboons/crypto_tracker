@@ -9,72 +9,63 @@ class TimePeriodModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: Column(children: [
-        Container(
-          color: Theme.of(context).colorScheme.primary,
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Select time period',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 20),
-                    ),
-                  ),
-                  Container(
-                    child: IconButton(
+    return Column(children: [
+      Container(
+        color: Theme.of(context).colorScheme.primary,
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Select time period',
+                    style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.close)),
+                        fontSize: 20),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: TimePeriod.values.length,
-          itemExtent: 70.0,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              contentPadding: EdgeInsets.all(0),
-              title: Container(
-                child: TextButton(
+                ),
+                IconButton(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     onPressed: () {
-                      selectedTimePeriod = TimePeriod.values[index];
-                      Navigator.of(context).pop(selectedTimePeriod);
+                      Navigator.pop(context);
                     },
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Text(TimePeriod.values[index].getTimePeriod),
-                          ),
-                          Container(
-                            child: currentTimePeriodMarking(
-                                context, TimePeriod.values[index]),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-            );
-          },
-        ))
-      ]),
-    );
+                    icon: Icon(Icons.close)),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Expanded(
+          child: ListView.builder(
+        itemCount: TimePeriod.values.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: SizedBox(
+              height: 50,
+              child: TextButton(
+                  onPressed: () {
+                    selectedTimePeriod = TimePeriod.values[index];
+                    Navigator.of(context).pop(selectedTimePeriod);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(TimePeriod.values[index].getTimePeriod),
+                      Container(
+                        child: currentTimePeriodMarking(
+                            context, TimePeriod.values[index]),
+                      )
+                    ],
+                  )),
+            ),
+          );
+        },
+      ))
+    ]);
   }
 
   Widget? currentTimePeriodMarking(
