@@ -24,7 +24,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");
       await tester.tap(timePeriodSortButton);
@@ -50,7 +50,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");
       await tester.tap(timePeriodSortButton);

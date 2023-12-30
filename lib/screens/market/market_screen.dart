@@ -18,16 +18,16 @@ import '../../api/data/coins.dart';
 import '../../config/default_config.dart';
 import '../../model/coin.dart';
 
-class MarketScreen extends ConsumerStatefulWidget {
-  const MarketScreen({super.key});
+class MarketScreenWidget extends ConsumerStatefulWidget {
+  const MarketScreenWidget({super.key});
 
   @override
-  ConsumerState<MarketScreen> createState() {
-    return _MarketScreenState();
+  ConsumerState<MarketScreenWidget> createState() {
+    return _MarketScreenWidgetState();
   }
 }
 
-class _MarketScreenState extends ConsumerState<MarketScreen> {
+class _MarketScreenWidgetState extends ConsumerState<MarketScreenWidget> {
   late Future<List<Coin>> coins;
 
   final TextEditingController _searchController = TextEditingController();
@@ -238,28 +238,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-              future: coins,
-              builder: (ctx, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(SnackBar(
-                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                          content: Text(ErrorHandler.getUserFriendlyMessage(
-                              snapshot.error!), style: TextStyle(color: Theme.of(context).colorScheme.error),)));
-                  });
-                  return Container();
-                } else if (snapshot.hasData) {
-                  return MarketListWidget(snapshot.data!);
-                } else {
-                  return const MarketListWidget([]);
-                }
-              },
-            ),
+            child: MarketListWidget(coins),
           ),
         ],
       ),

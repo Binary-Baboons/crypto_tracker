@@ -21,7 +21,7 @@ void main() {
               await tester.pumpWidget(ProviderScope(overrides: [
                 coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientError())),
                 referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
-              ], child: const CryptoTrackerApp()));
+              ], child: const Main()));
 
           final Finder timePeriodSortButton = find.text("Category");
           await tester.tap(timePeriodSortButton);

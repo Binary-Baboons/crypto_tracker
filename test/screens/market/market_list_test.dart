@@ -21,7 +21,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
       await tester.pumpAndSettle();
 
       for (var coin in expectedCoins) {
@@ -40,7 +40,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientError())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
       await tester.pumpAndSettle();
 
       var snackBarFinder =

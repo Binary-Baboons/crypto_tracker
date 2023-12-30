@@ -25,7 +25,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -47,7 +47,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -83,7 +83,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
-      ], child: const CryptoTrackerApp()));
+      ], child: const Main()));
 
       Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -104,7 +104,7 @@ void main() {
                 .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
             referenceCurrenciesApiClientProvider.overrideWithValue(
                 ReferenceCurrenciesApiClient(currencyClient))
-          ], child: const CryptoTrackerApp()));
+          ], child: const Main()));
 
           final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());

@@ -22,7 +22,7 @@ void main() {
           await tester.pumpWidget(ProviderScope(overrides: [
             coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
             referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+          ], child: const Main()));
 
       final Finder currentReferenceCurrency =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -42,7 +42,7 @@ void main() {
           await tester.pumpWidget(ProviderScope(overrides: [
             coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
             referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+          ], child: const Main()));
 
       var mapOrderByToText = {
         OrderBy.marketCap: "MARKET CAP",
@@ -72,7 +72,7 @@ void main() {
                 .overrideWithValue(CoinsApiClient(coinsClient)),
             referenceCurrenciesApiClientProvider.overrideWithValue(
                 ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+          ], child: const Main()));
 
       final Finder priceButton = find.text("PRICE");
       await tester.tap(priceButton);

@@ -54,7 +54,8 @@ class CoinsRequestData {
       this.timePeriod,
       this.search,
       this.tier,
-      this.tags}) {
+      this.tags,
+      this.uuids}) {
     orderBy = orderBy ?? DefaultApiRequestConfig.orderBy;
     orderDirection = orderDirection ?? DefaultApiRequestConfig.orderDirection;
     limit = limit ?? DefaultApiRequestConfig.limit;
@@ -63,6 +64,7 @@ class CoinsRequestData {
     tier = tier ?? DefaultApiRequestConfig.tier;
     search = search;
     tags = tags;
+    uuids = uuids;
   }
 
   OrderBy? orderBy;
@@ -73,6 +75,7 @@ class CoinsRequestData {
   String? search;
   int? tier;
   Set<CategoryTag>? tags;
+  List<String>? uuids;
 
   Map<String, String> prepareParams(String referenceCurrencyUuid) {
     return {
@@ -84,7 +87,11 @@ class CoinsRequestData {
       'tiers[0]': tier!.toString(),
       'referenceCurrencyUuid': referenceCurrencyUuid,
       if (search != null) 'search': search!,
-      if (tags != null && tags!.isNotEmpty) 'tags': tags!.map((t) => t.getValueWithDash).join(",")
+      if (tags != null && tags!.isNotEmpty)
+        'tags': tags!.map((t) => t.getValueWithDash).join(","),
+      if (uuids != null && uuids!.isNotEmpty)
+        for (var i = 0; i < uuids!.length; i++)
+        'uuids[$i]': uuids![i]
     };
   }
 }
