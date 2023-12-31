@@ -7,6 +7,8 @@ import '../../../model/coin.dart';
 import '../../widget/coin_list.dart';
 
 class FavoriteScreen extends ConsumerStatefulWidget {
+  const FavoriteScreen({super.key});
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _FavoriteScreenState();

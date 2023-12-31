@@ -68,6 +68,12 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
 
     return Column(
       children: [
+        Divider(
+          color: Theme.of(context).colorScheme.outline,
+          height: 1,
+          indent: 0,
+          endIndent: 0,
+        ),
         Container(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.05,

@@ -5,13 +5,15 @@ import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
-import 'package:crypto_tracker/screen/market/modal/time_period.dart';
+import 'package:crypto_tracker/provider/database.dart';
+import 'package:crypto_tracker/view/screen/market/modal/time_period.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test_data/api_client.dart';
+import '../../../../test_data/api_client.dart';
+import '../../../../test_data/database.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
@@ -23,7 +25,8 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");
@@ -49,7 +52,8 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");

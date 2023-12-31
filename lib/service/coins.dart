@@ -1,7 +1,7 @@
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/database/coins.dart';
-import 'package:crypto_tracker/error/empty_result_exception.dart';
+import 'package:crypto_tracker/error/exception/empty_result.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:intl/intl.dart';

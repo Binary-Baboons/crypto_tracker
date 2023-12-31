@@ -117,11 +117,4 @@ class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
       ),
     ];
   }
-  
-  @override
-  void dispose() {
-    // TODO: implement dispose and test
-    super.dispose();
-    ref.read(coinsDatabaseProvider).closeDatabase();
-  }
 }
