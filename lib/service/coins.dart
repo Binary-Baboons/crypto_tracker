@@ -23,19 +23,28 @@ class CoinsService {
       throw EmptyResultException();
     }
 
+    // TODO: Cache this
+    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
+    coins
+        .where((c) => coinUuids.contains(c.uuid))
+        .forEach((c) => c.addToFavorites());
+
     return (_format(coins, referenceCurrency));
   }
 
   Future<List<Coin>> getFavoriteCoins() async {
-    List<String> coinUuids =
-    await coinsDatabase.getFavoriteCoins();
+    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
 
     if (coinUuids.isEmpty) {
       return [];
     }
 
     // TODO: Replace with currently selected
-    List<Coin> coins = await coinsApiClient.getCoins(CoinsRequestData(uuids: coinUuids), DefaultConfig.referenceCurrency.uuid);
+    List<Coin> coins = await coinsApiClient.getCoins(
+        CoinsRequestData(uuids: coinUuids),
+        DefaultConfig.referenceCurrency.uuid);
+
+    coins.forEach((c) => c.addToFavorites());
 
     return (_format(coins, DefaultConfig.referenceCurrency));
   }
@@ -48,7 +57,8 @@ class CoinsService {
     await coinsDatabase.deleteFavoriteCoin(uuid);
   }
 
-  List<Coin> _format(List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
+  List<Coin> _format(
+      List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
     return coinsData
         .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {

@@ -1,20 +1,33 @@
 import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/model/coin.dart';
+import 'package:crypto_tracker/provider/database.dart';
 import 'package:crypto_tracker/provider/service.dart';
+import 'package:crypto_tracker/screens/market/list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MarketListWidget extends ConsumerWidget {
-  const MarketListWidget(this.futureCoins, {super.key});
+class MarketListWidget extends ConsumerStatefulWidget {
+  MarketListWidget(this.futureCoins, {super.key});
 
   final Future<List<Coin>> futureCoins;
+  late List<bool> favorites;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    double screenWidth = MediaQuery.of(context).size.width;
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _MarketListWidgetState();
+  }
+}
+
+class _MarketListWidgetState extends ConsumerState<MarketListWidget> {
+  final Map<int, double> _swipePositions = {};
+  final double _swipeThreshold = 100.0;
+  late List<bool> _favorites;
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
-        future: futureCoins,
+        future: widget.futureCoins,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -24,7 +37,7 @@ class MarketListWidget extends ConsumerWidget {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                     backgroundColor:
-                        Theme.of(context).colorScheme.errorContainer,
+                    Theme.of(context).colorScheme.errorContainer,
                     content: Text(
                         ErrorHandler.getUserFriendlyMessage(snapshot.error!),
                         style: TextStyle(
@@ -33,85 +46,57 @@ class MarketListWidget extends ConsumerWidget {
             return Container();
           } else if (snapshot.hasData) {
             List<Coin> coins = snapshot.data!;
+            _favorites = coins.map((c) => c.favorite).toList();
+
             return ListView.builder(
               itemCount: coins.length,
               itemBuilder: (BuildContext context, int index) {
+                final swipePosition = _swipePositions[index] ?? 0;
+                final isSwipedEnough = swipePosition.abs() > _swipeThreshold;
+
                 return Container(
                   color: Theme.of(context).colorScheme.background,
                   child: Column(
                     children: [
-                      Material(
-                        child: InkWell(
-                          onTap: () => ref.read(coinsServiceProvider).addFavoriteCoin(coins[index].uuid!),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Row(children: [
-                              SizedBox(
-                                  width: screenWidth * 0.08,
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Center(
-                                        child: Text(
-                                      coins[index].rank!.toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 10),
-                                    )),
-                                  )),
-                              SizedBox(
-                                width: screenWidth * 0.15,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Column(children: [
-                                    if (_imageTypeFilter(coins[index].iconUrl,
-                                            index, coins) !=
-                                        null)
-                                      _imageTypeFilter(
-                                          coins[index].iconUrl, index, coins)!,
-                                    Text(
-                                      coins[index].symbol!,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700),
-                                    )
-                                  ]),
+                        GestureDetector(
+                          onTap: () {},
+                          onHorizontalDragUpdate: (details) {
+                            if ((details.primaryDelta! < 0)) {
+                            setState(() {
+                              _swipePositions[index] = (_swipePositions[index] ?? 0) + details.primaryDelta!;
+                            });}
+                          },
+                          onHorizontalDragEnd: (details) => _handleSwipeEnd(index, coins[index]),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Opacity(
+                                      opacity: (swipePosition.abs() / _swipeThreshold).clamp(0.0, 1.0),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 20.0),
+                                        child: AnimatedSwitcher(
+                                          duration: Duration(milliseconds: 300),
+                                          child: Icon(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            !_favorites[index] ? (isSwipedEnough ? Icons.favorite : Icons.favorite_border) : isSwipedEnough ? Icons.favorite_border : Icons.favorite,
+                                            key: ValueKey<bool>(isSwipedEnough),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                  width: screenWidth * 0.25,
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Center(
-                                        child: Text(coins[index].price!)),
-                                  )),
-                              SizedBox(
-                                width: screenWidth * 0.01,
-                              ),
-                              SizedBox(
-                                  width: screenWidth * 0.17,
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Center(
-                                        child: Text(
-                                      "${coins[index].change} %",
-                                      style: TextStyle(
-                                          color: _getChangeColor(double.parse(
-                                              coins[index].change!))),
-                                    )),
-                                  )),
-                              SizedBox(
-                                width: screenWidth * 0.01,
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.29,
-                                child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Center(
-                                        child: Text(coins[index].marketCap!))),
-                              ),
-                            ]),
+                              Transform.translate(
+                                offset: Offset(swipePosition, 0),
+                                  child: ListItemWidget(coins[index]),
+                                ),
+                            ],
                           ),
                         ),
-                      ),
                       Divider(
                         color: Theme.of(context).colorScheme.outlineVariant,
                         height: 0,
@@ -129,41 +114,21 @@ class MarketListWidget extends ConsumerWidget {
         });
   }
 
-  Color _getChangeColor(double change) {
-    if (change <= 0) {
-      return Colors.red;
-    } else if (change == 0) {
-      return Colors.grey;
-    } else {
-      return Colors.green;
+  void _handleSwipeEnd(int index, Coin coin) {
+    if ((_swipePositions[index] ?? 0).abs() > _swipeThreshold) {
+      setState(() {
+        if (_favorites[index]) {
+          ref.read(coinsDatabaseProvider).deleteFavoriteCoin(coin.uuid!);
+          _favorites[index] = false;
+        } else {
+          ref.read(coinsDatabaseProvider).addFavoriteCoin(coin.uuid!);
+          _favorites[index] = true;
+        }
+      });
     }
+    setState(() {
+      _swipePositions[index] = 0;
+    });
   }
 
-  Widget? _imageTypeFilter(String? iconUrl, int index, List<Coin> coins) {
-    if (iconUrl == null) {
-      return null;
-    }
-
-    var url = iconUrl.split('?');
-    int length = url[0].length;
-    String lastThreeCharacters = url[0].substring(length - 3);
-
-    if (lastThreeCharacters == "svg") {
-      return SvgPicture.network(
-        coins[index].iconUrl.toString(),
-        width: 20,
-        height: 20,
-        fit: BoxFit.scaleDown,
-      );
-    } else {
-      return Image.network(
-        coins[index].iconUrl.toString(),
-        width: 20,
-        cacheHeight: 100,
-        cacheWidth: 100,
-        height: 20,
-        fit: BoxFit.scaleDown,
-      );
-    }
-  }
 }
