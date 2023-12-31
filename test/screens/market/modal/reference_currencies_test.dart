@@ -4,6 +4,7 @@ import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
+import 'package:crypto_tracker/provider/database.dart';
 import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../service/coins_test.mocks.dart';
 import '../../../test_data/api_client.dart';
 import '../../../test_data/expected_data.dart';
 
@@ -24,7 +26,8 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+          coinsDatabaseProvider.overrideWithValue(MockCoinsDatabase())
       ], child: const Main()));
 
       final Finder currencyFilterButton =

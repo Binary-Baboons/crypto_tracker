@@ -12,13 +12,15 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../api/client/coins_test.mocks.dart';
+import 'coins_test.mocks.dart';
 
 @GenerateMocks([CoinsService, CoinsDatabase])
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   MockCoinsApiClient mockClient = MockCoinsApiClient();
-  CoinsService service = CoinsService(mockClient);
+  MockCoinsDatabase mockDatabase = MockCoinsDatabase();
+  CoinsService service = CoinsService(mockClient, mockDatabase);
 
   group('CoinsService', () {
     test('getCoins returns data from client', () async {
