@@ -3,29 +3,31 @@ import 'dart:async';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
-import 'package:crypto_tracker/screens/market/market_list.dart';
-import 'package:crypto_tracker/screens/market/modal/categories.dart';
-import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
-import 'package:crypto_tracker/screens/market/modal/time_period.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../api/data/coins.dart';
-import '../../config/default_config.dart';
-import '../../model/coin.dart';
+import '../../../api/data/coins.dart';
+import '../../../config/default_config.dart';
+import '../../../error/handler.dart';
+import '../../../model/coin.dart';
+import '../../widget/coin_list.dart';
+import 'modal/categories.dart';
+import 'modal/reference_currencies.dart';
+import 'modal/time_period.dart';
 
-class MarketScreenWidget extends ConsumerStatefulWidget {
-  const MarketScreenWidget({super.key});
+class MarketScreen extends ConsumerStatefulWidget {
+  const MarketScreen({super.key});
 
   @override
-  ConsumerState<MarketScreenWidget> createState() {
+  ConsumerState<MarketScreen> createState() {
     return _MarketScreenWidgetState();
   }
 }
 
-class _MarketScreenWidgetState extends ConsumerState<MarketScreenWidget> {
+class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
+  // TODO: Should it all be in MarketScreen to avoid reinitializing everything
   late Future<List<Coin>> coins;
 
   final TextEditingController _searchController = TextEditingController();
@@ -236,11 +238,35 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreenWidget> {
           ),
         ),
         Expanded(
-          child: RefreshIndicator(
-              onRefresh: _refreshCoins,
-                child: MarketListWidget(coins),
-              ),
-        )
+            child: RefreshIndicator(
+          onRefresh: _refreshCoins,
+          child: FutureBuilder(
+              future: coins,
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.errorContainer,
+                          content: Text(
+                              ErrorHandler.getUserFriendlyMessage(
+                                  snapshot.error!),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.error))));
+                  });
+                  return Container();
+                } else if (snapshot.hasData) {
+                  return CoinListWidget(snapshot.data!);
+                } else {
+                  return CoinListWidget([]);
+                }
+              }),
+        ))
       ],
     );
   }

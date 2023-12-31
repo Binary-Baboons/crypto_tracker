@@ -1,7 +1,6 @@
 import 'package:crypto_tracker/provider/database.dart';
-import 'package:crypto_tracker/provider/service.dart';
-import 'package:crypto_tracker/screens/market/market_list.dart';
-import 'package:crypto_tracker/screens/market/market_screen.dart';
+import 'package:crypto_tracker/view/screen/favorite/screen.dart';
+import 'package:crypto_tracker/view/screen/market/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -82,7 +81,7 @@ class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             label: 'Favorites',
           ),
@@ -106,8 +105,8 @@ class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
 
   List<Widget> getWidgetOptions() {
     return <Widget>[
-      const MarketScreenWidget(),
-      MarketListWidget(ref.read(coinsServiceProvider).getFavoriteCoins()),
+      const MarketScreen(),
+      FavoriteScreen(),
       Text(
         'Index 2: School',
         style: optionStyle,

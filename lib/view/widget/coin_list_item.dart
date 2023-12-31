@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../model/coin.dart';
 
-class ListItemWidget extends StatelessWidget {
-  ListItemWidget(this.coin, {super.key});
+class CoinListItemWidget extends StatelessWidget {
+  CoinListItemWidget(this.coin, {super.key});
 
   Coin coin;
 

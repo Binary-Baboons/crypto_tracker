@@ -5,7 +5,7 @@ import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
-import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
+import 'package:crypto_tracker/screen/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
