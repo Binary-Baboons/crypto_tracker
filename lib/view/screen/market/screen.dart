@@ -27,7 +27,6 @@ class MarketScreen extends ConsumerStatefulWidget {
 }
 
 class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
-  // TODO: Should it all be in MarketScreen to avoid reinitializing everything
   late Future<List<Coin>> coins;
 
   final TextEditingController _searchController = TextEditingController();
