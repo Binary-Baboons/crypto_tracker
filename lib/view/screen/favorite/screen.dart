@@ -1,3 +1,5 @@
+import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,11 +19,13 @@ class FavoriteScreen extends ConsumerStatefulWidget {
 
 class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
   late Future<List<Coin>> coins;
+  late ReferenceCurrency selectedCurrency;
 
   @override
   void initState() {
     super.initState();
-    coins = ref.read(coinsServiceProvider).getFavoriteCoins();
+    selectedCurrency = ref.read(selectedReferenceCurrencyStateProvider);
+    coins = ref.read(coinsServiceProvider).getFavoriteCoins(selectedCurrency);
   }
 
   @override

@@ -11,8 +11,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../api/client/coins_test.mocks.dart';
-import '../test_data/api_client.dart';
-import '../test_data/database.dart';
 import 'coins_test.mocks.dart';
 
 @GenerateMocks([CoinsService, CoinsDatabase])
@@ -20,7 +18,7 @@ void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   MockCoinsApiClient mockClient = MockCoinsApiClient();
-  CoinsDatabase mockDatabase = mockCoinsDatabaseOk();
+  CoinsDatabase mockDatabase = MockCoinsDatabase();
   CoinsService service = CoinsService(mockClient, mockDatabase);
 
   group('CoinsService', () {
@@ -34,6 +32,7 @@ void main() {
           Coin("erty", 3, "Randomcoin", "RND", "http", null, null, null)
         ];
       });
+      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {return ["asdf"];});
 
       List<Coin> result = await service.getCoins(
           CoinsRequestData(), DefaultConfig.referenceCurrency);
@@ -42,13 +41,13 @@ void main() {
       expect(
           result[0] ==
               Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
-                  "\$8,000.00"),
+                  "\$8,000.00", favorite: true),
           true,
           reason: "Coin is not equal");
       expect(
           result[1] ==
               Coin("qwerty", 2, "Etherium", "ETH", "http", "\$0.0000012346",
-                  "0.00", "\$0.12"),
+                  "0.00", "\$0.12", favorite: false),
           true,
           reason: "Coin is not equal");
     });
@@ -61,6 +60,27 @@ void main() {
           () => service.getCoins(
               CoinsRequestData(), DefaultConfig.referenceCurrency),
           throwsA(isA<ClientException>()));
+    });
+
+    test('getFavoriteCoins returns data from client', () async {
+      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {return ["asdf"];});
+      when(mockClient.getCoins(any, any)).thenAnswer((_) async {
+        return [
+          Coin("asdf", 1, "Bitcoin", "BTC", "http", "69000.00000", "50",
+              "8000.00000"),
+        ];
+      });
+
+      List<Coin> result = await service.getCoins(
+          CoinsRequestData(), DefaultConfig.referenceCurrency);
+
+      expect(result.length, 1, reason: "Not correct number of coins returned");
+      expect(
+          result[0] ==
+              Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
+                  "\$8,000.00", favorite: true),
+          true,
+          reason: "Coin is not equal");
     });
   });
 }

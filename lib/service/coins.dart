@@ -23,28 +23,26 @@ class CoinsService {
       throw EmptyResultException();
     }
 
-    // TODO: Cache this
     List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
     coins
         .where((c) => coinUuids.contains(c.uuid))
-        .forEach((c) => c.addToFavorites());
+        .forEach((c) => c.favorite = true);
 
     return (_format(coins, referenceCurrency));
   }
 
-  Future<List<Coin>> getFavoriteCoins() async {
+  Future<List<Coin>> getFavoriteCoins(ReferenceCurrency referenceCurrency) async {
     List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
 
     if (coinUuids.isEmpty) {
       return [];
     }
 
-    // TODO: Replace with currently selected
     List<Coin> coins = await coinsApiClient.getCoins(
         CoinsRequestData(uuids: coinUuids),
         DefaultConfig.referenceCurrency.uuid);
 
-    coins.forEach((c) => c.addToFavorites());
+    coins.forEach((c) => c.favorite = true);
 
     return (_format(coins, DefaultConfig.referenceCurrency));
   }

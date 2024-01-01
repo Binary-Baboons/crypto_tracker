@@ -7,6 +7,7 @@ import 'package:crypto_tracker/provider/database.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../test_data/api_client.dart';
 import '../../test_data/database.dart';
@@ -16,7 +17,7 @@ void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   group('CoinListWidget Widget Tests', () {
-    testWidgets('renders correctly market list with coins',
+    testWidgets('renders correctly coins list with coins',
         (WidgetTester tester) async {
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
@@ -34,6 +35,44 @@ void main() {
         expect(find.text(coin.price!), findsOneWidget);
         expect(find.text(coin.marketCap!), findsOneWidget);
       }
+    });
+
+    testWidgets('add to favorites swipe', (WidgetTester tester) async {
+      var mockDatabase = mockCoinsDatabaseOk();
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockDatabase)
+      ], child: const Main()));
+      await tester.pumpAndSettle();
+
+      await tester.drag(
+          find.text(expectedCoins[1].symbol!), const Offset(-300, 0));
+      await tester.pumpAndSettle();
+
+      verify(mockDatabase.addFavoriteCoin(any)).called(1);
+      verifyNever(mockDatabase.deleteFavoriteCoin(any));
+    });
+
+    testWidgets('remove from favorites swipe', (WidgetTester tester) async {
+      var mockDatabase = mockCoinsDatabaseOk();
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockDatabase)
+      ], child: const Main()));
+      await tester.pumpAndSettle();
+
+      await tester.drag(
+          find.text(expectedCoins[0].symbol!), const Offset(-300, 0));
+      await tester.pumpAndSettle();
+
+      verifyNever(mockDatabase.addFavoriteCoin(any));
+      verify(mockDatabase.deleteFavoriteCoin(any)).called(1);
     });
 
     testWidgets('renders correctly snackbar with error',

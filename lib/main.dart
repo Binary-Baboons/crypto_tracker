@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/provider/database.dart';
 import 'package:crypto_tracker/view/screen/favorite/screen.dart';
 import 'package:crypto_tracker/view/screen/market/screen.dart';
 import 'package:flutter/material.dart';

@@ -120,10 +120,12 @@ class MockCoinsService extends _i1.Mock implements _i5.CoinsService {
       ) as _i6.Future<List<_i7.Coin>>);
 
   @override
-  _i6.Future<List<_i7.Coin>> getFavoriteCoins() => (super.noSuchMethod(
+  _i6.Future<List<_i7.Coin>> getFavoriteCoins(
+          _i9.ReferenceCurrency? referenceCurrency) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getFavoriteCoins,
-          [],
+          [referenceCurrency],
         ),
         returnValue: _i6.Future<List<_i7.Coin>>.value(<_i7.Coin>[]),
       ) as _i6.Future<List<_i7.Coin>>);
