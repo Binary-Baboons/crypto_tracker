@@ -71,8 +71,7 @@ void main() {
         ];
       });
 
-      List<Coin> result = await service.getCoins(
-          CoinsRequestData(), DefaultConfig.referenceCurrency);
+      List<Coin> result = await service.getFavoriteCoins(DefaultConfig.referenceCurrency);
 
       expect(result.length, 1, reason: "Not correct number of coins returned");
       expect(
