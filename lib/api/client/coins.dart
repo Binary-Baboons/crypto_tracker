@@ -13,8 +13,10 @@ class CoinsApiClient {
 
   CoinsApiClient(this.client);
 
-  Future<List<Coin>> getCoins(CoinsRequestData requestData, String referenceCurrencyUuid) async {
-    final uri = Uri.https(BaseClientConfig.baseUrl, coinsApi, requestData.prepareParams(referenceCurrencyUuid));
+  Future<List<Coin>> getCoins(
+      CoinsRequestData requestData, String referenceCurrencyUuid) async {
+    final uri = Uri.https(BaseClientConfig.baseUrl, coinsApi,
+        requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
       "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
@@ -28,8 +30,7 @@ class CoinsApiClient {
     }
 
     List<Coin> coins = (body['data']['coins'] as List)
-        .map((coin) =>
-        Coin(
+        .map((coin) => Coin(
             coin['uuid'],
             coin['rank'],
             coin['name'],
@@ -37,9 +38,15 @@ class CoinsApiClient {
             coin['iconUrl'],
             coin['price'],
             coin['change'],
-            coin['marketCap']))
+            coin['marketCap'],
+            sparkline: List<String>.from(coin['sparkline'])))
         .toList();
 
     return coins;
   }
+
+  // List<String> _decodeSparkline(List<Map> sparkline) {
+  //   return sparkline.map((e) => e.values)
+  // }
 }
+

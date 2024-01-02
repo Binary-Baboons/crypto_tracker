@@ -1,9 +1,11 @@
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/provider/database.dart';
+import 'package:crypto_tracker/view/screen/coin/screen.dart';
 import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:crypto_tracker/view/widget/coin_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart';
 
 class CoinListWidget extends ConsumerStatefulWidget {
   CoinListWidget(this.coins, this.screen, {super.key});
@@ -34,7 +36,10 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () { Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CoinScreen(widget.coins[index])),
+                );},
                 onHorizontalDragUpdate: (details) {
                   if ((details.primaryDelta! < 0)) {
                     setState(() {

@@ -1,16 +1,20 @@
+import 'package:crypto_tracker/provider/service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../model/coin.dart';
 
-class CoinListItemWidget extends StatelessWidget {
+class CoinListItemWidget extends ConsumerWidget {
   CoinListItemWidget(this.coin, {super.key});
 
   Coin coin;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var imageService = ref.read(imageServiceProvider);
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(children: [
@@ -30,7 +34,7 @@ class CoinListItemWidget extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Column(children: [
-              if (_imageTypeFilter(coin) != null) _imageTypeFilter(coin)!,
+              imageService.getImage(coin.iconUrl, 30)!,
               Text(
                 coin.symbol!,
                 style: const TextStyle(fontWeight: FontWeight.w700),
@@ -78,34 +82,6 @@ class CoinListItemWidget extends StatelessWidget {
       return Colors.grey;
     } else {
       return Colors.green;
-    }
-  }
-
-  Widget? _imageTypeFilter(Coin coin) {
-    if (coin.iconUrl == null) {
-      return null;
-    }
-
-    var url = coin.iconUrl!.split('?');
-    int length = url[0].length;
-    String lastThreeCharacters = url[0].substring(length - 3);
-
-    if (lastThreeCharacters == "svg") {
-      return SvgPicture.network(
-        coin.iconUrl.toString(),
-        width: 20,
-        height: 20,
-        fit: BoxFit.scaleDown,
-      );
-    } else {
-      return Image.network(
-        coin.iconUrl.toString(),
-        width: 20,
-        cacheHeight: 100,
-        cacheWidth: 100,
-        height: 20,
-        fit: BoxFit.scaleDown,
-      );
     }
   }
 }
