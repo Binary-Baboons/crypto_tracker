@@ -5,13 +5,15 @@ import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
+import 'package:crypto_tracker/provider/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../test_data/api_client.dart';
+import '../../../test_data/api_client.dart';
+import '../../../test_data/database.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
@@ -19,10 +21,13 @@ void main() {
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',
         (WidgetTester tester) async {
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
-            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       final Finder currentReferenceCurrency =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -39,10 +44,13 @@ void main() {
 
     testWidgets('renders double_arrow_down icon for default orderBy correctly',
         (WidgetTester tester) async {
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
-            referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       var mapOrderByToText = {
         OrderBy.marketCap: "MARKET CAP",
@@ -66,13 +74,13 @@ void main() {
     testWidgets(
         'renders double_arrow_down and double_arrow_down icon for price orderBy correctly',
         (WidgetTester tester) async {
-          var coinsClient = mockCoinsClientOk();
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsApiClientProvider
-                .overrideWithValue(CoinsApiClient(coinsClient)),
-            referenceCurrenciesApiClientProvider.overrideWithValue(
-                ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-          ], child: const CryptoTrackerApp()));
+      var coinsClient = mockCoinsClientOk();
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider.overrideWithValue(CoinsApiClient(coinsClient)),
+        referenceCurrenciesApiClientProvider.overrideWithValue(
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       final Finder priceButton = find.text("PRICE");
       await tester.tap(priceButton);

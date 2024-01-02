@@ -4,15 +4,17 @@ import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/config/default_config.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
-import 'package:crypto_tracker/screens/market/modal/reference_currencies.dart';
+import 'package:crypto_tracker/provider/database.dart';
+import 'package:crypto_tracker/view/screen/market/modal/reference_currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../test_data/api_client.dart';
-import '../../../test_data/expected_data.dart';
+import '../../../../test_data/api_client.dart';
+import '../../../../test_data/database.dart';
+import '../../../../test_data/expected_data.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
@@ -24,8 +26,9 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -46,8 +49,9 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk()))
-      ], child: const CryptoTrackerApp()));
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -82,8 +86,9 @@ void main() {
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
-            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
-      ], child: const CryptoTrackerApp()));
+            ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError())),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
       Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -97,44 +102,45 @@ void main() {
     });
 
     testWidgets('calls GET reference currency api only once',
-            (WidgetTester tester) async {
-          var currencyClient = mockReferenceCurrenciesClientOk();
-          await tester.pumpWidget(ProviderScope(overrides: [
-            coinsApiClientProvider
-                .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
-            referenceCurrenciesApiClientProvider.overrideWithValue(
-                ReferenceCurrenciesApiClient(currencyClient))
-          ], child: const CryptoTrackerApp()));
+        (WidgetTester tester) async {
+      var currencyClient = mockReferenceCurrenciesClientOk();
+      await tester.pumpWidget(ProviderScope(overrides: [
+        coinsApiClientProvider
+            .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
+        referenceCurrenciesApiClientProvider
+            .overrideWithValue(ReferenceCurrenciesApiClient(currencyClient)),
+        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+      ], child: const Main()));
 
-          final Finder currencyFilterButton =
+      final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
-          await tester.pumpAndSettle();
-          await tester.tap(currencyFilterButton);
-          await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      await tester.tap(currencyFilterButton);
+      await tester.pumpAndSettle();
 
-          currencyClient.close();
-          currencyClient.close();
+      currencyClient.close();
+      currencyClient.close();
 
-          Finder referenceCurrencyFilterTextFinder =
+      Finder referenceCurrencyFilterTextFinder =
           find.byKey(const Key("referenceCurrencyFilterText"));
-          Text referenceCurrencyFilterText =
+      Text referenceCurrencyFilterText =
           tester.widget(referenceCurrencyFilterTextFinder) as Text;
-          expect(
-              referenceCurrencyFilterText.data
-                  ?.contains(DefaultConfig.referenceCurrency.toString()),
-              true);
+      expect(
+          referenceCurrencyFilterText.data
+              ?.contains(DefaultConfig.referenceCurrency.toString()),
+          true);
 
-          Finder euroReferenceCurrency = find.text("Euro (e)");
-          await tester.pumpAndSettle();
-          await tester.tap(euroReferenceCurrency);
-          await tester.pumpAndSettle();
+      Finder euroReferenceCurrency = find.text("Euro (e)");
+      await tester.pumpAndSettle();
+      await tester.tap(euroReferenceCurrency);
+      await tester.pumpAndSettle();
 
-          euroReferenceCurrency = find.text("Euro (e)");
-          await tester.pumpAndSettle();
-          await tester.tap(euroReferenceCurrency);
-          await tester.pumpAndSettle();
+      euroReferenceCurrency = find.text("Euro (e)");
+      await tester.pumpAndSettle();
+      await tester.tap(euroReferenceCurrency);
+      await tester.pumpAndSettle();
 
-          verify(currencyClient.get(any, headers: anyNamed("headers"))).called(1);
-        });
+      verify(currencyClient.get(any, headers: anyNamed("headers"))).called(1);
+    });
   });
 }

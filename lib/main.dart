@@ -1,20 +1,22 @@
-import 'package:crypto_tracker/screens/market/market_screen.dart';
+import 'package:crypto_tracker/view/screen/enum.dart';
+import 'package:crypto_tracker/view/screen/favorite/screen.dart';
+import 'package:crypto_tracker/view/screen/market/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   await dotenv.load();
-  runApp(const ProviderScope(child: CryptoTrackerApp()));
+  runApp(const ProviderScope(child: Main()));
 }
 
-class CryptoTrackerApp extends StatelessWidget {
-  const CryptoTrackerApp({super.key});
+class Main extends StatelessWidget {
+  const Main({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const CryptoTrackerAppState(),
+      home: const CryptoTrackerApp(),
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
@@ -24,32 +26,17 @@ class CryptoTrackerApp extends StatelessWidget {
   }
 }
 
-class CryptoTrackerAppState extends StatefulWidget {
-  const CryptoTrackerAppState({super.key});
+class CryptoTrackerApp extends ConsumerStatefulWidget {
+  const CryptoTrackerApp({super.key});
 
   @override
-  State<CryptoTrackerAppState> createState() => _CryptoTrackerAppState();
+  ConsumerState<CryptoTrackerApp> createState() => _CryptoTrackerAppState();
 }
 
-class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
+class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    MarketScreen(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -70,6 +57,8 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
                 'assets/logo.png',
                 height: 30,
                 width: 30,
+                cacheWidth: 300,
+                cacheHeight: 300,
               ),
               SizedBox(width: 10),
               Text(
@@ -82,7 +71,7 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
         ),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: getWidgetOptions().elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -92,7 +81,7 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             label: 'Favorites',
           ),
@@ -112,5 +101,20 @@ class _CryptoTrackerAppState extends State<CryptoTrackerAppState> {
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  List<Widget> getWidgetOptions() {
+    return <Widget>[
+      const MarketScreen(),
+      FavoriteScreen(),
+      Text(
+        'Index 2: School',
+        style: optionStyle,
+      ),
+      Text(
+        'Index 3: Settings',
+        style: optionStyle,
+      ),
+    ];
   }
 }

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 
-import 'empty_result_exception.dart';
+import 'exception/empty_result.dart';
 
 class ErrorHandler {
   static String internalAppError =

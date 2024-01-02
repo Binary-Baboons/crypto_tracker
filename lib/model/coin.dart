@@ -1,6 +1,6 @@
 class Coin {
   Coin(this.uuid, this.rank, this.name, this.symbol, this.iconUrl, this.price,
-      this.change, this.marketCap);
+      this.change, this.marketCap, {this.favorite = false});
 
   String? uuid;
   int? rank;
@@ -10,6 +10,7 @@ class Coin {
   String? price;
   String? change;
   String? marketCap;
+  bool favorite ;
 
   @override
   bool operator ==(Object other) {
@@ -28,7 +29,8 @@ class Coin {
         iconUrl == coin.iconUrl &&
         price == coin.price &&
         change == coin.change &&
-        marketCap == coin.marketCap;
+        marketCap == coin.marketCap &&
+        favorite == coin.favorite;
   }
 
   @override

@@ -4,13 +4,15 @@ import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
-import 'package:crypto_tracker/screens/market/modal/categories.dart';
+import 'package:crypto_tracker/provider/database.dart';
+import 'package:crypto_tracker/view/screen/market/modal/categories.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test_data/api_client.dart';
+import '../../../../test_data/api_client.dart';
+import '../../../../test_data/database.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
@@ -20,8 +22,9 @@ void main() {
             (WidgetTester tester) async {
               await tester.pumpWidget(ProviderScope(overrides: [
                 coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientError())),
-                referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError()))
-              ], child: const CryptoTrackerApp()));
+                referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError())),
+                coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+              ], child: const Main()));
 
           final Finder timePeriodSortButton = find.text("Category");
           await tester.tap(timePeriodSortButton);

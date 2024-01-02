@@ -1,5 +1,7 @@
 import 'package:crypto_tracker/api/client/coins.dart';
-import 'package:crypto_tracker/error/empty_result_exception.dart';
+import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/database/coins.dart';
+import 'package:crypto_tracker/error/exception/empty_result.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:intl/intl.dart';
@@ -7,9 +9,10 @@ import 'package:intl/intl.dart';
 import '../api/data/coins.dart';
 
 class CoinsService {
-  CoinsService(this.coinsApiClient);
+  CoinsService(this.coinsApiClient, this.coinsDatabase);
 
   CoinsApiClient coinsApiClient;
+  CoinsDatabase coinsDatabase;
 
   Future<List<Coin>> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
@@ -20,10 +23,40 @@ class CoinsService {
       throw EmptyResultException();
     }
 
-    return (format(coins, referenceCurrency));
+    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
+    coins
+        .where((c) => coinUuids.contains(c.uuid))
+        .forEach((c) => c.favorite = true);
+
+    return (_format(coins, referenceCurrency));
   }
 
-  List<Coin> format(List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
+  Future<List<Coin>> getFavoriteCoins(ReferenceCurrency referenceCurrency) async {
+    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
+
+    if (coinUuids.isEmpty) {
+      return [];
+    }
+
+    List<Coin> coins = await coinsApiClient.getCoins(
+        CoinsRequestData(uuids: coinUuids),
+        DefaultConfig.referenceCurrency.uuid);
+
+    coins.forEach((c) => c.favorite = true);
+
+    return (_format(coins, DefaultConfig.referenceCurrency));
+  }
+
+  void addFavoriteCoin(String uuid) async {
+    await coinsDatabase.addFavoriteCoin(uuid);
+  }
+
+  void deleteFavoriteCoin(String uuid) async {
+    await coinsDatabase.deleteFavoriteCoin(uuid);
+  }
+
+  List<Coin> _format(
+      List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
     return coinsData
         .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {
