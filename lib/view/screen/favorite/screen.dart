@@ -1,6 +1,7 @@
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
+import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -49,9 +50,9 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
             });
             return Container();
           } else if (snapshot.hasData) {
-            return CoinListWidget(snapshot.data!);
+            return CoinListWidget(snapshot.data!, Screen.Favorites);
           } else {
-            return CoinListWidget([]);
+            return CoinListWidget([], Screen.Favorites);
           }
         });
   }

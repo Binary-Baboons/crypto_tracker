@@ -1,13 +1,15 @@
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/provider/database.dart';
+import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:crypto_tracker/view/widget/coin_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CoinListWidget extends ConsumerStatefulWidget {
-  CoinListWidget(this.coins, {super.key});
+  CoinListWidget(this.coins, this.screen, {super.key});
 
   List<Coin> coins;
+  Screen screen;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -99,6 +101,9 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
         if (widget.coins[index].favorite) {
           ref.read(coinsDatabaseProvider).deleteFavoriteCoin(coin.uuid!);
           widget.coins[index].favorite = false;
+          if (widget.screen == Screen.Favorites) {
+            widget.coins.removeAt(index);
+          }
         } else {
           ref.read(coinsDatabaseProvider).addFavoriteCoin(coin.uuid!);
           widget.coins[index].favorite = true;

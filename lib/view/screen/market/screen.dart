@@ -5,6 +5,7 @@ import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
+import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -266,9 +267,9 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                   });
                   return Container();
                 } else if (snapshot.hasData) {
-                  return CoinListWidget(snapshot.data!);
+                  return CoinListWidget(snapshot.data!, Screen.Market);
                 } else {
-                  return CoinListWidget([]);
+                  return CoinListWidget([], Screen.Market);
                 }
               }),
         ))
