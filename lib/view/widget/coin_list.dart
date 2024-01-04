@@ -5,7 +5,6 @@ import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:crypto_tracker/view/widget/coin_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path/path.dart';
 
 class CoinListWidget extends ConsumerStatefulWidget {
   CoinListWidget(this.coins, this.screen, {super.key});
@@ -36,10 +35,13 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () { Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CoinScreen(widget.coins[index])),
-                );},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CoinScreen(widget.coins[index])),
+                  );
+                },
                 onHorizontalDragUpdate: (details) {
                   if ((details.primaryDelta! < 0)) {
                     setState(() {
@@ -49,7 +51,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
                   }
                 },
                 onHorizontalDragEnd: (details) =>
-                    _handleSwipeEnd(index, widget.coins[index]),
+                    _handleSwipeEnd(context, index, widget.coins[index]),
                 child: Stack(
                   children: [
                     Positioned.fill(
@@ -100,7 +102,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
     );
   }
 
-  void _handleSwipeEnd(int index, Coin coin) {
+  void _handleSwipeEnd(BuildContext context, int index, Coin coin) {
     if ((_swipePositions[index] ?? 0).abs() > _swipeThreshold) {
       setState(() {
         if (widget.coins[index].favorite) {
@@ -109,9 +111,15 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
           if (widget.screen == Screen.Favorites) {
             widget.coins.removeAt(index);
           }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              content: Text("${coin.name} has been removed from favorites")));
         } else {
           ref.read(coinsDatabaseProvider).addFavoriteCoin(coin.uuid!);
           widget.coins[index].favorite = true;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              content: Text("${coin.name} has been added to favorites")));
         }
       });
     }

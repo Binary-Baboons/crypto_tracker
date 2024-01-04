@@ -1,7 +1,7 @@
 class Coin {
   Coin(this.uuid, this.rank, this.name, this.symbol, this.iconUrl, this.price,
       this.change, this.marketCap,
-      {this.sparkline, this.favorite = false});
+      sparkline, {this.favorite = false}) : sparkline = sparkline + [price];
 
   String? uuid;
   int? rank;
@@ -9,7 +9,7 @@ class Coin {
   String? symbol;
   String? iconUrl;
   String? price;
-  List<String?>? sparkline;
+  List<String?> sparkline;
   String? change;
   String? marketCap;
   bool favorite;

@@ -27,8 +27,20 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(coin.name ?? 'Cryptocurrency', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
-        actions: [IconButton(onPressed: () {_addToFavorites(coin);}, icon: Icon(coin.favorite ? Icons.favorite : Icons.favorite_border, color: Theme.of(context).colorScheme.onPrimary,))],
+        title: Text(
+          coin.name ?? 'Cryptocurrency',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _addToFavorites(coin);
+              },
+              icon: Icon(
+                coin.favorite ? Icons.favorite : Icons.favorite_border,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,9 +51,7 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                      child: imageService.getImage(coin.iconUrl, 100)
-                  ),
+                  Center(child: imageService.getImage(coin.iconUrl, 100)),
                   SizedBox(height: 16),
                   Text(
                     coin.name ?? '',
@@ -102,7 +112,8 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
 
   List<FlSpot> _convertStringListToFlSpots(List<String?> dataString) {
     return List.generate(dataString.length, (index) {
-      double value = (dataString[index] != null) ? double.parse(dataString[index]!) : 0.0;
+      double value =
+          (dataString[index] != null) ? double.parse(dataString[index]!) : 0.0;
       return FlSpot(index.toDouble(), value);
     });
   }
@@ -114,11 +125,16 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
       if (coin.favorite) {
         coinService.deleteFavoriteCoin(coin.uuid!);
         coin.favorite = false;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            content: Text("${coin.name} has been removed from favorites")));
       } else {
         coinService.addFavoriteCoin(coin.uuid!);
         coin.favorite = true;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            content: Text("${coin.name} has been added to favorites")));
       }
     });
-
   }
 }
