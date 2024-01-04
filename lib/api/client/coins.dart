@@ -39,14 +39,10 @@ class CoinsApiClient {
             coin['price'],
             coin['change'],
             coin['marketCap'],
-            sparkline: List<String>.from(coin['sparkline'])))
+            sparkline: List<String?>.from(coin['sparkline'])))
         .toList();
 
     return coins;
   }
-
-  // List<String> _decodeSparkline(List<Map> sparkline) {
-  //   return sparkline.map((e) => e.values)
-  // }
 }
 

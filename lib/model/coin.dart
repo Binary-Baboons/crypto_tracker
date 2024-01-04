@@ -9,7 +9,7 @@ class Coin {
   String? symbol;
   String? iconUrl;
   String? price;
-  List<String>? sparkline;
+  List<String?>? sparkline;
   String? change;
   String? marketCap;
   bool favorite;
@@ -24,6 +24,20 @@ class Coin {
     }
     Coin coin = other;
 
+    if ((sparkline == null && coin.sparkline != null) || (sparkline != null && coin.sparkline == null)) {
+      return false;
+    }
+
+    for (int i = 0; i < sparkline!.length; i++) {
+      if (sparkline == null && coin.sparkline == null) {
+        break;
+      }
+
+      if (sparkline![i] != coin.sparkline![i]) {
+        return false;
+      }
+    }
+
     return uuid == coin.uuid &&
         rank == coin.rank &&
         name == coin.name &&
@@ -32,8 +46,7 @@ class Coin {
         price == coin.price &&
         change == coin.change &&
         marketCap == coin.marketCap &&
-        favorite == coin.favorite &&
-        sparkline == coin.sparkline;
+        favorite == coin.favorite;
   }
 
   @override

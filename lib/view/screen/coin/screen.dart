@@ -17,7 +17,6 @@ class CoinScreen extends ConsumerStatefulWidget {
 }
 
 class _CoinScreenState extends ConsumerState<CoinScreen> {
-
   @override
   Widget build(BuildContext context) {
     var coin = widget.coin;
@@ -101,9 +100,9 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
     );
   }
 
-  List<FlSpot> _convertStringListToFlSpots(List<String> dataString) {
+  List<FlSpot> _convertStringListToFlSpots(List<String?> dataString) {
     return List.generate(dataString.length, (index) {
-      double value = double.tryParse(dataString[index]) ?? 0.0;
+      double value = (dataString[index] != null) ? double.parse(dataString[index]!) : 0.0;
       return FlSpot(index.toDouble(), value);
     });
   }
