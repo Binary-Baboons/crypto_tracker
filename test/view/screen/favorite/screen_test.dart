@@ -40,9 +40,7 @@ void main() {
       expect(find.text(coin.price!), findsOneWidget);
       expect(find.text(coin.marketCap!), findsOneWidget);
     });
-  });
 
-  group('FavoriteScreen Widget Tests', () {
     testWidgets('removes from list when swiped', (WidgetTester tester) async {
       var mockDatabase = mockCoinsDatabaseOk();
       await tester.pumpWidget(ProviderScope(overrides: [
