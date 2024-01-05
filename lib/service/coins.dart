@@ -1,5 +1,5 @@
 import 'package:crypto_tracker/api/client/coins.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/api/data/coin_price.dart';
 import 'package:crypto_tracker/database/coins.dart';
 import 'package:crypto_tracker/error/exception/empty_result.dart';
 import 'package:crypto_tracker/model/coin.dart';
@@ -41,11 +41,11 @@ class CoinsService {
 
     List<Coin> coins = await coinsApiClient.getCoins(
         CoinsRequestData(uuids: coinUuids),
-        DefaultConfig.referenceCurrency.uuid);
+        referenceCurrency.uuid);
 
     coins.forEach((c) => c.favorite = true);
 
-    return (_format(coins, DefaultConfig.referenceCurrency));
+    return (_format(coins, referenceCurrency));
   }
 
   void addFavoriteCoin(String uuid) async {
@@ -56,10 +56,14 @@ class CoinsService {
     await coinsDatabase.deleteFavoriteCoin(uuid);
   }
 
+  Future<String> getCoinPrice(CoinPriceRequestData requestData, ReferenceCurrency referenceCurrency) async {
+    return await coinsApiClient.getCoinPrice(requestData, referenceCurrency.uuid);
+  }
+
   List<Coin> _format(
       List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
     return coinsData
-        .where((coin) => coin.price != null && coin.marketCap != null && coin.sparkline != null)
+        .where((coin) => coin.price != null && coin.marketCap != null)
         .map((coin) {
       coin.change = coin.change ?? "0.00";
 
@@ -73,7 +77,7 @@ class CoinsService {
               decimalDigits: getDecimal(doublePrice))
           .format(doublePrice);
 
-      coin.sparkline = coin.sparkline!.map((sl) {
+      coin.sparkline = coin.sparkline.map((sl) {
         if (sl == null) {
           return null;
         }

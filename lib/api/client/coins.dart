@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto_tracker/api/data/coin_price.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,6 +10,7 @@ import 'base_client_config.dart';
 
 class CoinsApiClient {
   static const String coinsApi = "v2/coins";
+  static const String coinPriceApi = "v2/coin/{uuid}/price";
   BaseClient client;
 
   CoinsApiClient(this.client);
@@ -43,5 +45,24 @@ class CoinsApiClient {
         .toList();
 
     return coins;
+  }
+
+  Future<String> getCoinPrice(CoinPriceRequestData requestData, String referenceCurrencyUuid) async {
+    final route = coinPriceApi.replaceFirst("{uuid}", requestData.coinUuid);
+    final uri = Uri.https(BaseClientConfig.baseUrl, route,
+        requestData.prepareParams(referenceCurrencyUuid));
+    final response = await client.get(uri, headers: {
+      "Content-Type": "application/json",
+      "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
+    });
+
+    var body = json.decode(response.body);
+
+    String? message = body['message'];
+    if (response.statusCode != 200) {
+      throw ClientException(message!);
+    }
+
+    return body['data']['price'];
   }
 }
