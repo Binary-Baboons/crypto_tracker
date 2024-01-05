@@ -31,7 +31,8 @@ class CoinsService {
     return (_format(coins, referenceCurrency));
   }
 
-  Future<List<Coin>> getFavoriteCoins(ReferenceCurrency referenceCurrency) async {
+  Future<List<Coin>> getFavoriteCoins(
+      ReferenceCurrency referenceCurrency) async {
     List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
 
     if (coinUuids.isEmpty) {
@@ -58,18 +59,30 @@ class CoinsService {
   List<Coin> _format(
       List<Coin> coinsData, ReferenceCurrency referenceCurrency) {
     return coinsData
-        .where((coin) => coin.price != null && coin.marketCap != null)
+        .where((coin) => coin.price != null && coin.marketCap != null && coin.sparkline != null)
         .map((coin) {
       coin.change = coin.change ?? "0.00";
+
       coin.marketCap = NumberFormat.currency(
               symbol: referenceCurrency.getSignSymbol(), decimalDigits: 2)
           .format(double.parse(coin.marketCap!));
 
-      double price = double.parse(coin.price!);
+      var doublePrice = double.parse(coin.price!);
       coin.price = NumberFormat.currency(
               symbol: referenceCurrency.getSignSymbol(),
-              decimalDigits: getDecimal(price))
-          .format(price);
+              decimalDigits: getDecimal(doublePrice))
+          .format(doublePrice);
+
+      coin.sparkline = coin.sparkline!.map((sl) {
+        if (sl == null) {
+          return null;
+        }
+
+        var doubleSl = double.parse(sl);
+        var formattedSl = double.parse((doubleSl).toStringAsFixed(getDecimal(doubleSl)));
+        return formattedSl.toString();
+      }).toList();
+
       return coin;
     }).toList();
   }
@@ -83,8 +96,8 @@ class CoinsService {
       return 3;
     }
 
-    String priceStr = price.toString();
-    int firstNonZeroIndex = priceStr.indexOf(RegExp(r'[1-9]'));
-    return 5 + firstNonZeroIndex - priceStr.indexOf('.') - 1;
+    var stringPrice = price.toString();
+    int firstNonZeroIndex = stringPrice.indexOf(RegExp(r'[1-9]'));
+    return 5 + firstNonZeroIndex - stringPrice.indexOf('.') - 1;
   }
 }

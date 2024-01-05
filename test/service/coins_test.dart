@@ -26,10 +26,10 @@ void main() {
       when(mockClient.getCoins(any, any)).thenAnswer((_) async {
         return [
           Coin("asdf", 1, "Bitcoin", "BTC", "http", "69000.00000", "50",
-              "8000.00000"),
+              "8000.00000", ["8000.12345", null]),
           Coin("qwerty", 2, "Etherium", "ETH", "http", "0.00000123456789", null,
-              "0.123456789"),
-          Coin("erty", 3, "Randomcoin", "RND", "http", null, null, null)
+              "0.123456789", ["0.0000023456789", null] ),
+          Coin("erty", 3, "Randomcoin", "RND", "http", null, null, null, <String?>[])
         ];
       });
       when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {return ["asdf"];});
@@ -41,13 +41,13 @@ void main() {
       expect(
           result[0] ==
               Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
-                  "\$8,000.00", favorite: true),
+                  "\$8,000.00", ["8000.12", null, "69000.0"], favorite: true),
           true,
           reason: "Coin is not equal");
       expect(
           result[1] ==
               Coin("qwerty", 2, "Etherium", "ETH", "http", "\$0.0000012346",
-                  "0.00", "\$0.12", favorite: false),
+                  "0.00", "\$0.12", ["0.0000023457", null, "0.0000012346"], favorite: false),
           true,
           reason: "Coin is not equal");
     });
@@ -67,7 +67,7 @@ void main() {
       when(mockClient.getCoins(any, any)).thenAnswer((_) async {
         return [
           Coin("asdf", 1, "Bitcoin", "BTC", "http", "69000.00000", "50",
-              "8000.00000"),
+              "8000.00000", ["8000.12345", null]),
         ];
       });
 
@@ -77,7 +77,7 @@ void main() {
       expect(
           result[0] ==
               Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
-                  "\$8,000.00", favorite: true),
+                  "\$8,000.00", ["8000.12", null, "69000.0"], favorite: true),
           true,
           reason: "Coin is not equal");
     });

@@ -9,7 +9,8 @@
         "iconUrl": null,
         "price": "41937.86733374465",
         "change": "-0.64",
-        "marketCap": "820827859943"
+        "marketCap": "820827859943",
+        "sparkline": []
       },
       {
         "uuid": "razxDUgYGNAdQ",
@@ -19,7 +20,8 @@
         "iconUrl": null,
         "price": "0.000584809755861",
         "change": "-1.58",
-        "marketCap": "270067151596"
+        "marketCap": "270067151596",
+        "sparkline": []
       },
       {
         "uuid": "HIVsRcGKkPFtW",
@@ -29,7 +31,8 @@
         "iconUrl": null,
         "price": "1.0032980478762021",
         "change": null,
-        "marketCap": "91212341597"
+        "marketCap": "91212341597",
+        "sparkline": []
       }
     ]
   }

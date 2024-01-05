@@ -1,6 +1,7 @@
 class Coin {
   Coin(this.uuid, this.rank, this.name, this.symbol, this.iconUrl, this.price,
-      this.change, this.marketCap, {this.favorite = false});
+      this.change, this.marketCap,
+      sparkline, {this.favorite = false}) : sparkline = sparkline + [price];
 
   String? uuid;
   int? rank;
@@ -8,9 +9,10 @@ class Coin {
   String? symbol;
   String? iconUrl;
   String? price;
+  List<String?> sparkline;
   String? change;
   String? marketCap;
-  bool favorite ;
+  bool favorite;
 
   @override
   bool operator ==(Object other) {
@@ -21,6 +23,20 @@ class Coin {
       return false;
     }
     Coin coin = other;
+
+    if ((sparkline == null && coin.sparkline != null) || (sparkline != null && coin.sparkline == null)) {
+      return false;
+    }
+
+    for (int i = 0; i < sparkline!.length; i++) {
+      if (sparkline == null && coin.sparkline == null) {
+        break;
+      }
+
+      if (sparkline![i] != coin.sparkline![i]) {
+        return false;
+      }
+    }
 
     return uuid == coin.uuid &&
         rank == coin.rank &&
