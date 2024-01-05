@@ -12,7 +12,7 @@ class CoinsService {
   CoinsService(this.coinsApiClient, this.coinsDatabase);
 
   CoinsApiClient coinsApiClient;
-  CoinsDatabase coinsDatabase;
+  CoinsStore coinsDatabase;
 
   Future<List<Coin>> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {

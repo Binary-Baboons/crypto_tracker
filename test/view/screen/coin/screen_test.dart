@@ -25,7 +25,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockDatabase)
+        coinsStoreProvider.overrideWithValue(mockDatabase)
       ], child: const Main()));
       await tester.pumpAndSettle();
 

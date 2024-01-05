@@ -27,7 +27,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =
@@ -50,7 +50,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =
@@ -87,7 +87,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       Finder currencyFilterButton =
@@ -109,7 +109,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider
             .overrideWithValue(ReferenceCurrenciesApiClient(currencyClient)),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =

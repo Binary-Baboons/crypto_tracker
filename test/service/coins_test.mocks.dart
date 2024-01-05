@@ -39,7 +39,7 @@ class _FakeCoinsApiClient_0 extends _i1.SmartFake
         );
 }
 
-class _FakeCoinsDatabase_1 extends _i1.SmartFake implements _i3.CoinsDatabase {
+class _FakeCoinsDatabase_1 extends _i1.SmartFake implements _i3.CoinsStore {
   _FakeCoinsDatabase_1(
     Object parent,
     Invocation parentInvocation,
@@ -86,16 +86,16 @@ class MockCoinsService extends _i1.Mock implements _i5.CoinsService {
       );
 
   @override
-  _i3.CoinsDatabase get coinsDatabase => (super.noSuchMethod(
+  _i3.CoinsStore get coinsDatabase => (super.noSuchMethod(
         Invocation.getter(#coinsDatabase),
         returnValue: _FakeCoinsDatabase_1(
           this,
           Invocation.getter(#coinsDatabase),
         ),
-      ) as _i3.CoinsDatabase);
+      ) as _i3.CoinsStore);
 
   @override
-  set coinsDatabase(_i3.CoinsDatabase? _coinsDatabase) => super.noSuchMethod(
+  set coinsDatabase(_i3.CoinsStore? _coinsDatabase) => super.noSuchMethod(
         Invocation.setter(
           #coinsDatabase,
           _coinsDatabase,
@@ -161,7 +161,7 @@ class MockCoinsService extends _i1.Mock implements _i5.CoinsService {
 /// A class which mocks [CoinsDatabase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCoinsDatabase extends _i1.Mock implements _i3.CoinsDatabase {
+class MockCoinsDatabase extends _i1.Mock implements _i3.CoinsStore {
   MockCoinsDatabase() {
     _i1.throwOnMissingStub(this);
   }

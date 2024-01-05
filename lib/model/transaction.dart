@@ -7,8 +7,9 @@ enum TransactionSource {
 }
 
 class Transaction {
-  Transaction(this.dateTime, this.coinUuid, this.type, this.amount, this.priceAtTime);
+  Transaction(this.transactionId, this.dateTime, this.coinUuid, this.type, this.amount, this.priceAtTime);
 
+  String transactionId;
   DateTime dateTime;
   String coinUuid;
   TransactionType type;

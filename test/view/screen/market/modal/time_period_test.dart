@@ -26,7 +26,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");
@@ -53,7 +53,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder timePeriodSortButton = find.text("Time period");

@@ -11,7 +11,7 @@ import 'api_client.dart';
 
 final coinsServiceProvider = Provider<CoinsService>((ref) {
   CoinsApiClient coinsClient = ref.watch(coinsApiClientProvider);
-  CoinsDatabase coinsDatabase = ref.watch(coinsDatabaseProvider);
+  CoinsStore coinsDatabase = ref.watch(coinsStoreProvider);
   return CoinsService(coinsClient, coinsDatabase);
 });
 

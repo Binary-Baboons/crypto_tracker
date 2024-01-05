@@ -26,7 +26,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder currentReferenceCurrency =
@@ -49,7 +49,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       var mapOrderByToText = {
@@ -79,7 +79,7 @@ void main() {
         coinsApiClientProvider.overrideWithValue(CoinsApiClient(coinsClient)),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
       ], child: const Main()));
 
       final Finder priceButton = find.text("PRICE");
