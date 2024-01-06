@@ -4,17 +4,18 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
-import 'dart:convert' as _i9;
-import 'dart:typed_data' as _i11;
+import 'dart:convert' as _i11;
+import 'dart:typed_data' as _i12;
 
 import 'package:crypto_tracker/api/client/coins.dart' as _i4;
+import 'package:crypto_tracker/api/data/coin_price.dart' as _i8;
 import 'package:crypto_tracker/api/data/coins.dart' as _i7;
 import 'package:crypto_tracker/model/coin.dart' as _i6;
 import 'package:http/http.dart' as _i2;
-import 'package:http/src/io_client.dart' as _i8;
+import 'package:http/src/io_client.dart' as _i10;
 import 'package:http/src/io_streamed_response.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
+import 'package:mockito/src/dummies.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -101,12 +102,37 @@ class MockCoinsApiClient extends _i1.Mock implements _i4.CoinsApiClient {
         ),
         returnValue: _i5.Future<List<_i6.Coin>>.value(<_i6.Coin>[]),
       ) as _i5.Future<List<_i6.Coin>>);
+
+  @override
+  _i5.Future<String> getCoinPrice(
+    _i8.CoinPriceRequestData? requestData,
+    String? referenceCurrencyUuid,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCoinPrice,
+          [
+            requestData,
+            referenceCurrencyUuid,
+          ],
+        ),
+        returnValue: _i5.Future<String>.value(_i9.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getCoinPrice,
+            [
+              requestData,
+              referenceCurrencyUuid,
+            ],
+          ),
+        )),
+      ) as _i5.Future<String>);
 }
 
 /// A class which mocks [IOClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIOClient extends _i1.Mock implements _i8.IOClient {
+class MockIOClient extends _i1.Mock implements _i10.IOClient {
   MockIOClient() {
     _i1.throwOnMissingStub(this);
   }
@@ -184,7 +210,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i9.Encoding? encoding,
+    _i11.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -215,7 +241,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i9.Encoding? encoding,
+    _i11.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -246,7 +272,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i9.Encoding? encoding,
+    _i11.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -277,7 +303,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i9.Encoding? encoding,
+    _i11.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -314,7 +340,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i5.Future<String>.value(_i10.dummyValue<String>(
+        returnValue: _i5.Future<String>.value(_i9.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -325,7 +351,7 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
       ) as _i5.Future<String>);
 
   @override
-  _i5.Future<_i11.Uint8List> readBytes(
+  _i5.Future<_i12.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -335,6 +361,6 @@ class MockIOClient extends _i1.Mock implements _i8.IOClient {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i5.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
-      ) as _i5.Future<_i11.Uint8List>);
+        returnValue: _i5.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
+      ) as _i5.Future<_i12.Uint8List>);
 }

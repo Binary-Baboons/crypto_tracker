@@ -9,10 +9,10 @@ import 'package:intl/intl.dart';
 import '../api/data/coins.dart';
 
 class CoinsService {
-  CoinsService(this.coinsApiClient, this.coinsDatabase);
+  CoinsService(this.coinsApiClient, this.coinsStore);
 
   CoinsApiClient coinsApiClient;
-  CoinsStore coinsDatabase;
+  CoinsStore coinsStore;
 
   Future<List<Coin>> getCoins(
       CoinsRequestData requestData, ReferenceCurrency referenceCurrency) async {
@@ -23,7 +23,7 @@ class CoinsService {
       throw EmptyResultException();
     }
 
-    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
+    List<String> coinUuids = await coinsStore.getFavoriteCoins();
     coins
         .where((c) => coinUuids.contains(c.uuid))
         .forEach((c) => c.favorite = true);
@@ -33,7 +33,7 @@ class CoinsService {
 
   Future<List<Coin>> getFavoriteCoins(
       ReferenceCurrency referenceCurrency) async {
-    List<String> coinUuids = await coinsDatabase.getFavoriteCoins();
+    List<String> coinUuids = await coinsStore.getFavoriteCoins();
 
     if (coinUuids.isEmpty) {
       return [];
@@ -49,11 +49,11 @@ class CoinsService {
   }
 
   void addFavoriteCoin(String uuid) async {
-    await coinsDatabase.addFavoriteCoin(uuid);
+    await coinsStore.addFavoriteCoin(uuid);
   }
 
   void deleteFavoriteCoin(String uuid) async {
-    await coinsDatabase.deleteFavoriteCoin(uuid);
+    await coinsStore.deleteFavoriteCoin(uuid);
   }
 
   Future<String> getCoinPrice(CoinPriceRequestData requestData, ReferenceCurrency referenceCurrency) async {

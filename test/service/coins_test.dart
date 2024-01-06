@@ -18,7 +18,7 @@ void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
 
   MockCoinsApiClient mockClient = MockCoinsApiClient();
-  CoinsStore mockDatabase = MockCoinsDatabase();
+  CoinsStore mockDatabase = MockCoinsStore();
   CoinsService service = CoinsService(mockClient, mockDatabase);
 
   group('CoinsService', () {

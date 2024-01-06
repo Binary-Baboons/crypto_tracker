@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final referenceCurrenciesStateProvider = StateProvider<Future<List<ReferenceCurrency>>?>((ref) {
   Future<List<ReferenceCurrency>>? referenceCurrencies;
 
-  var service = ref.watch(referenceCurrenciesServiceProvider);
+  var service = ref.read(referenceCurrenciesServiceProvider);
   referenceCurrencies = service.getReferenceCurrencies();
   return referenceCurrencies;
 });

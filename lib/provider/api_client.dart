@@ -10,11 +10,11 @@ final ioClientProvider = Provider<BaseClient>((ref) {
 });
 
 final coinsApiClientProvider = Provider<CoinsApiClient>((ref) {
-  final client = ref.watch(ioClientProvider);
+  final client = ref.read(ioClientProvider);
   return CoinsApiClient(client);
 });
 
 final referenceCurrenciesApiClientProvider = Provider<ReferenceCurrenciesApiClient>((ref) {
-  final client = ref.watch(ioClientProvider);
+  final client = ref.read(ioClientProvider);
   return ReferenceCurrenciesApiClient(client);
 });

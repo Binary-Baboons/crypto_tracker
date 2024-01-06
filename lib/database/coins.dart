@@ -2,7 +2,7 @@ import 'package:crypto_tracker/database/base.dart';
 
 class CoinsStore extends BaseDatabase {
   static const String tableName = "coin";
-  static const schema = "CREATE TABLE $tableName (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE)";
+  static const schema = "CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE)";
 
   CoinsStore() : super.singleton();
 
