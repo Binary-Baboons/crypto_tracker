@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/model/transaction_grouping.dart';
 import 'package:crypto_tracker/provider/service.dart';
@@ -49,7 +49,7 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                   Text(PriceFormatter.formatPrice(
                       transactionGrouping.sumAmount, "")),
                   Text(PriceFormatter.formatPrice(
-                      transactionGrouping.getCurrentGroupingValue(),
+                      transactionGrouping.getGroupingValue(),
                       DefaultConfig.referenceCurrency.getSignSymbol()))
                 ],
               )),

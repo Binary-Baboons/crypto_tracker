@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:flutter/material.dart';

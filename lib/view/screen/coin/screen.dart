@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:fl_chart/fl_chart.dart';

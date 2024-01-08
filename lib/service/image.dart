@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ImageService {
   Widget? getImage(String? imageUrl, double size) {
     if (imageUrl == null) {
-      return Icon(Icons.error);
+      return const Icon(Icons.error);
     }
 
     var url = imageUrl.split('?');
@@ -18,7 +17,7 @@ class ImageService {
         width: size,
         height: size,
         fit: BoxFit.scaleDown,
-        placeholderBuilder: (builder) => Icon(Icons.downloading),
+        placeholderBuilder: (builder) => const Icon(Icons.downloading),
       );
     } else {
       return Image.network(

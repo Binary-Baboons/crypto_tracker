@@ -6,7 +6,7 @@ import 'package:crypto_tracker/model/coin.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
-import 'base_client_config.dart';
+import 'config.dart';
 
 class CoinsApiClient {
   static const String coinsApi = "v2/coins";
@@ -17,11 +17,11 @@ class CoinsApiClient {
 
   Future<List<Coin>> getCoins(
       CoinsRequestData requestData, String referenceCurrencyUuid) async {
-    final uri = Uri.https(BaseClientConfig.baseUrl, coinsApi,
+    final uri = Uri.https(ClientConfig.baseUrl, coinsApi,
         requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
-      "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
+      "x-access-token": dotenv.env[ClientConfig.coinRankingApiKey]!,
     });
 
     var body = json.decode(response.body);
@@ -53,11 +53,11 @@ class CoinsApiClient {
   Future<String> getCoinPrice(
       CoinPriceRequestData requestData, String referenceCurrencyUuid) async {
     final route = coinPriceApi.replaceFirst("{uuid}", requestData.coinUuid);
-    final uri = Uri.https(BaseClientConfig.baseUrl, route,
+    final uri = Uri.https(ClientConfig.baseUrl, route,
         requestData.prepareParams(referenceCurrencyUuid));
     final response = await client.get(uri, headers: {
       "Content-Type": "application/json",
-      "x-access-token": dotenv.env[BaseClientConfig.coinRankingApiKey]!,
+      "x-access-token": dotenv.env[ClientConfig.coinRankingApiKey]!,
     });
 
     var body = json.decode(response.body);

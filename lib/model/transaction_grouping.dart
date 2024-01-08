@@ -10,7 +10,7 @@ class TransactionGrouping {
   double? change;
   double? profitAndLoss;
 
-  double getCurrentGroupingValue() {
+  double getGroupingValue() {
     return sumAmount * coin!.price;
   }
 }

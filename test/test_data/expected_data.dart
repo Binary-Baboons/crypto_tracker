@@ -1,5 +1,9 @@
+import 'dart:core';
+
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:crypto_tracker/model/transaction.dart';
+import 'package:crypto_tracker/model/transaction_grouping.dart';
 
 List<Coin> apiCoins = [
   Coin("Qwsogvtv82FCd", 1, "Bitcoin", "BTC", null, 41937.86733374465, -0.64,
@@ -38,4 +42,16 @@ List<ReferenceCurrency> expectedCurrencies = [
     "MYR",
     "RM",
   ),
+];
+
+List<Transaction> dbTransactions = [
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.deposit, TransactionSource.manual, 1.6, 1000),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.deposit, TransactionSource.manual, 3.5, 200),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.withdraw, TransactionSource.manual, 1.3, 2000),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.fee, TransactionSource.manual, 0.1, 5),
+];
+
+List<TransactionGrouping> dbTransactionGroupings = [
+  TransactionGrouping(serviceCoins[0].uuid, 10000, 12.2),
+  TransactionGrouping(serviceCoins[1].uuid, 12345, 111)
 ];

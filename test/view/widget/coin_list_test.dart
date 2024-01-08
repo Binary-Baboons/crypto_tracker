@@ -1,7 +1,7 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
@@ -16,7 +16,7 @@ import '../../test_data/database.dart';
 import '../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('CoinListWidget Widget Tests', () {
     testWidgets('renders correctly coins list with coins',
@@ -26,7 +26,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
       await tester.pumpAndSettle();
 
@@ -40,7 +40,7 @@ void main() {
     });
 
     testWidgets('add to favorites swipe', (WidgetTester tester) async {
-      var mockDatabase = mockCoinsDatabaseOk();
+      var mockDatabase = mockCoinsStoreOk();
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
@@ -59,7 +59,7 @@ void main() {
     });
 
     testWidgets('remove from favorites swipe', (WidgetTester tester) async {
-      var mockDatabase = mockCoinsDatabaseOk();
+      var mockDatabase = mockCoinsStoreOk();
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
@@ -84,7 +84,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientError())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
       await tester.pumpAndSettle();
 

@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/main.dart';
@@ -15,7 +15,7 @@ import '../../../test_data/database.dart';
 import '../../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('FavoriteScreen Widget Tests', () {
     testWidgets('renders correctly coins list with coins',
@@ -25,7 +25,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsStoreProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
       await tester.pumpAndSettle();
 
@@ -38,7 +38,7 @@ void main() {
     });
 
     testWidgets('removes from list when swiped', (WidgetTester tester) async {
-      var mockDatabase = mockCoinsDatabaseOk();
+      var mockDatabase = mockCoinsStoreOk();
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),

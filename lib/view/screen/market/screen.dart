@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../api/data/coins.dart';
-import '../../../config/default_config.dart';
+import '../../../config/default.dart';
 import '../../../error/handler.dart';
 import '../../../model/coin.dart';
 import '../../widget/coin_list.dart';

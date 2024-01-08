@@ -17,4 +17,27 @@ class Transaction {
   TransactionSource source;
   double amount;
   double priceForAmount;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Transaction) {
+      return false;
+    }
+    Transaction transaction = other;
+
+    return transactionId == transaction.transactionId &&
+        dateTime == transaction.dateTime &&
+        coinUuid == transaction.coinUuid &&
+        type == transaction.type &&
+        source == transaction.source &&
+        amount == transaction.amount &&
+        priceForAmount == transaction.priceForAmount;
+  }
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, transactionId);
+
 }

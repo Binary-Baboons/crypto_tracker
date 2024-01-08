@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
 import 'package:crypto_tracker/service/reference_currency.dart';
@@ -13,7 +13,7 @@ import '../test_data/expected_data.dart';
 
 @GenerateMocks([ReferenceCurrenciesService])
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   MockReferenceCurrenciesApiClient mockClient =
       MockReferenceCurrenciesApiClient();

@@ -19,9 +19,9 @@ class TransactionStore {
 
   BaseDatabase baseDatabase;
 
-  Future<List<Transaction>> getTransactions() async {
+  Future<List<Transaction>> getTransactions(String coinUuid) async {
     List<Map> result = await (await baseDatabase.database)
-        .rawQuery('SELECT * FROM $tableName;');
+        .rawQuery('SELECT * FROM $tableName WHERE coinUuid LIKE ?', [coinUuid]);
     return result
         .map((t) => Transaction(
             transactionId: t["transactionId"],

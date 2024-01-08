@@ -8,13 +8,13 @@ import 'dart:async' as _i6;
 import 'package:crypto_tracker/api/client/coins.dart' as _i2;
 import 'package:crypto_tracker/api/data/coin_price.dart' as _i10;
 import 'package:crypto_tracker/api/data/coins.dart' as _i8;
+import 'package:crypto_tracker/database/base.dart' as _i4;
 import 'package:crypto_tracker/database/coins.dart' as _i3;
 import 'package:crypto_tracker/model/coin.dart' as _i7;
 import 'package:crypto_tracker/model/reference_currency.dart' as _i9;
 import 'package:crypto_tracker/service/coins.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i11;
-import 'package:sqflite/sqflite.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -50,8 +50,8 @@ class _FakeCoinsStore_1 extends _i1.SmartFake implements _i3.CoinsStore {
         );
 }
 
-class _FakeDatabase_2 extends _i1.SmartFake implements _i4.Database {
-  _FakeDatabase_2(
+class _FakeBaseDatabase_2 extends _i1.SmartFake implements _i4.BaseDatabase {
+  _FakeBaseDatabase_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,18 +88,18 @@ class MockCoinsService extends _i1.Mock implements _i5.CoinsService {
 
   @override
   _i3.CoinsStore get coinsStore => (super.noSuchMethod(
-        Invocation.getter(#coinsDatabase),
+        Invocation.getter(#coinsStore),
         returnValue: _FakeCoinsStore_1(
           this,
-          Invocation.getter(#coinsDatabase),
+          Invocation.getter(#coinsStore),
         ),
       ) as _i3.CoinsStore);
 
   @override
-  set coinsStore(_i3.CoinsStore? _coinsDatabase) => super.noSuchMethod(
+  set coinsStore(_i3.CoinsStore? _coinsStore) => super.noSuchMethod(
         Invocation.setter(
-          #coinsDatabase,
-          _coinsDatabase,
+          #coinsStore,
+          _coinsStore,
         ),
         returnValueForMissingStub: null,
       );
@@ -173,15 +173,6 @@ class MockCoinsService extends _i1.Mock implements _i5.CoinsService {
           ),
         )),
       ) as _i6.Future<String>);
-
-  @override
-  int getDecimal(double? price) => (super.noSuchMethod(
-        Invocation.method(
-          #getDecimal,
-          [price],
-        ),
-        returnValue: 0,
-      ) as int);
 }
 
 /// A class which mocks [CoinsStore].
@@ -193,13 +184,22 @@ class MockCoinsStore extends _i1.Mock implements _i3.CoinsStore {
   }
 
   @override
-  _i6.Future<_i4.Database> get database => (super.noSuchMethod(
-        Invocation.getter(#database),
-        returnValue: _i6.Future<_i4.Database>.value(_FakeDatabase_2(
+  _i4.BaseDatabase get baseDatabase => (super.noSuchMethod(
+        Invocation.getter(#baseDatabase),
+        returnValue: _FakeBaseDatabase_2(
           this,
-          Invocation.getter(#database),
-        )),
-      ) as _i6.Future<_i4.Database>);
+          Invocation.getter(#baseDatabase),
+        ),
+      ) as _i4.BaseDatabase);
+
+  @override
+  set baseDatabase(_i4.BaseDatabase? _baseDatabase) => super.noSuchMethod(
+        Invocation.setter(
+          #baseDatabase,
+          _baseDatabase,
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   _i6.Future<List<String>> getFavoriteCoins() => (super.noSuchMethod(

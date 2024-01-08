@@ -1,6 +1,6 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/database/coins.dart';
 import 'package:crypto_tracker/error/exception/empty_result.dart';
 import 'package:crypto_tracker/model/coin.dart';
@@ -17,7 +17,7 @@ import 'coins_test.mocks.dart';
 
 @GenerateMocks([CoinsService, CoinsStore])
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   MockCoinsApiClient mockClient = MockCoinsApiClient();
   CoinsStore mockDatabase = MockCoinsStore();
@@ -77,6 +77,14 @@ void main() {
       for (var i = 0; i < result.length; i++) {
         expect(result[i] == apiCoins[i], true);
       }
+    });
+
+    test('getFavoriteCoins returns exception from client', () async {
+      when(mockDatabase.getFavoriteCoins())
+          .thenThrow(Exception("Reference currency not available"));
+
+      expect(() => service.getFavoriteCoins(DefaultConfig.referenceCurrency),
+          throwsA(isA<Exception>()));
     });
   });
 }
