@@ -12,7 +12,6 @@ import 'package:mockito/mockito.dart';
 
 import '../../../test_data/api_client.dart';
 import '../../../test_data/database.dart';
-import '../../../test_data/expected_data.dart';
 
 void main() {
   dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});

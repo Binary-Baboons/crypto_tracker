@@ -4,19 +4,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BaseDatabase {
-  static final BaseDatabase _instance = BaseDatabase._internal();
-
   final String _databaseName = "cryptotracker";
+  final bool cleanStart = true;
   Database? _database;
-
-  factory BaseDatabase() {
-    return _instance;
-  }
-  BaseDatabase.singleton();
-
-  BaseDatabase._internal() {
-    _initDatabase();
-  }
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -28,6 +18,9 @@ class BaseDatabase {
   Future<Database> _initDatabase() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, '$_databaseName.database');
+    if (cleanStart && await databaseExists(databasesPath)) {
+      await deleteDatabase(path);
+    }
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(CoinsStore.schema);

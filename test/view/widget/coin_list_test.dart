@@ -1,6 +1,8 @@
 import 'package:crypto_tracker/api/client/base_client_config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
+import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
@@ -28,12 +30,12 @@ void main() {
       ], child: const Main()));
       await tester.pumpAndSettle();
 
-      for (var coin in expectedCoins) {
+      for (var coin in serviceCoins) {
         expect(find.text(coin.rank.toString()), findsOneWidget);
-        expect(find.text(coin.symbol!), findsOneWidget);
-        expect(find.text(coin.change!), findsOneWidget);
-        expect(find.text(coin.price!), findsOneWidget);
-        expect(find.text(coin.marketCap!), findsOneWidget);
+        expect(find.text(coin.symbol), findsOneWidget);
+        expect(find.text("${coin.change} %"), findsOneWidget);
+        expect(find.text(PriceFormatter.formatPrice(coin.price, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
+        expect(find.text(PriceFormatter.formatPrice(coin.marketCap, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
       }
     });
 
@@ -49,7 +51,7 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.drag(
-          find.text(expectedCoins[1].symbol!), const Offset(-300, 0));
+          find.text(apiCoins[1].symbol), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
       verify(mockDatabase.addFavoriteCoin(any)).called(1);
@@ -68,7 +70,7 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.drag(
-          find.text(expectedCoins[0].symbol!), const Offset(-300, 0));
+          find.text(apiCoins[0].symbol), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
       verifyNever(mockDatabase.addFavoriteCoin(any));

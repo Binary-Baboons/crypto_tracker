@@ -38,16 +38,20 @@ class CoinsApiClient {
             coin['name'],
             coin['symbol'],
             coin['iconUrl'],
-            coin['price'],
-            coin['change'],
-            coin['marketCap'],
-            List<String?>.from(coin['sparkline'])))
+            double.parse(coin['price']?.toString() ?? "0"),
+            double.parse(coin['change']?.toString() ?? "0"),
+            double.parse(coin['marketCap']?.toString() ?? "0"),
+            (coin['sparkline'] as List)
+                .map((item) =>
+                    item != null ? double.tryParse(item.toString()) : null)
+                .toList()))
         .toList();
 
     return coins;
   }
 
-  Future<String> getCoinPrice(CoinPriceRequestData requestData, String referenceCurrencyUuid) async {
+  Future<String> getCoinPrice(
+      CoinPriceRequestData requestData, String referenceCurrencyUuid) async {
     final route = coinPriceApi.replaceFirst("{uuid}", requestData.coinUuid);
     final uri = Uri.https(BaseClientConfig.baseUrl, route,
         requestData.prepareParams(referenceCurrencyUuid));

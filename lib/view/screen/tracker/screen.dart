@@ -31,38 +31,83 @@ class _TrackerScreenState extends ConsumerState<TrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Center(
-        child: FutureBuilder(
-          future: transactionGroupings,
-          builder: (ctx, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.errorContainer,
-                      content: Text(
-                          ErrorHandler.getUserFriendlyMessage(snapshot.error!),
+      body: Column(
+        children: [
+          Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              padding: EdgeInsets.symmetric(
+                  vertical: 10, horizontal: screenWidth * 0.01),
+              child: Row(children: [
+                SizedBox(
+                  width: screenWidth * 0.24,
+                  child: Center(
+                      child: Text('COIN',
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.error))));
-              });
-              return Container();
-            } else if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return TransactionGroupingListItemWidget(
-                        snapshot.data![index]);
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer))),
+                ),
+                SizedBox(
+                  width: screenWidth * 0.24,
+                  child: const Center(child: Text('PRICE')),
+                ),
+                SizedBox(
+                  width: screenWidth * 0.24,
+                  child: const Center(child: Text('HOLDINGS')),
+                ),
+                SizedBox(
+                  width: screenWidth * 0.24,
+                  child: const Center(child: Text('P&L')),
+                )
+              ])),
+          Expanded(
+            child: FutureBuilder(
+              future: transactionGroupings,
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.errorContainer,
+                          content: Text(
+                              ErrorHandler.getUserFriendlyMessage(
+                                  snapshot.error!),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.error))));
                   });
-            } else {
-              return Container();
-            }
-          },
-        ),
+                  return Container();
+                } else if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            TransactionGroupingListItemWidget(
+                                snapshot.data![index]),
+                            Divider(
+                              color: Theme.of(context).colorScheme.outline,
+                              height: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                          ],
+                        );
+                      });
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

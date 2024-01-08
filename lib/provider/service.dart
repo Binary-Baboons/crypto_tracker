@@ -24,5 +24,6 @@ final imageServiceProvider = Provider<ImageService>((ref) {
 
 final transactionServiceProvider = Provider<TransactionService>((ref) {
   var transactionStore = ref.read(transactionStoreProvider);
-  return TransactionService(transactionStore);
+  var coinsService = ref.read(coinsServiceProvider);
+  return TransactionService(transactionStore, coinsService);
 });

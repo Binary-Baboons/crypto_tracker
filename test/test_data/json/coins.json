@@ -33,6 +33,17 @@
         "change": null,
         "marketCap": "91212341597",
         "sparkline": []
+      },
+      {
+        "uuid": "uuid",
+        "rank": 4,
+        "name": "meme coin",
+        "symbol": "MEMEC",
+        "iconUrl": null,
+        "price": "0.0032980478762021",
+        "change": null,
+        "marketCap": null,
+        "sparkline": []
       }
     ]
   }

@@ -7,6 +7,7 @@ import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 
 import '../../test_data/api_client.dart';
+import '../../test_data/expected_data.dart';
 
 @GenerateMocks([ReferenceCurrenciesApiClient])
 void main() {
@@ -18,7 +19,11 @@ void main() {
       final client =
           ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk());
       final result = await client.getReferenceCurrencies();
+
       expect(result.length, 3, reason: "Response is not of expected length");
+      for (var i = 0; i < result.length; i++) {
+        expect(result[i] == expectedCurrencies[i], true);
+      }
     });
 
     test('getReferenceCurrencies returns a http client error', () async {

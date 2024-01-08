@@ -18,7 +18,7 @@ class NewTransactionModal extends ConsumerStatefulWidget {
 
 class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String selectedCoinUuid = 'Bitcoin';
+  String selectedCoinUuid = 'Qwsogvtv82FCd';
   TransactionType selectedTransactionType = TransactionType.values[0];
   final dateTimeController = TextEditingController();
   final amountController = TextEditingController();
@@ -48,8 +48,8 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
               children: <Widget>[
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(labelText: 'Select Coin'),
-                  value: 'Bitcoin',
-                  items: <String>['Bitcoin', 'Ethereum', 'Litecoin']
+                  value: "Qwsogvtv82FCd",
+                  items: <String>["Qwsogvtv82FCd", "razxDUgYGNAdQ"]
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -143,7 +143,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                     style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        transactionService.addTransaction(Transaction(DateTime.parse(dateTimeController.text), selectedCoinUuid, selectedTransactionType, double.parse(amountController.text), double.parse(priceController.text)));
+                        transactionService.addTransaction(Transaction(DateTime.parse(dateTimeController.text), selectedCoinUuid, selectedTransactionType, TransactionSource.manual, double.parse(amountController.text), double.parse(priceController.text)));
                         Navigator.pop(context);
                       }
                     },

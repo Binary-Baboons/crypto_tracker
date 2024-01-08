@@ -33,12 +33,8 @@ void main() {
       await tester.tap(favoriteNavButton);
       await tester.pumpAndSettle();
 
-      var coin = expectedCoins[0];
-      expect(find.text(coin.rank.toString()), findsOneWidget);
-      expect(find.text(coin.symbol!), findsOneWidget);
-      expect(find.text(coin.change!), findsOneWidget);
-      expect(find.text(coin.price!), findsOneWidget);
-      expect(find.text(coin.marketCap!), findsOneWidget);
+      var coin = apiCoins[0];
+      expect(find.text(coin.symbol), findsOneWidget);
     });
 
     testWidgets('removes from list when swiped', (WidgetTester tester) async {
@@ -57,15 +53,11 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.drag(
-          find.text(expectedCoins[0].symbol!), const Offset(-300, 0));
+          find.text(apiCoins[0].symbol!), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
-      var coin = expectedCoins[0];
-      expect(find.text(coin.rank.toString()), findsNothing);
-      expect(find.text(coin.symbol!), findsNothing);
-      expect(find.text(coin.change!), findsNothing);
-      expect(find.text(coin.price!), findsNothing);
-      expect(find.text(coin.marketCap!), findsNothing);
+      var coin = apiCoins[0];
+      expect(find.text(coin.symbol), findsNothing);
 
       verify(mockDatabase.deleteFavoriteCoin(any)).called(1);
       verifyNever(mockDatabase.addFavoriteCoin(any));

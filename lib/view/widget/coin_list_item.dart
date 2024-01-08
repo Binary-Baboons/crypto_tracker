@@ -1,7 +1,8 @@
+import 'package:crypto_tracker/formatter/price.dart';
+import 'package:crypto_tracker/provider/reference_currency.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../model/coin.dart';
 
@@ -13,6 +14,8 @@ class CoinListItemWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var imageService = ref.read(imageServiceProvider);
+    var selectedReferenceCurrency =
+        ref.read(selectedReferenceCurrencyStateProvider);
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
@@ -24,7 +27,7 @@ class CoinListItemWidget extends ConsumerWidget {
               fit: BoxFit.scaleDown,
               child: Center(
                   child: Text(
-                coin.rank!.toString(),
+                coin.rank.toString(),
                 style:
                     const TextStyle(fontWeight: FontWeight.w200, fontSize: 10),
               )),
@@ -36,7 +39,7 @@ class CoinListItemWidget extends ConsumerWidget {
             child: Column(children: [
               imageService.getImage(coin.iconUrl, 30)!,
               Text(
-                coin.symbol!,
+                coin.symbol,
                 style: const TextStyle(fontWeight: FontWeight.w700),
               )
             ]),
@@ -46,7 +49,9 @@ class CoinListItemWidget extends ConsumerWidget {
             width: screenWidth * 0.25,
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Center(child: Text(coin.price!)),
+              child: Center(
+                  child: Text(PriceFormatter.formatPrice(
+                      coin.price, selectedReferenceCurrency.getSignSymbol()))),
             )),
         SizedBox(
           width: screenWidth * 0.01,
@@ -59,18 +64,20 @@ class CoinListItemWidget extends ConsumerWidget {
                   child: Text(
                 "${coin.change} %",
                 style: TextStyle(
-                    color: _getChangeColor(double.parse(coin.change!))),
+                    color:
+                        _getChangeColor(double.parse(coin.change.toString()))),
               )),
             )),
         SizedBox(
           width: screenWidth * 0.01,
         ),
         SizedBox(
-          width: screenWidth * 0.29,
-          child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Center(child: Text(coin.marketCap!))),
-        ),
+            width: screenWidth * 0.29,
+            child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                    child: Text(PriceFormatter.formatPrice(coin.marketCap,
+                        selectedReferenceCurrency.getSignSymbol()))))),
       ]),
     );
   }
