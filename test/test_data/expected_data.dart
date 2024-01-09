@@ -53,5 +53,5 @@ List<Transaction> dbTransactions = [
 
 List<TransactionGrouping> dbTransactionGroupings = [
   TransactionGrouping(serviceCoins[0].uuid, 10000, 12.2),
-  TransactionGrouping(serviceCoins[1].uuid, 12345, 111)
+  TransactionGrouping(serviceCoins[1].uuid, 0.001, 1.5)
 ];

@@ -10,6 +10,15 @@ class Transaction {
             Object.hash(dateTime, coinUuid, type, amount, priceForAmount)
                 .toString();
 
+  Transaction.copy(Transaction other)
+      : dateTime = other.dateTime,
+        coinUuid = other.coinUuid,
+        type = other.type,
+        source = other.source,
+        amount = other.amount,
+        priceForAmount = other.priceForAmount,
+        transactionId = other.transactionId;
+
   String transactionId;
   DateTime dateTime;
   String coinUuid;

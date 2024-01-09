@@ -12,6 +12,12 @@ MockCoinsStore mockCoinsStoreOk() {
   return db;
 }
 
+MockCoinsStore mockCoinsStoreError() {
+  var db = MockCoinsStore();
+  when(db.getFavoriteCoins()).thenThrow(Exception("Db error"));
+  return db;
+}
+
 MockTransactionStore mockTransactionStoreOk() {
   var db = MockTransactionStore();
   when(db.getTransactionGroupings()).thenAnswer((_) async { return dbTransactionGroupings;});
