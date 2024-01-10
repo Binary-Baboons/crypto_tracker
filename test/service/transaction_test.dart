@@ -79,15 +79,15 @@ void main() {
       expect(btc.coin, isNotNull);
       btc.coin!.favorite = false;
       expect(btc.coin, serviceCoins[0]);
-      expect(btc.change, dbTransactionGroupings[0].change);
-      expect(btc.profitAndLoss, dbTransactionGroupings[0].profitAndLoss);
+      expect(btc.change, dbTransactionGroupingsCalculations[0]["change"]);
+      expect(btc.profitAndLoss, dbTransactionGroupingsCalculations[0]["profitAndLoss"]);
 
       TransactionGrouping eth = res[1];
       expect(eth.coin, isNotNull);
       eth.coin!.favorite = false;
       expect(eth.coin, serviceCoins[1]);
-      expect(eth.change, dbTransactionGroupings[1].change);
-      expect(eth.profitAndLoss, dbTransactionGroupings[1].profitAndLoss);
+      expect(eth.change, dbTransactionGroupingsCalculations[1]["change"]);
+      expect(eth.profitAndLoss, dbTransactionGroupingsCalculations[1]["profitAndLoss"]);
     });
   });
 }

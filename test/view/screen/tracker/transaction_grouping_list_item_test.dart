@@ -47,7 +47,7 @@ void main() {
             expect(find.text(group.coin!.symbol), findsOneWidget);
             expect(find.text(PriceFormatter.formatPrice(group.coin!.price, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
             expect(find.text(PriceFormatter.formatPrice(group.sumAmount, "")), findsOneWidget);
-            expect(find.text(PriceFormatter.formatPrice(group.getGroupingValue(), DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
+            expect(find.text(PriceFormatter.formatPrice(group.groupingValue!, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
 
             var expectedChange = "${PriceFormatter.formatPrice(dbTransactionGroupings.where((g) => g.coinUuid == group.coinUuid).first.change!, "")} %";
             var expectedPL = PriceFormatter.formatPrice(dbTransactionGroupings.where((g) => g.coinUuid == group.coinUuid).first.profitAndLoss!, DefaultConfig.referenceCurrency.getSignSymbol());

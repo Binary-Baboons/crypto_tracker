@@ -26,9 +26,7 @@ class TransactionService {
     for (var group in groupings) {
       Coin coin = coins.where((c) => c.uuid == group.coinUuid).first;
 
-      group.coin = coin;
-      group.change = ((coin.price * group.sumAmount - group.averagePrice * group.sumAmount) / (group.averagePrice * group.sumAmount)) * 100;
-      group.profitAndLoss = (coin.price * group.sumAmount) - (group.averagePrice * group.sumAmount);
+      group.setAndCalculateForCoin = coin;
     }
 
     return groupings;

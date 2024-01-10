@@ -7,7 +7,7 @@ class Transaction {
       this.dateTime, this.coinUuid, this.type, this.source, this.amount, this.priceForAmount,
       {transactionId})
       : transactionId = transactionId ??
-            Object.hash(dateTime, coinUuid, type, amount, priceForAmount)
+            Object.hash(dateTime, coinUuid, type, amount, priceForAmount, source)
                 .toString();
 
   Transaction.copy(Transaction other)

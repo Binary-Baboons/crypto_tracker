@@ -51,8 +51,18 @@ List<Transaction> dbTransactions = [
   Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.fee, TransactionSource.manual, 0.1, 5),
 ];
 
-// optional values will be overwritten in the service with the same values
 List<TransactionGrouping> dbTransactionGroupings = [
-  TransactionGrouping(serviceCoins[0].uuid, 10000, 12.2, change: 319.3786733374465, profitAndLoss: 389641.9814716847),
-  TransactionGrouping(serviceCoins[1].uuid, 0.001, 1.5, change: -41.5190244139, profitAndLoss: -0.0006227853662085)
+  TransactionGrouping(serviceCoins[0].uuid, 10000, 12.2),
+  TransactionGrouping(serviceCoins[1].uuid, 0.001, 1.5)
+];
+
+List<Map<String, double>> dbTransactionGroupingsCalculations = [
+  {
+    "change":319.3786733374465,
+    "profitAndLoss":389641.9814716847
+  },
+  {
+    "change":-41.5190244139,
+    "profitAndLoss":-0.0006227853662085
+  },
 ];

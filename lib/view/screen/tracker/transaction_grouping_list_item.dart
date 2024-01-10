@@ -49,7 +49,7 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                   Text(PriceFormatter.formatPrice(
                       transactionGrouping.sumAmount, "")),
                   Text(PriceFormatter.formatPrice(
-                      transactionGrouping.getGroupingValue(),
+                      transactionGrouping.groupingValue!,
                       DefaultConfig.referenceCurrency.getSignSymbol()))
                 ],
               )),

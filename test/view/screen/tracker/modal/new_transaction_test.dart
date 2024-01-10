@@ -1,8 +1,6 @@
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
-import 'package:crypto_tracker/config/default.dart';
-import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
