@@ -42,6 +42,7 @@ class CoinsApiClient {
             double.parse(coin['change']?.toString() ?? "0"),
             double.parse(coin['marketCap']?.toString() ?? "0"),
             (coin['sparkline'] as List)
+                .where((item) => item != null)
                 .map((item) =>
                     item != null ? double.tryParse(item.toString()) : null)
                 .toList()))
