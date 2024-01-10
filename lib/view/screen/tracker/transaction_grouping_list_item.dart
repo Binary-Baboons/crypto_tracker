@@ -64,7 +64,7 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                   Column(
                     children: [
                       Text(
-                          "${PriceFormatter.formatPrice(transactionGrouping.change!, "")}%"),
+                          "${PriceFormatter.formatPrice(transactionGrouping.change!, "")} %"),
                       Text(PriceFormatter.formatPrice(
                           transactionGrouping.profitAndLoss!,
                           DefaultConfig.referenceCurrency.getSignSymbol())),

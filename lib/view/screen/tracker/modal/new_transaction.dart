@@ -33,6 +33,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
   }
 
   // TODO: In the future user will be able to search and select from the coins coming from api
+  // TODO: Handle negative and big values
   @override
   Widget build(BuildContext context) {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
@@ -61,6 +62,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                   },
                 ),
                 TextFormField(
+                  key: const Key('dateTimeFormField'),
                   controller: dateTimeController,
                   decoration: const InputDecoration(
                     labelText: 'Date and Time',
@@ -81,6 +83,10 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please select a date";
+                    }
+
+                    if (DateTime.tryParse(value) == null) {
+                      return "Please enter a valid date";
                     }
 
                     if (DateTime.parse(value).isAfter(DateTime.now())) {
@@ -104,6 +110,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                   },
                 ),
                 TextFormField(
+                  key: const Key('amountFormField'),
                   controller: amountController,
                   decoration: const InputDecoration(labelText: 'Amount'),
                   keyboardType: TextInputType.number,
@@ -121,6 +128,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                   },
                 ),
                 TextFormField(
+                  key: const Key('priceFormField'),
                   controller: priceController,
                   decoration: const InputDecoration(labelText: 'Total spent'),
                   keyboardType: TextInputType.number,
