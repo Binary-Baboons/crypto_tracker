@@ -1,20 +1,27 @@
+import 'dart:core';
+
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/model/reference_currency.dart';
+import 'package:crypto_tracker/model/transaction.dart';
+import 'package:crypto_tracker/model/transaction_grouping.dart';
 
-List<Coin> expectedCoins = [
-  Coin("Qwsogvtv82FCd", 1, "Bitcoin", "BTC", null, "\$41,937.87", "-0.64 %",
-      "\$820,827,859,943.00", <String?>[]),
-  Coin("razxDUgYGNAdQ", 2, "Ethereum", "ETH", null, "\$0.00058481", "-1.58 %",
-      "\$270,067,151,596.00", <String?>[]),
-  Coin("HIVsRcGKkPFtW", 3, "Tether USD", "USDT", null, "\$1.003", "0.00 %",
-      "\$91,212,341,597.00", <String?>[]),
+List<Coin> apiCoins = [
+  Coin("Qwsogvtv82FCd", 1, "Bitcoin", "BTC", null, 41937.86733374465, -0.64,
+      820827859943.00, <double?>[]),
+  Coin("razxDUgYGNAdQ", 2, "Ethereum", "ETH", null, 0.000584809755861, -1.58,
+      270067151596.00, <double?>[]),
+  Coin("HIVsRcGKkPFtW", 3, "Tether USD", "USDT", null, 1.0032980478762021, 0.00,
+      91212341597.00, <double?>[]),
+  Coin("uuid", 4, "meme coin", "MEMEC", null, 0.0032980478762021, 0, 0, <double?>[]),
 ];
+
+List<Coin> serviceCoins = apiCoins.where((c) => c.isValidForDisplay()).toList();
 
 List<ReferenceCurrency> expectedCurrencies = [
   ReferenceCurrency(
     "yhjMzLPhuIDl",
     "fiat",
-    "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
+    null,
     "US Dollar",
     "USD",
     "\$",
@@ -22,7 +29,7 @@ List<ReferenceCurrency> expectedCurrencies = [
   ReferenceCurrency(
     "5k-_VTxqtCEI",
     "fiat",
-    "https://cdn.coinranking.com/fz3P5lsJY/eur.svg",
+    null,
     "Euro",
     "EUR",
     "e",
@@ -30,9 +37,32 @@ List<ReferenceCurrency> expectedCurrencies = [
   ReferenceCurrency(
     "K4iOZMuz76cc",
     "fiat",
-    "https://cdn.coinranking.com/tDtpsWiy9/malaysian-ringgit.svg",
+    null,
     "Malaysian Ringgit",
     "MYR",
     "RM",
   ),
+];
+
+List<Transaction> dbTransactions = [
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.deposit, TransactionSource.manual, 1.6, 1000),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.deposit, TransactionSource.manual, 3.5, 200),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.withdraw, TransactionSource.manual, 1.3, 2000),
+  Transaction(DateTime.now(), serviceCoins[0].uuid, TransactionType.fee, TransactionSource.manual, 0.1, 5),
+];
+
+List<TransactionGrouping> dbTransactionGroupings = [
+  TransactionGrouping(serviceCoins[0].uuid, 10000, 12.2),
+  TransactionGrouping(serviceCoins[1].uuid, 0.001, 1.5)
+];
+
+List<Map<String, double>> dbTransactionGroupingsCalculations = [
+  {
+    "change":319.3786733374465,
+    "profitAndLoss":389641.9814716847
+  },
+  {
+    "change":-41.5190244139,
+    "profitAndLoss":-0.0006227853662085
+  },
 ];

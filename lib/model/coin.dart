@@ -3,15 +3,15 @@ class Coin {
       this.change, this.marketCap,
       sparkline, {this.favorite = false}) : sparkline = sparkline + [price];
 
-  String? uuid;
-  int? rank;
-  String? name;
-  String? symbol;
+  String uuid;
+  int rank;
+  String name;
+  String symbol;
   String? iconUrl;
-  String? price;
-  List<String?> sparkline;
-  String? change;
-  String? marketCap;
+  double price;
+  List<double?> sparkline;
+  double change;
+  double marketCap;
   bool favorite;
 
   @override
@@ -24,16 +24,8 @@ class Coin {
     }
     Coin coin = other;
 
-    if ((sparkline == null && coin.sparkline != null) || (sparkline != null && coin.sparkline == null)) {
-      return false;
-    }
-
-    for (int i = 0; i < sparkline!.length; i++) {
-      if (sparkline == null && coin.sparkline == null) {
-        break;
-      }
-
-      if (sparkline![i] != coin.sparkline![i]) {
+    for (int i = 0; i < sparkline.length; i++) {
+      if (sparkline[i] != coin.sparkline[i]) {
         return false;
       }
     }
@@ -47,6 +39,14 @@ class Coin {
         change == coin.change &&
         marketCap == coin.marketCap &&
         favorite == coin.favorite;
+  }
+
+  bool isValidForDisplay() {
+    if (price != 0 && marketCap != 0) {
+      return true;
+    }
+
+    return false;
   }
 
   @override

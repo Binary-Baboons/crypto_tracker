@@ -1,7 +1,7 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
@@ -17,7 +17,7 @@ import '../../../../test_data/database.dart';
 import '../../../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('ReferenceCurrenciesModal Widget Tests', () {
     testWidgets('renders correctly on show reference currencies modal',
@@ -27,7 +27,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =
@@ -50,7 +50,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =
@@ -87,7 +87,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       Finder currencyFilterButton =
@@ -109,7 +109,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider
             .overrideWithValue(ReferenceCurrenciesApiClient(currencyClient)),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       final Finder currencyFilterButton =

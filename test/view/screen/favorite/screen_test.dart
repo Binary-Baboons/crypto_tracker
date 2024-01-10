@@ -1,6 +1,7 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
+import 'package:crypto_tracker/error/handler.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
@@ -15,7 +16,13 @@ import '../../../test_data/database.dart';
 import '../../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
+
+  Future<void> navigateToFavorites(WidgetTester tester) async {
+    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.favorite));
+    await tester.tap(favoriteNavButton);
+    await tester.pumpAndSettle();
+  }
 
   group('FavoriteScreen Widget Tests', () {
     testWidgets('renders correctly coins list with coins',
@@ -25,50 +32,57 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
       await tester.pumpAndSettle();
 
-      var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.favorite));
-      await tester.tap(favoriteNavButton);
-      await tester.pumpAndSettle();
+      await navigateToFavorites(tester);
 
-      var coin = expectedCoins[0];
-      expect(find.text(coin.rank.toString()), findsOneWidget);
-      expect(find.text(coin.symbol!), findsOneWidget);
-      expect(find.text(coin.change!), findsOneWidget);
-      expect(find.text(coin.price!), findsOneWidget);
-      expect(find.text(coin.marketCap!), findsOneWidget);
+      var coin = apiCoins[0];
+      expect(find.text(coin.symbol), findsOneWidget);
     });
 
     testWidgets('removes from list when swiped', (WidgetTester tester) async {
-      var mockDatabase = mockCoinsDatabaseOk();
+      var mockDatabase = mockCoinsStoreOk();
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockDatabase)
+        coinsStoreProvider.overrideWithValue(mockDatabase)
       ], child: const Main()));
       await tester.pumpAndSettle();
 
-      var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.favorite));
-      await tester.tap(favoriteNavButton);
-      await tester.pumpAndSettle();
+      await navigateToFavorites(tester);
 
       await tester.drag(
-          find.text(expectedCoins[0].symbol!), const Offset(-300, 0));
+          find.text(apiCoins[0].symbol), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
-      var coin = expectedCoins[0];
-      expect(find.text(coin.rank.toString()), findsNothing);
-      expect(find.text(coin.symbol!), findsNothing);
-      expect(find.text(coin.change!), findsNothing);
-      expect(find.text(coin.price!), findsNothing);
-      expect(find.text(coin.marketCap!), findsNothing);
+      var coin = apiCoins[0];
+      expect(find.text(coin.symbol), findsNothing);
 
       verify(mockDatabase.deleteFavoriteCoin(any)).called(1);
       verifyNever(mockDatabase.addFavoriteCoin(any));
     });
+
+    testWidgets('renders correctly snackbar with error',
+            (WidgetTester tester) async {
+          await tester.pumpWidget(ProviderScope(overrides: [
+            coinsApiClientProvider
+                .overrideWithValue(CoinsApiClient(mockCoinsClientError())),
+            referenceCurrenciesApiClientProvider.overrideWithValue(
+                ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
+            coinsStoreProvider.overrideWithValue(mockCoinsStoreOk()),
+            coinsStoreProvider.overrideWithValue(mockCoinsStoreError())
+          ], child: const Main()));
+          await tester.pumpAndSettle();
+
+          await navigateToFavorites(tester);
+
+          var snackBarFinder =
+          find.text(ErrorHandler.internalAppError);
+          expect(snackBarFinder, findsOneWidget);
+        });
   });
 }

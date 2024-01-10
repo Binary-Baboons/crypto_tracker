@@ -1,7 +1,8 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/database/coins.dart';
+import 'package:crypto_tracker/error/exception/empty_result.dart';
 import 'package:crypto_tracker/model/coin.dart';
 import 'package:crypto_tracker/service/coins.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,45 +12,33 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../api/client/coins_test.mocks.dart';
+import '../test_data/expected_data.dart';
 import 'coins_test.mocks.dart';
 
-@GenerateMocks([CoinsService, CoinsDatabase])
+@GenerateMocks([CoinsService, CoinsStore])
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   MockCoinsApiClient mockClient = MockCoinsApiClient();
-  CoinsDatabase mockDatabase = MockCoinsDatabase();
+  CoinsStore mockDatabase = MockCoinsStore();
   CoinsService service = CoinsService(mockClient, mockDatabase);
 
   group('CoinsService', () {
     test('getCoins returns data from client', () async {
       when(mockClient.getCoins(any, any)).thenAnswer((_) async {
-        return [
-          Coin("asdf", 1, "Bitcoin", "BTC", "http", "69000.00000", "50",
-              "8000.00000", ["8000.12345", null]),
-          Coin("qwerty", 2, "Etherium", "ETH", "http", "0.00000123456789", null,
-              "0.123456789", ["0.0000023456789", null] ),
-          Coin("erty", 3, "Randomcoin", "RND", "http", null, null, null, <String?>[])
-        ];
+        return apiCoins;
       });
-      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {return ["asdf"];});
+      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {
+        return [apiCoins[0].uuid];
+      });
 
       List<Coin> result = await service.getCoins(
           CoinsRequestData(), DefaultConfig.referenceCurrency);
 
-      expect(result.length, 2, reason: "Not correct number of coins returned");
-      expect(
-          result[0] ==
-              Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
-                  "\$8,000.00", ["8000.12", null, "69000.0"], favorite: true),
-          true,
-          reason: "Coin is not equal");
-      expect(
-          result[1] ==
-              Coin("qwerty", 2, "Etherium", "ETH", "http", "\$0.0000012346",
-                  "0.00", "\$0.12", ["0.0000023457", null, "0.0000012346"], favorite: false),
-          true,
-          reason: "Coin is not equal");
+      expect(result.length, 3, reason: "Not correct number of coins returned");
+      for (var i = 0; i < result.length; i++) {
+        expect(result[i] == apiCoins[i], true);
+      }
     });
 
     test('getCoins returns error message from client', () async {
@@ -62,24 +51,40 @@ void main() {
           throwsA(isA<ClientException>()));
     });
 
-    test('getFavoriteCoins returns data from client', () async {
-      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {return ["asdf"];});
+    test('getCoins returns no result', () async {
       when(mockClient.getCoins(any, any)).thenAnswer((_) async {
-        return [
-          Coin("asdf", 1, "Bitcoin", "BTC", "http", "69000.00000", "50",
-              "8000.00000", ["8000.12345", null]),
-        ];
+        return [];
       });
 
-      List<Coin> result = await service.getFavoriteCoins(DefaultConfig.referenceCurrency);
-
-      expect(result.length, 1, reason: "Not correct number of coins returned");
       expect(
-          result[0] ==
-              Coin("asdf", 1, "Bitcoin", "BTC", "http", "\$69,000.00", "50",
-                  "\$8,000.00", ["8000.12", null, "69000.0"], favorite: true),
-          true,
-          reason: "Coin is not equal");
+          () => service.getCoins(
+              CoinsRequestData(), DefaultConfig.referenceCurrency),
+          throwsA(isA<EmptyResultException>()));
+    });
+
+    test('getFavoriteCoins returns data from client', () async {
+      when(mockDatabase.getFavoriteCoins()).thenAnswer((_) async {
+        return apiCoins.map((c) => c.uuid).toList();
+      });
+      when(mockClient.getCoins(any, any)).thenAnswer((_) async {
+        return apiCoins;
+      });
+
+      List<Coin> result =
+          await service.getFavoriteCoins(DefaultConfig.referenceCurrency);
+
+      expect(result.length, 3, reason: "Not correct number of coins returned");
+      for (var i = 0; i < result.length; i++) {
+        expect(result[i] == apiCoins[i], true);
+      }
+    });
+
+    test('getFavoriteCoins returns exception from client', () async {
+      when(mockDatabase.getFavoriteCoins())
+          .thenThrow(Exception("Reference currency not available"));
+
+      expect(() => service.getFavoriteCoins(DefaultConfig.referenceCurrency),
+          throwsA(isA<Exception>()));
     });
   });
 }

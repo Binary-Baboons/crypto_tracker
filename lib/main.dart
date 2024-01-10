@@ -1,6 +1,6 @@
-import 'package:crypto_tracker/view/screen/enum.dart';
 import 'package:crypto_tracker/view/screen/favorite/screen.dart';
 import 'package:crypto_tracker/view/screen/market/screen.dart';
+import 'package:crypto_tracker/view/screen/tracker/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -107,10 +107,7 @@ class _CryptoTrackerAppState extends ConsumerState<CryptoTrackerApp> {
     return <Widget>[
       const MarketScreen(),
       FavoriteScreen(),
-      Text(
-        'Index 2: School',
-        style: optionStyle,
-      ),
+      TrackerScreen(),
       Text(
         'Index 3: Settings',
         style: optionStyle,

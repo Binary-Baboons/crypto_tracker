@@ -1,3 +1,5 @@
+import 'package:crypto_tracker/config/default.dart';
+import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +23,14 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
   Widget build(BuildContext context) {
     var coin = widget.coin;
     var imageService = ref.read(imageServiceProvider);
-    List<FlSpot> spots = _convertStringListToFlSpots(coin.sparkline!);
+    List<FlSpot> spots = _convertStringListToFlSpots(coin.sparkline);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          coin.name ?? 'Cryptocurrency',
+          coin.name,
           style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         ),
         actions: [
@@ -54,24 +56,24 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
                   Center(child: imageService.getImage(coin.iconUrl, 100)),
                   SizedBox(height: 16),
                   Text(
-                    coin.name ?? '',
+                    coin.name,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'Symbol: ${coin.symbol ?? ''}',
+                    'Symbol: ${coin.symbol}',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Price: ${coin.price ?? ''}',
+                    'Price: ${PriceFormatter.formatPrice(coin.price, DefaultConfig.referenceCurrency.getSignSymbol())}',
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    'Market Cap: ${coin.marketCap ?? ''}',
+                    'Market Cap: ${PriceFormatter.formatPrice(coin.marketCap, DefaultConfig.referenceCurrency.getSignSymbol())}',
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    'Change: ${coin.change ?? ''}%',
+                    'Change: ${coin.change}%',
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(height: 16),
@@ -110,10 +112,10 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
     );
   }
 
-  List<FlSpot> _convertStringListToFlSpots(List<String?> dataString) {
+  List<FlSpot> _convertStringListToFlSpots(List<double?> dataString) {
     return List.generate(dataString.length, (index) {
       double value =
-          (dataString[index] != null) ? double.parse(dataString[index]!) : 0.0;
+          (dataString[index] != null) ? dataString[index]! : 0.0;
       return FlSpot(index.toDouble(), value);
     });
   }

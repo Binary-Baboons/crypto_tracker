@@ -106,7 +106,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
     if ((_swipePositions[index] ?? 0).abs() > _swipeThreshold) {
       setState(() {
         if (widget.coins[index].favorite) {
-          ref.read(coinsDatabaseProvider).deleteFavoriteCoin(coin.uuid!);
+          ref.read(coinsStoreProvider).deleteFavoriteCoin(coin.uuid!);
           widget.coins[index].favorite = false;
           if (widget.screen == Screen.Favorites) {
             widget.coins.removeAt(index);
@@ -115,7 +115,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
               backgroundColor: Theme.of(context).colorScheme.primary,
               content: Text("${coin.name} has been removed from favorites")));
         } else {
-          ref.read(coinsDatabaseProvider).addFavoriteCoin(coin.uuid!);
+          ref.read(coinsStoreProvider).addFavoriteCoin(coin.uuid!);
           widget.coins[index].favorite = true;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Theme.of(context).colorScheme.primary,

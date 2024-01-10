@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
@@ -15,7 +15,7 @@ import '../../../../test_data/api_client.dart';
 import '../../../../test_data/database.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('CategoriesModal Widget Tests', () {
     testWidgets('renders correctly on show categories modal',
@@ -23,7 +23,7 @@ void main() {
               await tester.pumpWidget(ProviderScope(overrides: [
                 coinsApiClientProvider.overrideWithValue(CoinsApiClient(mockCoinsClientError())),
                 referenceCurrenciesApiClientProvider.overrideWithValue(ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientError())),
-                coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+                coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
               ], child: const Main()));
 
           final Finder timePeriodSortButton = find.text("Category");

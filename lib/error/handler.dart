@@ -25,6 +25,7 @@ class ErrorHandler {
 
   static String getUserFriendlyMessage(Object e) {
     if (e is! Exception) {
+      print(e);
       return internalAppError;
     }
 

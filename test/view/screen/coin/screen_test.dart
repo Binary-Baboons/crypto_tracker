@@ -1,4 +1,4 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/main.dart';
@@ -12,20 +12,19 @@ import 'package:mockito/mockito.dart';
 
 import '../../../test_data/api_client.dart';
 import '../../../test_data/database.dart';
-import '../../../test_data/expected_data.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('CoinScreen Widget Tests', () {
     testWidgets('adds to favorites when clicked on button', (WidgetTester tester) async {
-      var mockDatabase = mockCoinsDatabaseOk();
+      var mockDatabase = mockCoinsStoreOk();
       await tester.pumpWidget(ProviderScope(overrides: [
         coinsApiClientProvider
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockDatabase)
+        coinsStoreProvider.overrideWithValue(mockDatabase)
       ], child: const Main()));
       await tester.pumpAndSettle();
 

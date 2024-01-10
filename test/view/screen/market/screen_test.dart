@@ -1,8 +1,8 @@
-import 'package:crypto_tracker/api/client/base_client_config.dart';
+import 'package:crypto_tracker/api/client/config.dart';
 import 'package:crypto_tracker/api/client/coins.dart';
 import 'package:crypto_tracker/api/client/reference_currencies.dart';
 import 'package:crypto_tracker/api/data/coins.dart';
-import 'package:crypto_tracker/config/default_config.dart';
+import 'package:crypto_tracker/config/default.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
@@ -16,7 +16,7 @@ import '../../../test_data/api_client.dart';
 import '../../../test_data/database.dart';
 
 void main() {
-  dotenv.testLoad(mergeWith: {BaseClientConfig.coinRankingApiKey: "api_key"});
+  dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',
@@ -26,7 +26,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       final Finder currentReferenceCurrency =
@@ -49,7 +49,7 @@ void main() {
             .overrideWithValue(CoinsApiClient(mockCoinsClientOk())),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       var mapOrderByToText = {
@@ -79,7 +79,7 @@ void main() {
         coinsApiClientProvider.overrideWithValue(CoinsApiClient(coinsClient)),
         referenceCurrenciesApiClientProvider.overrideWithValue(
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
-        coinsDatabaseProvider.overrideWithValue(mockCoinsDatabaseOk())
+        coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
       final Finder priceButton = find.text("PRICE");
