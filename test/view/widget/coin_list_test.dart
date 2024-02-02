@@ -6,6 +6,7 @@ import 'package:crypto_tracker/formatter/price.dart';
 import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,6 +21,12 @@ import '../../test_data/expected_data.dart';
 void main() {
   dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
+  Future<void> navigateToMarket(WidgetTester tester) async {
+    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.align_vertical_bottom));
+    await tester.tap(favoriteNavButton);
+    await tester.pumpAndSettle();
+  }
+
   Future<void> setupTestEnv(WidgetTester tester, MockIOClient client,
       MockIOClient referenceCurrenciesClient, MockCoinsStore coinsStore) async {
     await tester.pumpWidget(ProviderScope(overrides: [
@@ -28,7 +35,6 @@ void main() {
           ReferenceCurrenciesApiClient(referenceCurrenciesClient)),
       coinsStoreProvider.overrideWithValue(coinsStore)
     ], child: const Main()));
-    await tester.pumpAndSettle();
   }
 
   group('CoinListWidget Widget Tests', () {
@@ -36,6 +42,8 @@ void main() {
         (WidgetTester tester) async {
       await setupTestEnv(tester, mockCoinsClientOk(),
           mockReferenceCurrenciesClientOk(), mockCoinsStoreOk());
+
+      await navigateToMarket(tester);
 
       for (var coin in serviceCoins) {
         expect(find.text(coin.rank.toString()), findsOneWidget);
@@ -57,6 +65,8 @@ void main() {
       await setupTestEnv(tester, mockCoinsClientOk(),
           mockReferenceCurrenciesClientOk(), mockDatabase);
 
+      await navigateToMarket(tester);
+
       await tester.drag(find.text(apiCoins[1].symbol), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
@@ -69,6 +79,8 @@ void main() {
       await setupTestEnv(tester, mockCoinsClientOk(),
           mockReferenceCurrenciesClientOk(), mockDatabase);
 
+      await navigateToMarket(tester);
+
       await tester.drag(find.text(apiCoins[0].symbol), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
@@ -80,6 +92,8 @@ void main() {
         (WidgetTester tester) async {
       await setupTestEnv(tester, mockCoinsClientError(),
           mockReferenceCurrenciesClientOk(), mockCoinsStoreOk());
+
+      await navigateToMarket(tester);
 
       var snackBarFinder =
           find.text("ClientException: Reference currency not available");

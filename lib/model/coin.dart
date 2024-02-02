@@ -1,7 +1,16 @@
 class Coin {
   Coin(this.uuid, this.rank, this.name, this.symbol, this.iconUrl, this.price,
-      this.change, this.marketCap,
-      sparkline, {this.favorite = false}) : sparkline = sparkline + [price];
+      this.change, this.marketCap, sparkline,
+      {this.favorite = false}) {
+    for (double? sp in sparkline) {
+      if (sp == null) {
+        this.sparkline.add(0);
+      } else {
+        this.sparkline.add(sp);
+      }
+    }
+    this.sparkline.add(price);
+  }
 
   String uuid;
   int rank;
@@ -9,7 +18,7 @@ class Coin {
   String symbol;
   String? iconUrl;
   double price;
-  List<double?> sparkline;
+  List<double> sparkline = [];
   double change;
   double marketCap;
   bool favorite;

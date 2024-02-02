@@ -32,7 +32,6 @@ void main() {
       coinsStoreProvider.overrideWithValue(coinsStore),
       transactionStoreProvider.overrideWithValue(transactionStore)
     ], child: const Main()));
-    await tester.pumpAndSettle();
 
     var favoriteNavButton = find.descendant(
         of: find.byType(BottomNavigationBar),
@@ -85,7 +84,6 @@ void main() {
           await tester.tap(submit);
           await tester.pumpAndSettle();
 
-          expect(find.text("Please select a date"), findsOneWidget);
           expect(find.text("Please enter the amount"), findsOneWidget);
           expect(find.text("Please enter the total spent price"), findsOneWidget);
 

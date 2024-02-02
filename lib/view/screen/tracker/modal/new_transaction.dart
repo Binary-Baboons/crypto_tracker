@@ -1,4 +1,3 @@
-
 import 'package:crypto_tracker/api/data/coins.dart';
 import 'package:crypto_tracker/provider/service.dart';
 import 'package:crypto_tracker/service/transaction.dart';
@@ -30,9 +29,9 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
   void initState() {
     super.initState();
     transactionService = ref.read(transactionServiceProvider);
+    dateTimeController.text = DateTime.now().toIso8601String();
   }
 
-  // TODO: In the future user will be able to search and select from the coins coming from api
   // TODO: Handle negative and big values
   @override
   Widget build(BuildContext context) {

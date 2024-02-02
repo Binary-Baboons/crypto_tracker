@@ -11,7 +11,7 @@ class TimePeriodModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
       Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.primaryContainer,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -24,12 +24,12 @@ class TimePeriodModal extends ConsumerWidget {
                   child: Text(
                     'Select time period',
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontSize: 20),
                   ),
                 ),
                 IconButton(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                     onPressed: () {
                       Navigator.pop(context);
                     },

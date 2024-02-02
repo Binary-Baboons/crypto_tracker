@@ -6,7 +6,7 @@ import 'package:crypto_tracker/main.dart';
 import 'package:crypto_tracker/provider/api_client.dart';
 import 'package:crypto_tracker/provider/database.dart';
 import 'package:crypto_tracker/view/screen/market/modal/reference_currencies.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,6 +19,12 @@ import '../../../../test_data/expected_data.dart';
 void main() {
   dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
+  Future<void> navigateToMarket(WidgetTester tester) async {
+    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.align_vertical_bottom));
+    await tester.tap(favoriteNavButton);
+    await tester.pumpAndSettle();
+  }
+
   group('ReferenceCurrenciesModal Widget Tests', () {
     testWidgets('renders correctly on show reference currencies modal',
         (WidgetTester tester) async {
@@ -29,6 +35,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -52,6 +60,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -90,6 +100,8 @@ void main() {
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
 
+      await navigateToMarket(tester);
+
       Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());
       await tester.pumpAndSettle();
@@ -111,6 +123,8 @@ void main() {
             .overrideWithValue(ReferenceCurrenciesApiClient(currencyClient)),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       final Finder currencyFilterButton =
           find.text(DefaultConfig.referenceCurrency.toString());

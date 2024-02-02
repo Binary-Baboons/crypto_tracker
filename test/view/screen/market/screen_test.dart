@@ -18,6 +18,12 @@ import '../../../test_data/database.dart';
 void main() {
   dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
+  Future<void> navigateToMarket(WidgetTester tester) async {
+    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.align_vertical_bottom));
+    await tester.tap(favoriteNavButton);
+    await tester.pumpAndSettle();
+  }
+
   group('MarketScreen Widget Tests', () {
     testWidgets('renders filter buttons correctly',
         (WidgetTester tester) async {
@@ -28,6 +34,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       final Finder currentReferenceCurrency =
           find.text(DefaultConfig.referenceCurrency.toString());
@@ -51,6 +59,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       var mapOrderByToText = {
         OrderBy.marketCap: "MARKET CAP",
@@ -81,6 +91,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
+
+      await navigateToMarket(tester);
 
       final Finder priceButton = find.text("PRICE");
       await tester.tap(priceButton);

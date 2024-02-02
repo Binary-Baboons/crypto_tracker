@@ -10,6 +10,10 @@ class PriceFormatter {
            .format(price);
    }
 
+   static double roundPrice(double price) {
+     return double.parse(price.toStringAsFixed(_getDecimal(price)));
+   }
+
    static int _getDecimal(double price) {
      if (price >= 10) {
        return 2;

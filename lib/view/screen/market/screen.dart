@@ -68,17 +68,17 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
 
     return Column(
       children: [
-        Divider(
-          color: Theme.of(context).colorScheme.outline,
-          height: 1,
-          indent: 0,
-          endIndent: 0,
-        ),
         Container(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.05,
                 vertical: 10),
-            color: Theme.of(context).colorScheme.primary,
+            decoration: BoxDecoration(gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Theme.of(context).colorScheme.primaryContainer,
+                  Theme.of(context).colorScheme.tertiaryContainer
+                ])),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -100,7 +100,7 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                             child: Text(
                                 style: TextStyle(
                                     color:
-                                        Theme.of(context).colorScheme.primary),
+                                        Theme.of(context).colorScheme.onPrimaryContainer),
                                 key: const Key("referenceCurrencyFilterText"),
                                 selectedReferenceCurrency.toString()),
                           ),
@@ -122,7 +122,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                                   .colorScheme
                                   .primaryContainer),
                           onPressed: _showCategoriesModal,
-                          child: Text('Category'),
+                          child: Text('Category', style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer)),
                         ),
                       )),
                 ),
@@ -139,7 +142,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                                   .colorScheme
                                   .primaryContainer),
                           onPressed: _showTimePeriodModal,
-                          child: Text('Time period'),
+                          child: Text('Time period', style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer)),
                         ),
                       )),
                 ),
@@ -154,9 +160,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                       onPressed: () {
                         _showSearchModal(context);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.search,
                         size: 20,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ),
@@ -164,7 +171,7 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
               ],
             )),
         Container(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           padding: EdgeInsets.all(screenWidth * 0.02),
           child: Row(
             children: [
@@ -175,11 +182,14 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                         style: TextStyle(
                             color: Theme.of(context)
                                 .colorScheme
-                                .onPrimaryContainer))),
+                                .onSecondaryContainer))),
               ),
               SizedBox(
                 width: screenWidth * 0.15,
-                child: const Center(child: Text('COIN')),
+                child: Center(child: Text('COIN', style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSecondaryContainer))),
               ),
               SizedBox(
                 width: screenWidth * 0.25,
@@ -189,7 +199,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                     fit: BoxFit.scaleDown,
                     child: Row(
                       children: [
-                        const Text('PRICE'),
+                        Text('PRICE', style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer)),
                         if (sortingIconChanger(OrderBy.price) != null)
                           sortingIconChanger(OrderBy.price)!
                       ],
@@ -210,7 +223,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                       children: [
                         Text(
                             key: const Key("changeSortText"),
-                            selectedTimePeriod.getTimePeriod.toString()),
+                            selectedTimePeriod.getTimePeriod.toString(), style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer)),
                         if (sortingIconChanger(OrderBy.change) != null)
                           sortingIconChanger(OrderBy.change)!
                       ],
@@ -229,7 +245,10 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
                     fit: BoxFit.scaleDown,
                     child: Row(
                       children: [
-                        Text('MARKET CAP'),
+                        Text('MARKET CAP', style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer)),
                         if (sortingIconChanger(OrderBy.marketCap) != null)
                           sortingIconChanger(OrderBy.marketCap)!
                       ],
@@ -368,12 +387,12 @@ class _MarketScreenWidgetState extends ConsumerState<MarketScreen> {
 
   Widget? sortingIconChanger(orderByFilter) {
     if (currentOrderBy == orderByFilter) {
-      return const Icon(
-        Icons.keyboard_double_arrow_down,
+      return Icon(
+        Icons.keyboard_double_arrow_down, color: Theme.of(context).colorScheme.onSecondaryContainer,
       );
     } else if (savedCurrentOrderBy == orderByFilter) {
-      return const Icon(
-        Icons.keyboard_double_arrow_up,
+      return Icon(
+        Icons.keyboard_double_arrow_up, color: Theme.of(context).colorScheme.onSecondaryContainer,
       );
     } else {
       return null;

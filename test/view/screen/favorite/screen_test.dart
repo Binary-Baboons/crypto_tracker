@@ -34,7 +34,6 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockCoinsStoreOk())
       ], child: const Main()));
-      await tester.pumpAndSettle();
 
       await navigateToFavorites(tester);
 
@@ -51,7 +50,6 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockDatabase)
       ], child: const Main()));
-      await tester.pumpAndSettle();
 
       await navigateToFavorites(tester);
 
@@ -76,7 +74,6 @@ void main() {
             coinsStoreProvider.overrideWithValue(mockCoinsStoreOk()),
             coinsStoreProvider.overrideWithValue(mockCoinsStoreError())
           ], child: const Main()));
-          await tester.pumpAndSettle();
 
           await navigateToFavorites(tester);
 

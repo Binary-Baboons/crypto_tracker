@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ImageService {
-  Widget? getImage(String? imageUrl, double size) {
+  Widget getImage(String? imageUrl, double size) {
     if (imageUrl == null) {
       return const Icon(Icons.error);
     }

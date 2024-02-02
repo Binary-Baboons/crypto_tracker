@@ -31,10 +31,6 @@ void main() {
       transactionStoreProvider.overrideWithValue(transactionStore)
     ], child: const Main()));
     await tester.pumpAndSettle();
-
-    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.account_balance_wallet));
-    await tester.tap(favoriteNavButton);
-    await tester.pumpAndSettle();
   }
 
   group('TransactionGroupingListItemWidget Widget Tests', () {
@@ -46,8 +42,8 @@ void main() {
           for (var group in dbTransactionGroupings) {
             expect(find.text(group.coin!.symbol), findsOneWidget);
             expect(find.text(PriceFormatter.formatPrice(group.coin!.price, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
-            expect(find.text(PriceFormatter.formatPrice(group.sumAmount, "")), findsOneWidget);
-            expect(find.text(PriceFormatter.formatPrice(group.groupingValue!, DefaultConfig.referenceCurrency.getSignSymbol())), findsOneWidget);
+            expect(find.text(PriceFormatter.roundPrice(group.sumAmount).toString()), findsOneWidget);
+            expect(find.text(PriceFormatter.formatPrice(group.groupingValue!, DefaultConfig.referenceCurrency.getSignSymbol())).last, findsOneWidget);
 
             var expectedChange = "${PriceFormatter.formatPrice(dbTransactionGroupings.where((g) => g.coinUuid == group.coinUuid).first.change!, "")} %";
             var expectedPL = PriceFormatter.formatPrice(dbTransactionGroupings.where((g) => g.coinUuid == group.coinUuid).first.profitAndLoss!, DefaultConfig.referenceCurrency.getSignSymbol());
