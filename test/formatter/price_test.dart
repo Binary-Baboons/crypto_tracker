@@ -11,7 +11,7 @@ void main() {
     test('formatPrice works correctly', () async {
       var prices = [1234.1234, 1.123456, 0.0000012345678];
 
-      var result = prices.map((p) => PriceFormatter.formatPrice(p, DefaultConfig.referenceCurrency.getSignSymbol())).toList();
+      var result = prices.map((p) => PriceFormatter.formatPrice(p, DefaultConfig.referenceCurrency.getSignSymbol(),true)).toList();
 
       expect(result[0] == "\$1,234.12", true);
       expect(result[1] == "\$1.123", true);

@@ -62,9 +62,9 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
                             opacity: (swipePosition.abs() / _swipeThreshold)
                                 .clamp(0.0, 1.0),
                             child: Padding(
-                              padding: EdgeInsets.only(right: 20.0),
+                              padding: const EdgeInsets.only(right: 20.0),
                               child: AnimatedSwitcher(
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 child: Icon(
                                   color: Theme.of(context).colorScheme.primary,
                                   !widget.coins[index].favorite
@@ -106,7 +106,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
     if ((_swipePositions[index] ?? 0).abs() > _swipeThreshold) {
       setState(() {
         if (widget.coins[index].favorite) {
-          ref.read(coinsStoreProvider).deleteFavoriteCoin(coin.uuid!);
+          ref.read(coinsStoreProvider).deleteFavoriteCoin(coin.uuid);
           widget.coins[index].favorite = false;
           if (widget.screen == Screen.Favorites) {
             widget.coins.removeAt(index);
@@ -115,7 +115,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
               backgroundColor: Theme.of(context).colorScheme.primary,
               content: Text("${coin.name} has been removed from favorites")));
         } else {
-          ref.read(coinsStoreProvider).addFavoriteCoin(coin.uuid!);
+          ref.read(coinsStoreProvider).addFavoriteCoin(coin.uuid);
           widget.coins[index].favorite = true;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Theme.of(context).colorScheme.primary,

@@ -18,7 +18,7 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.primaryContainer,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -30,11 +30,11 @@ class _CategoriesModalState extends ConsumerState<CategoriesModal> {
                   alignment: Alignment.center,
                   child: Text(
                     'Select categories',
-                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 20),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer, fontSize: 20),
                   ),
                 ),
                 IconButton(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                     onPressed: () {
                       Navigator.of(context).pop(widget.selectedCategoryTags);
                     },

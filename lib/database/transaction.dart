@@ -24,23 +24,23 @@ class TransactionStore {
         .rawQuery('SELECT * FROM $tableName WHERE coinUuid LIKE ?', [coinUuid]);
     return result
         .map((t) => Transaction(
-            transactionId: t["transactionId"],
             DateTime.fromMillisecondsSinceEpoch(t["dateTime"]),
             t["coinUuid"],
             stringToType(t["type"]),
             stringToSource(t["source"]),
             t["amount"],
-            t["priceForAmount"]))
+            t["priceForAmount"],
+            transactionId: t["transactionId"]))
         .toList();
   }
 
   Future<List<TransactionGrouping>> getTransactionGroupings() async {
     List<Map> result = await (await baseDatabase.database).rawQuery(
-        'SELECT coinUuid, SUM(amount) AS sumAmount, SUM(priceForAmount) / SUM(amount) AS averagePrice FROM $tableName WHERE type NOT LIKE ? GROUP BY coinUuid',
+        'SELECT coinUuid, SUM(amount) AS sumAmount, SUM(priceForAmount) / SUM(amount) AS averagePrice, SUM(priceForAmount) AS totalSpent FROM $tableName WHERE type NOT LIKE ? GROUP BY coinUuid HAVING sumAmount > 0',
         [TransactionType.fee.getValueOnly]);
     return result
-        .map((tg) => TransactionGrouping(
-            tg['coinUuid'], tg['averagePrice'], tg['sumAmount']))
+        .map((tg) => TransactionGrouping(tg['coinUuid'], tg['averagePrice'],
+            tg['sumAmount'], tg['totalSpent']))
         .toList();
   }
 
@@ -62,9 +62,10 @@ class TransactionStore {
         'DELETE FROM $tableName WHERE transactionId=?', [transactionId]);
   }
 
-  TransactionType stringToType(String str) => TransactionType.values
-      .firstWhere((e) => e.toString().split('.').last == str);
+  TransactionType stringToType(String str) {
+    return TransactionType.values.firstWhere((e) => e.getValueOnly == str);
+  }
 
-  TransactionSource stringToSource(String str) => TransactionSource.values
-      .firstWhere((e) => e.toString().split('.').last == str);
+  TransactionSource stringToSource(String str) =>
+      TransactionSource.values.firstWhere((e) => e.getValueOnly == str);
 }

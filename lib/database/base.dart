@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:crypto_tracker/database/coins.dart';
 import 'package:crypto_tracker/database/transaction.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class BaseDatabase {
   final String _databaseName = "cryptotracker";
-  final bool cleanStart = true;
   Database? _database;
 
   Future<Database> get database async {
@@ -16,9 +19,15 @@ class BaseDatabase {
   }
 
   Future<Database> _initDatabase() async {
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      databaseFactory = databaseFactoryFfi;
+    }
+
     var databasesPath = await getDatabasesPath();
+    bool cleanDb = bool.parse(dotenv.env["CLEAN_DB"]!);
+
     String path = join(databasesPath, '$_databaseName.database');
-    if (cleanStart && await databaseExists(databasesPath)) {
+    if (cleanDb && await databaseExists(databasesPath)) {
       await deleteDatabase(path);
     }
     return await openDatabase(path, version: 1,

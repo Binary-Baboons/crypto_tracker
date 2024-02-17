@@ -16,6 +16,12 @@ import '../../../test_data/database.dart';
 void main() {
   dotenv.testLoad(mergeWith: {ClientConfig.coinRankingApiKey: "api_key"});
 
+  Future<void> navigateToMarket(WidgetTester tester) async {
+    var favoriteNavButton = find.descendant(of: find.byType(BottomNavigationBar), matching: find.byIcon(Icons.align_vertical_bottom));
+    await tester.tap(favoriteNavButton);
+    await tester.pumpAndSettle();
+  }
+
   group('CoinScreen Widget Tests', () {
     testWidgets('adds to favorites when clicked on button', (WidgetTester tester) async {
       var mockDatabase = mockCoinsStoreOk();
@@ -26,7 +32,8 @@ void main() {
             ReferenceCurrenciesApiClient(mockReferenceCurrenciesClientOk())),
         coinsStoreProvider.overrideWithValue(mockDatabase)
       ], child: const Main()));
-      await tester.pumpAndSettle();
+
+      await navigateToMarket(tester);
 
       var eth = find.text("ETH");
       await tester.tap(eth);

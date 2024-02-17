@@ -48,5 +48,4 @@ class Transaction {
 
   @override
   int get hashCode => Object.hash(super.hashCode, transactionId);
-
 }

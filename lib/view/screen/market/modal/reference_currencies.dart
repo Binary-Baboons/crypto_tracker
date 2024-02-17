@@ -29,7 +29,7 @@ class _ReferenceCurrenciesModalState
 
     return Column(children: [
       Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.primaryContainer,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -42,13 +42,13 @@ class _ReferenceCurrenciesModalState
                   child: Text(
                     'Select currency',
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontSize: 20),
                   ),
                 ),
                 Container(
                   child: IconButton(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                       onPressed: () {
                         Navigator.pop(context);
                       },
