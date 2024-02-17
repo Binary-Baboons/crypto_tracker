@@ -12,14 +12,14 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
   TransactionGroupingListItemWidget(this.transactionGrouping, this._refreshTrackerScreen, {super.key});
 
   TransactionGrouping transactionGrouping;
-  Function _refreshTrackerScreen;
+  final Function _refreshTrackerScreen;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double screenWidth = MediaQuery.of(context).size.width;
     var imageService = ref.read(imageServiceProvider);
 
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.push(
           context,
@@ -49,7 +49,7 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                 fit: BoxFit.scaleDown,
                 child: Center(
                     child: Text(PriceFormatter.formatPrice(
-                        transactionGrouping.coin!.price, DefaultConfig.referenceCurrency.getSignSymbol()))),
+                        transactionGrouping.coin!.price, DefaultConfig.referenceCurrency.getSignSymbol(), true))),
               )),
           SizedBox(
               width: screenWidth * 0.24,
@@ -62,7 +62,7 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                         transactionGrouping.sumAmount).toString()),
                     Text(PriceFormatter.formatPrice(
                         transactionGrouping.groupingValue!,
-                        DefaultConfig.referenceCurrency.getSignSymbol()))
+                        DefaultConfig.referenceCurrency.getSignSymbol(), true))
                   ],
                 )),
               )),
@@ -77,9 +77,9 @@ class TransactionGroupingListItemWidget extends ConsumerWidget {
                       children: [
                         Text(PriceFormatter.formatPrice(
                             transactionGrouping.profitAndLoss!,
-                            DefaultConfig.referenceCurrency.getSignSymbol()), style: TextStyle(color: PLColorFormatter.getColor(transactionGrouping.profitAndLoss!, context))),
+                            DefaultConfig.referenceCurrency.getSignSymbol(), true), style: TextStyle(color: PLColorFormatter.getColor(transactionGrouping.profitAndLoss!, context))),
                         Text(
-                            "${PriceFormatter.roundPrice(transactionGrouping.change!)} %", style: TextStyle(color: PLColorFormatter.getColor(transactionGrouping.change!, context))),
+                            PriceFormatter.formatPrice(transactionGrouping.change!, "%", true), style: TextStyle(color: PLColorFormatter.getColor(transactionGrouping.change!, context))),
                       ],
                     )
                   ],

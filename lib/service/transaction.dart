@@ -14,7 +14,9 @@ class TransactionService {
   CoinsService coinsService;
 
   Future<List<Transaction>> getTransactions(String coinUuid) async {
-    return await transactionStore.getTransactions(coinUuid);
+    var transactions = await transactionStore.getTransactions(coinUuid);
+    transactions.forEach((t) { t.priceForAmount = t.priceForAmount.abs(); t.amount = t.amount.abs();});
+    return transactions;
   }
 
   Future<List<TransactionGrouping>> getTransactionGroupings() async {
@@ -29,6 +31,7 @@ class TransactionService {
       group.setAndCalculateForCoin = coin;
     }
 
+    groupings.sort((a, b) => b.groupingValue!.compareTo(a.groupingValue!));
     return groupings;
   }
 

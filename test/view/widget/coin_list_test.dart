@@ -51,11 +51,11 @@ void main() {
         expect(find.text("${coin.change} %"), findsOneWidget);
         expect(
             find.text(PriceFormatter.formatPrice(
-                coin.price, DefaultConfig.referenceCurrency.getSignSymbol())),
+                coin.price, DefaultConfig.referenceCurrency.getSignSymbol(), true)),
             findsOneWidget);
         expect(
             find.text(PriceFormatter.formatPrice(coin.marketCap,
-                DefaultConfig.referenceCurrency.getSignSymbol())),
+                DefaultConfig.referenceCurrency.getSignSymbol(), true)),
             findsOneWidget);
       }
     });

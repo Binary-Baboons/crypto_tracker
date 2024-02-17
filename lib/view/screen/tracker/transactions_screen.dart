@@ -17,7 +17,7 @@ class TransactionScreen extends ConsumerStatefulWidget {
   TransactionScreen(this.transactionGrouping, this._refreshTrackerScreen, {super.key});
 
   TransactionGrouping transactionGrouping;
-  Function _refreshTrackerScreen;
+  final Function _refreshTrackerScreen;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -68,8 +68,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
               children: [
                 TrackerJumbotronWidget(
                   PriceFormatter.formatPrice(widget.transactionGrouping.groupingValue!,
-                      DefaultConfig.referenceCurrency.getSignSymbol()),
-                  "${PriceFormatter.formatPrice(widget.transactionGrouping.profitAndLoss!, DefaultConfig.referenceCurrency.getSignSymbol())} (${PriceFormatter.roundPrice(widget.transactionGrouping.change!)}%)",
+                      DefaultConfig.referenceCurrency.getSignSymbol(), true),
+                  "${PriceFormatter.formatPrice(widget.transactionGrouping.profitAndLoss!, DefaultConfig.referenceCurrency.getSignSymbol(), true)} (${PriceFormatter.formatPrice(widget.transactionGrouping.change!, "%", true)})",
                   PLColorFormatter.getColor(widget.transactionGrouping.profitAndLoss!, context),
                   widget.transactionGrouping.transactionSparkline,
                 ),

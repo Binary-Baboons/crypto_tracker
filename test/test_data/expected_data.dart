@@ -7,7 +7,7 @@ import 'package:crypto_tracker/model/transaction_grouping.dart';
 
 List<Coin> apiCoins = [
   Coin("Qwsogvtv82FCd", 1, "Bitcoin", "BTC", null, 41937.86733374465, -0.64,
-      820827859943.00, <double>[6000,10000,40000]),
+      820827859943.00, <double?>[]),
   Coin("razxDUgYGNAdQ", 2, "Ethereum", "ETH", null, 0.000584809755861, -1.58,
       270067151596.00, <double?>[]),
   Coin("HIVsRcGKkPFtW", 3, "Tether USD", "USDT", null, 1.0032980478762021, 0.00,

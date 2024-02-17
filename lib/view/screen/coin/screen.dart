@@ -59,27 +59,27 @@ class _CoinScreenState extends ConsumerState<CoinScreen> {
                   children: [
                     Text(
                       'Symbol: ${coin.symbol}',
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                      style: const TextStyle(fontSize: 18, color: Colors.grey),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      'Price: ${PriceFormatter.formatPrice(coin.price, DefaultConfig.referenceCurrency.getSignSymbol())}',
-                      style: TextStyle(fontSize: 18),
+                      'Price: ${PriceFormatter.formatPrice(coin.price, DefaultConfig.referenceCurrency.getSignSymbol(), true)}',
+                      style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Market Cap: ${PriceFormatter.formatPrice(coin.marketCap, DefaultConfig.referenceCurrency.getSignSymbol())}',
-                      style: TextStyle(fontSize: 18),
+                      'Market Cap: ${PriceFormatter.formatPrice(coin.marketCap, DefaultConfig.referenceCurrency.getSignSymbol(), true)}',
+                      style: const TextStyle(fontSize: 18),
                     ),
                     Text(
                       'Change: ${coin.change}%',
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 16),
-                    Text(
+                    const SizedBox(height: 16),
+                    const Text(
                       'Price Trend (Sparkline)',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Container(
                       height: 200,
                     ),

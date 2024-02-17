@@ -82,8 +82,8 @@ class _TrackerScreenState extends ConsumerState<TrackerScreen> {
               children: [
                 TrackerJumbotronWidget(
                   PriceFormatter.formatPrice(totalValue,
-                      DefaultConfig.referenceCurrency.getSignSymbol()),
-                  "${PriceFormatter.formatPrice(totalProfitAndLoss, DefaultConfig.referenceCurrency.getSignSymbol())} (${PriceFormatter.roundPrice(totalChange)}%)",
+                      DefaultConfig.referenceCurrency.getSignSymbol(), true),
+                  "${PriceFormatter.formatPrice(totalProfitAndLoss, DefaultConfig.referenceCurrency.getSignSymbol(), true)} (${PriceFormatter.formatPrice(totalChange, "%", true)})",
                   PLColorFormatter.getColor(totalProfitAndLoss, context),
                   sumSparkline,
                 ),

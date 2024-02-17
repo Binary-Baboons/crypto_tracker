@@ -2,7 +2,12 @@
 
 class PriceFormatter {
    static String formatPrice(
-       double price, String currencySymbol) {
+       double price, String currencySymbol, bool scientific) {
+
+      if (price > 1000000000000 && scientific) {
+        return currencySymbol + NumberFormat.scientificPattern()
+            .format(price);
+      }
 
        return NumberFormat.currency(
            symbol: currencySymbol,

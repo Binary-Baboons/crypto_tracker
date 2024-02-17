@@ -39,7 +39,7 @@ class _CryptoTrackerLineChartWidgetState extends State<CryptoTrackerLineChartWid
               tooltipBgColor: Theme.of(context).colorScheme.onPrimaryContainer,
               getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
                 return touchedBarSpots.map((barSpot) {
-                  var hoveredPrice = PriceFormatter.formatPrice(barSpot.y, DefaultConfig.referenceCurrency.getSignSymbol());
+                  var hoveredPrice = PriceFormatter.formatPrice(barSpot.y, DefaultConfig.referenceCurrency.getSignSymbol(), true);
                   widget.refreshFn(hoveredPrice, widget.transactionSparkline[barSpot.x.round()]!.dateTime, false);
                 }).toList();
               },

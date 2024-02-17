@@ -32,7 +32,6 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
     dateTimeController.text = DateTime.now().toIso8601String();
   }
 
-  // TODO: Handle negative and big values
   @override
   Widget build(BuildContext context) {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
@@ -49,7 +48,7 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(labelText: 'Select Coin'),
                   value: "Qwsogvtv82FCd",
-                  items: <String>["Qwsogvtv82FCd", "razxDUgYGNAdQ"]
+                  items: <String>["Qwsogvtv82FCd", "razxDUgYGNAdQ", "qzawljRxB5bYu", "TpHE2IShQw-sJ"]
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -120,7 +119,11 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
 
                     var parsed = double.tryParse(value);
                     if (parsed == null) {
-                      "Please enter a valid amount";
+                      return "Please enter a valid amount";
+                    }
+
+                    if (parsed <= 0) {
+                      return "Please enter a non negative amount";
                     }
 
                     return null;
@@ -138,7 +141,11 @@ class _NewTransactionModalState extends ConsumerState<NewTransactionModal> {
 
                     var parsed = double.tryParse(value);
                     if (parsed == null) {
-                      "Please enter a valid total spent price";
+                      return "Please enter a valid total spent price";
+                    }
+
+                    if (parsed <= 0) {
+                      return "Please enter a non negative total spent price";
                     }
 
                     return null;

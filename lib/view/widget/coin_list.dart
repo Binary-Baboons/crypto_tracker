@@ -62,9 +62,9 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
                             opacity: (swipePosition.abs() / _swipeThreshold)
                                 .clamp(0.0, 1.0),
                             child: Padding(
-                              padding: EdgeInsets.only(right: 20.0),
+                              padding: const EdgeInsets.only(right: 20.0),
                               child: AnimatedSwitcher(
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 child: Icon(
                                   color: Theme.of(context).colorScheme.primary,
                                   !widget.coins[index].favorite
@@ -84,7 +84,7 @@ class _MarketListWidgetState extends ConsumerState<CoinListWidget> {
                     ),
                     Transform.translate(
                       offset: Offset(swipePosition, 0),
-                      child: InkWell(child: CoinListItemWidget(widget.coins[index])),
+                      child: CoinListItemWidget(widget.coins[index]),
                     ),
                   ],
                 ),
